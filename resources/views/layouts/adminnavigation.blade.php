@@ -85,6 +85,15 @@
                 </ul>
             </li>
 
+            <li class="nav-item">
+                <a href="manage_employees" class="nav-link">
+                    <i class="nav-icon fas fa-users"></i>
+                    <p>
+                        Employee Accounts
+                    </p>
+                </a>
+            </li>
+
 
 
             <!-- <li class="nav-item">

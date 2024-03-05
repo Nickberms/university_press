@@ -31,9 +31,4 @@ class DashboardController extends Controller
             }
         }
     }
-
-    public function post()
-    {
-        return view("post");
-    }
 }
