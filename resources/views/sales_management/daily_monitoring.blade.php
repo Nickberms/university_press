@@ -5,6 +5,23 @@
 
 <br>
 
+<div class="col-md-2">
+    <div class="card card-primary">
+        <div class="card-body">
+            <!-- Date range -->
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px;">Select Month:</label>
+                <div style="display: flex; align-items: center; justify-content: center; margin: auto;">
+                <input type="month" id="month" name="month" style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-top: 5px;">
+                </div>
+                <!-- /.input group -->
+            </div>
+            <!-- /.form group -->
+        </div>
+    </div>
+    <!-- /.card -->
+</div>
+
 
 <div class="container-fluid">
     <div class="row">
@@ -12,10 +29,11 @@
             <div class="card">
                 <!-- /.card-header -->
                 <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped" style="font-size: 9px; border-collapse: collapse;">
+                    <table id="example1" class="table table-bordered table-striped"
+                        style="font-size: 9px; border-collapse: collapse;">
                         <thead>
                             <tr>
-                                <th>Code</th>
+                                <th>Batch</th>
                                 <th>Title</th>
                                 <th>Price</th>
                                 <th>Quantity</th>
@@ -59,45 +77,45 @@
                         </thead>
                         <tbody>
                             <tr>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
                             </tr>
 
                     </table>

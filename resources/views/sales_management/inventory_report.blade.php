@@ -6,7 +6,6 @@
 
 <div class="col-md-3">
     <div class="card card-primary">
-
         <div class="card-body">
             <!-- Date range -->
             <div class="form-group">
@@ -26,7 +25,6 @@
     </div>
     <!-- /.card -->
 </div>
-
 
 <div class="container-fluid">
     <div class="row">
@@ -92,4 +90,5 @@ $(function() {
     $('#reservation').daterangepicker()
 })
 </script>
+
 @endsection
