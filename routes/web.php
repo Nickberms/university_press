@@ -35,3 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
     Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
 });
+
+Route::get('/daily_monitoring', function () {
+    return view('sales_management.daily_monitoring');
+});
