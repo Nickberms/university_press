@@ -39,3 +39,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/daily_monitoring', function () {
     return view('sales_management.daily_monitoring');
 });
+
+Route::get('/inventory_report', function () {
+    return view('sales_management.inventory_report');
+});

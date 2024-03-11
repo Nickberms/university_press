@@ -50,8 +50,6 @@
     <link rel="stylesheet" href="admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
-
-
     @yield('styles')
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
@@ -139,7 +137,8 @@
         <aside class="main-sidebar sidebar-light-primary elevation-4">
             <!-- Brand Logo -->
             <a href="/" class="brand-link">
-                <span class="brand-text font-weight-light" style="text-align:center;color:white;">University Press</span>
+                <span class="brand-text font-weight-light" style="text-align:center;color:white;">University
+                    Press</span>
             </a>
 
             @include('layouts.navigation')
@@ -245,6 +244,10 @@
     <script src="admin/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="admin/plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="admin/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+    <!-- date-range-picker -->
+    <script src="admin/plugins/daterangepicker/daterangepicker.js"></script>
+
 
     <script>
     $(function() {
