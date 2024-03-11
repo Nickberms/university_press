@@ -2,9 +2,7 @@
 
 @section('content')
 
-
 <br>
-
 
 <div class="col-md-3">
     <div class="card card-primary">
@@ -71,12 +69,6 @@
     </div>
 </div>
 
-
-
-
-
-
-
 <script>
 $(document).ready(function() {
     $('#example1').DataTable({
@@ -101,6 +93,4 @@ $(function() {
     $('#reservation').daterangepicker()
 })
 </script>
-
-
 @endsection
