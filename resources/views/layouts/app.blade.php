@@ -29,8 +29,6 @@
     <link rel="stylesheet" href="admin/plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="admin/plugins/summernote/summernote-bs4.min.css">
-
-
     <!-- Bootstrap Color Picker -->
     <link rel="stylesheet" href="admin/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
     <!-- Select2 -->
@@ -40,25 +38,19 @@
     <link rel="stylesheet" href="admin/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
     <!-- BS Stepper -->
     <link rel="stylesheet" href="admin/plugins/bs-stepper/css/bs-stepper.min.css">
-    <!-- BS Stepper -->
-
     <!-- dropzonejs -->
     <link rel="stylesheet" href="admin/plugins/dropzone/min/dropzone.min.css">
-
     <!-- DataTables -->
     <link rel="stylesheet" href="admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-
     @yield('styles')
-
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-
     <style>
     table.table td a.view {
         color: #03A9F4;
@@ -201,17 +193,13 @@
     <script src="admin/dist/js/pages/dashboard.js"></script>
     <!-- jQuery -->
     <script src="admin/plugins/jquery/jquery.min.js"></script>
-
     <!-- jQuery -->
     <script src="admin/plugins/jquery/jquery.min.js"></script>
-
     <!-- Select2 -->
     <script src="admin/plugins/select2/js/select2.full.min.js"></script>
     <!-- Bootstrap4 Duallistbox -->
     <script src="admin/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
-
     <script src="admin/plugins/inputmask/jquery.inputmask.min.js"></script>
-
     <!-- bootstrap color picker -->
     <script src="admin/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
     <!-- Bootstrap Switch -->
@@ -230,7 +218,6 @@
     <script src="admin/plugins/bs-stepper/js/bs-stepper.min.js"></script>
     <!-- dropzonejs -->
     <script src="admin/plugins/dropzone/min/dropzone.min.js"></script>
-
     <!-- DataTables  & Plugins -->
     <script src="admin/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -244,11 +231,8 @@
     <script src="admin/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="admin/plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="admin/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-
     <!-- date-range-picker -->
     <script src="admin/plugins/daterangepicker/daterangepicker.js"></script>
-
-
     <script>
     $(function() {
         //Initialize Select2 Elements
