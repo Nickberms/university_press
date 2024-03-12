@@ -9,10 +9,10 @@
     <div class="card card-primary">
         <div class="card-body">
             <!-- Date range -->
-            <div style="margin-bottom: 15px;">
-                <label style="display: block; margin-bottom: 5px;">Select Month:</label>
-                <div style="display: flex; align-items: center; justify-content: center; margin: auto;">
-                <input type="month" id="month" name="month" style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-top: 5px;">
+            <div class="form-group">
+                <label for="month" style="display: block; margin-bottom: 5px;">Select Month:</label>
+                <div class="input-group">
+                    <input type="month" id="month" name="month" class="form-control" style="margin-top: 5px;">
                 </div>
                 <!-- /.input group -->
             </div>
