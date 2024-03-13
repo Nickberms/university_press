@@ -77,14 +77,14 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="daily_monitoring" class="nav-link">
                             <i class="far fa-calendar-alt"></i>
                             <p> Daily Monitoring</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="inventory_report" class="nav-link">
                             <i class="fas fa-chart-pie mr-1"></i>
                             <p>Generate Reports</p>
                         </a>

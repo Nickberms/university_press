@@ -26,7 +26,7 @@
     <!-- /.card -->
 </div>
 
-<div class="container-fluid">
+<div class="container-  fluid">
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -55,6 +55,26 @@
                                 <td>1</td>
                                 <td>1</td>
                                 <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>3</td>
+                                <td>3</td>
+                                <td>3</td>
+                                <td>3</td>
+                                <td>3</td>
+                                <td>3</td>
+                                <td>3</td>
                             </tr>
 
                     </table>
