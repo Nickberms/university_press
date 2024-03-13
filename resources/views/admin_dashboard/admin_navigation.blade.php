@@ -1,13 +1,9 @@
-<!-- Sidebar -->
 <div class="sidebar">
-    <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="info">
             <a href="{{ route('profile.show') }}" class="d-block">{{ Auth::user()->name }}</a>
         </div>
     </div>
-
-    <!-- Sidebar Menu -->
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
@@ -18,8 +14,6 @@
                     </p>
                 </a>
             </li>
-
-
             <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-file"></i>
@@ -35,22 +29,18 @@
                             <p>Batches</p>
                         </a>
                     </li>
-
                     <li class="nav-item">
                         <a href="manage_masterlist" class="nav-link">
                             <i class="fas fa-book"></i>
                             <p>Masterlist</p>
                         </a>
                     </li>
-
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="fas fa-users"></i>
                             <p>Authors</p>
                         </a>
                     </li>
-
-
                     <li class="nav-item">
                         <a href="manage_categories" class="nav-link">
                             <i class="fas fa-table"></i>
@@ -59,7 +49,6 @@
                     </li>
                 </ul>
             </li>
-
             <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-shopping-cart"></i>
@@ -75,14 +64,12 @@
                             <p>New Purchase</p>
                         </a>
                     </li>
-
                     <li class="nav-item">
                         <a href="daily_monitoring" class="nav-link">
                             <i class="far fa-calendar-alt"></i>
                             <p> Daily Monitoring</p>
                         </a>
                     </li>
-
                     <li class="nav-item">
                         <a href="inventory_report" class="nav-link">
                             <i class="fas fa-chart-pie mr-1"></i>
@@ -91,7 +78,6 @@
                     </li>
                 </ul>
             </li>
-            
             <li class="nav-item">
                 <a href="manage_employees" class="nav-link">
                     <i class="nav-icon fas fa-users"></i>
@@ -100,29 +86,6 @@
                     </p>
                 </a>
             </li>
-
-
-
-            <!-- <li class="nav-item">
-                <a href="{{ route('users.index') }}" class="nav-link">
-                    <i class="nav-icon fas fa-users"></i>
-                    <p>
-                        {{ __('Users') }}
-                    </p>
-                </a>
-            </li> -->
-
-            <!-- <li class="nav-item">
-                <a href="{{ route('about') }}" class="nav-link">
-                    <i class="nav-icon far fa-address-card"></i>
-                    <p>
-                        {{ __('About us') }}
-                    </p>
-                </a>
-            </li> -->
-
         </ul>
     </nav>
-    <!-- /.sidebar-menu -->
 </div>
-<!-- /.sidebar -->
