@@ -9,9 +9,9 @@ class DashboardController extends Controller
     {
         if (Auth::id()) {
             $userType = Auth()->user()->user_type;
-            if ($userType == 'admin') {
+            if ($userType == 'Admin') {
                 return view('admin_dashboard.admin_home');
-            } else if ($userType == 'employee') {
+            } else if ($userType == 'Employee') {
                 return view('employee_dashboard.employee_home');
             } else {
                 return redirect()->back();

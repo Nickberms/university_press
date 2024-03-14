@@ -153,9 +153,9 @@
             </a>
 
             @if(Auth::check())
-                @if(Auth::user()->user_type == 'admin')
+                @if(Auth::user()->user_type == 'Admin')
                     @include('admin_dashboard.admin_navigation')
-                @elseif(Auth::user()->user_type == 'employee')
+                @elseif(Auth::user()->user_type == 'Employee')
                     @include('employee_dashboard.employee_navigation')
                 @endif
             @endif

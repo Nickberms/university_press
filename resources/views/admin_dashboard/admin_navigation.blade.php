@@ -79,10 +79,10 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a href="manage_employees" class="nav-link">
+                <a href="{{ route('users.index') }}" class="nav-link">
                     <i class="nav-icon fas fa-users"></i>
                     <p>
-                        Employee Accounts
+                        User Accounts
                     </p>
                 </a>
             </li>
