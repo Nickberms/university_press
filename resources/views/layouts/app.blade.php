@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- JQVMap -->
     <link rel="stylesheet" href="admin/plugins/jqvmap/jqvmap.min.css">
- 
+
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Daterange picker -->
@@ -153,9 +153,9 @@
             </a>
 
             @if(Auth::check())
-                @if(Auth::user()->user_type == 'Admin')
+                @if(Auth::user()->account_type == 'Admin' || Auth::user()->account_type == 'Super Admin')
                     @include('admin_dashboard.admin_navigation')
-                @elseif(Auth::user()->user_type == 'Employee')
+                @elseif(Auth::user()->account_type == 'Employee')
                     @include('employee_dashboard.employee_navigation')
                 @endif
             @endif

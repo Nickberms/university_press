@@ -13,7 +13,7 @@ Route::get('/', function () {
 });
 Auth::routes();
 //Route::resource('users', UserController::class)->middleware(['auth','admin']);
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+Route::resource('dashboard', DashboardController::class)->middleware('auth');
 Route::middleware('auth')->group(function () {
     Route::view('about', 'about')->name('about');
     Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
