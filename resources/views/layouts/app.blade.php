@@ -153,11 +153,11 @@
             </a>
 
             @if(Auth::check())
-            @if(Auth::user()->user_type == 'admin')
-            @include('admin_dashboard.admin_navigation')
-            @elseif(Auth::user()->user_type == 'employee')
-            @include('employee_dashboard.employee_navigation')
-            @endif
+                @if(Auth::user()->user_type == 'admin')
+                    @include('admin_dashboard.admin_navigation')
+                @elseif(Auth::user()->user_type == 'employee')
+                    @include('employee_dashboard.employee_navigation')
+                @endif
             @endif
         </aside>
 
