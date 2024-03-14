@@ -1,6 +1,11 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\http\Controllers\DashboardController;
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\IMController;
+use App\Http\Controllers\BatchController;
+use App\Http\Controllers\PurchaseController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,3 +25,8 @@ Route::get('/daily_monitoring', function () {
 Route::get('/inventory_report', function () {
     return view('sales_management.inventory_report');
 });
+Route::resource('authors', AuthorController::class)->middleware('auth');
+Route::resource('categories', CategoryController::class)->middleware('auth');
+Route::resource('instructional_materials', IMController::class)->middleware('auth');
+Route::resource('batches', BatchController::class)->middleware('auth');
+Route::resource('purchases', PurchaseController::class)->middleware('auth');

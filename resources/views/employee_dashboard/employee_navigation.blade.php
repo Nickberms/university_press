@@ -24,25 +24,25 @@
                 </a>
                 <ul class="nav nav-treeview" style="display: none;">
                     <li class="nav-item">
-                        <a href="manage_batches" class="nav-link">
+                        <a href="{{ route('batches.index') }}" class="nav-link">
                             <i class="fas fa-copy"></i>
                             <p>Batches</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="manage_masterlist" class="nav-link">
+                        <a href="{{ route('instructional_materials.index') }}" class="nav-link">
                             <i class="fas fa-book"></i>
                             <p>Masterlist</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('authors.index') }}" class="nav-link">
                             <i class="fas fa-users"></i>
                             <p>Authors</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="manage_categories" class="nav-link">
+                        <a href="{{ route('categories.index') }}" class="nav-link">
                             <i class="fas fa-table"></i>
                             <p>Categories</p>
                         </a>
@@ -59,7 +59,7 @@
                 </a>
                 <ul class="nav nav-treeview" style="display: none;">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('purchases.index') }}" class="nav-link">
                             <i class="fas fa-tag"></i>
                             <p>New Purchase</p>
                         </a>
