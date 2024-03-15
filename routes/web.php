@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\IMController;
 use App\Http\Controllers\BatchController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\ReportController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,3 +32,4 @@ Route::resource('categories', CategoryController::class)->middleware('auth');
 Route::resource('instructional_materials', IMController::class)->middleware('auth');
 Route::resource('batches', BatchController::class)->middleware('auth');
 Route::resource('purchases', PurchaseController::class)->middleware('auth');
+Route::resource('reports', ReportController::class)->middleware('auth');

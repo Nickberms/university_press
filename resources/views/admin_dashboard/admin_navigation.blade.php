@@ -71,9 +71,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="inventory_report" class="nav-link">
+                        <a href="{{ route('reports.index') }}" class="nav-link">
                             <i class="fas fa-chart-pie mr-1"></i>
-                            <p>Generate Reports</p>
+                            <p>Sales Reports</p>
                         </a>
                     </li>
                 </ul>
