@@ -2,6 +2,7 @@
 
 @section('content')
 
+
 <br>
 
 <div class="col-md-3">
@@ -26,25 +27,32 @@
     <!-- /.card -->
 </div>
 
-<div class="container-  fluid">
+
+<div class="container-fluid">
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <!-- /.card-header -->
+                <div class="card-header">
+                    <h3 class="card-title">Inventory Report</h3>
+                </div>
                 <div class="card-body">
                     <table id="example1" class="table table-bordered table-striped">
+
                         <thead>
                             <tr>
                                 <th>Code</th>
                                 <th>Title</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Sold</th>
-                                <th>Sales</th>
-                                <th>Stocks</th>
-                                <th>Inventory Value</th>
+                                <th>Batch</th>
+                                <th>Unit Price</th>
+                                <th>Beginning Quantity</th>
+                                <th>Beginning Amount</th>
+                                <th>Sold Quantity</th>
+                                <th>Sold Amount</th>
+                                <th>Ending Quantity</th>
+                                <th>Ending Amount</th>
                             </tr>
                         </thead>
+
                         <tbody>
                             <tr>
                                 <td>1</td>
@@ -55,27 +63,10 @@
                                 <td>1</td>
                                 <td>1</td>
                                 <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                            </tr>
+                        </tbody>
 
                     </table>
                 </div>
@@ -104,11 +95,5 @@ $(document).ready(function() {
 });
 </script>
 
-<script>
-$(function() {
-    //Date range picker
-    $('#reservation').daterangepicker()
-})
-</script>
 
 @endsection
