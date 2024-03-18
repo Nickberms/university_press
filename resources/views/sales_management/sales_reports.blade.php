@@ -19,15 +19,19 @@
     <div class="wrapper">
         <div class="container-fluid">
             <br>
-            <div class="form-group">
-                <label>Date Range:</label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">
-                            <i class="far fa-calendar-alt"></i>
-                        </span>
+            <div class="card card-primary col-md-3">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Date Range:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="far fa-calendar-alt"></i>
+                                </span>
+                            </div>
+                            <input type="text" class="form-control float-right" id="ChooseDateRange" name="date_range">
+                        </div>
                     </div>
-                    <input type="text" class="form-control float-right" id="ChooseDateRange" name="date_range">
                 </div>
             </div>
             <br>
@@ -74,19 +78,19 @@
                 var table = $('#ReportsTable').DataTable();
                 var existingRows = table.rows().remove().draw(false);
                 data.forEach(function(batch) {
-                    var beginningAmount = batch.price.toFixed(2) * batch
-                        .beginning_quantity;
-                    var soldAmount = batch.price.toFixed(2) * batch.sold_quantity;
-                    var endingQuantity = batch.beginning_quantity - batch.sold_quantity;
+                    var beginningQuantity = batch.quantity_produced - batch.sold_quantity_before;
+                    var beginningAmount = batch.price.toFixed(2) * beginningQuantity;
+                    var soldAmount = batch.price.toFixed(2) * batch.sold_quantity_within;
+                    var endingQuantity = beginningQuantity - batch.sold_quantity_within;
                     var endingAmount = batch.price.toFixed(2) * endingQuantity;
                     table.row.add([
                         batch.im.code,
                         batch.im.title,
                         batch.name,
                         batch.price.toFixed(2),
-                        batch.beginning_quantity,
+                        beginningQuantity,
                         beginningAmount.toFixed(2),
-                        batch.sold_quantity,
+                        batch.sold_quantity_within,
                         soldAmount.toFixed(2),
                         endingQuantity,
                         endingAmount.toFixed(2)

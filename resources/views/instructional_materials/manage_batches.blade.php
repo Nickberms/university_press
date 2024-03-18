@@ -38,7 +38,7 @@
                                 <th>Production Date</th>
                                 <th>Production Cost</th>
                                 <th>Price</th>
-                                <th>Beginning Quantity</th>
+                                <th>Quantity Produced</th>
                                 <th>Available Stocks</th>
                             </tr>
                         </thead>
@@ -105,9 +105,9 @@
                                                         placeholder="Enter Price" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="beginning_quantity">Beginning Quantity</label>
+                                                    <label for="quantity_produced">Quantity Produced</label>
                                                     <input type="text" oninput="NumbersOnly(this)" class="form-control"
-                                                        name="beginning_quantity" placeholder="Enter Beginning Quantity"
+                                                        name="quantity_produced" placeholder="Enter Quantity Produced"
                                                         required>
                                                 </div>
                                             </div>
@@ -185,10 +185,10 @@
                                                         name="price" placeholder="Enter Price" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="beginning_quantity">Beginning Quantity</label>
+                                                    <label for="quantity_produced">Quantity Produced</label>
                                                     <input type="text" oninput="NumbersOnly(this)" class="form-control"
-                                                        id="EditBeginningQuantity" name="beginning_quantity"
-                                                        placeholder="Enter Beginning Quantity" required>
+                                                        id="EditQuantityProduced" name="quantity_produced"
+                                                        placeholder="Enter Quantity Produced" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -280,7 +280,7 @@
                         $('#EditProductionDate').val(formattedProductionDate);
                         $('#EditProductionCost').val(batch.production_cost.toFixed(2));
                         $('#EditPrice').val(batch.price.toFixed(2));
-                        $('#EditBeginningQuantity').val(batch.beginning_quantity);
+                        $('#EditQuantityProduced').val(batch.quantity_produced);
                         $('#EditBatchModal').modal('show');
                     },
                     error: function(xhr, status, error) {
@@ -400,7 +400,7 @@
                         formattedProductionDateString,
                         batch.production_cost.toFixed(2),
                         batch.price.toFixed(2),
-                        batch.beginning_quantity,
+                        batch.quantity_produced,
                         batch.available_stocks
                     ]);
                 });
