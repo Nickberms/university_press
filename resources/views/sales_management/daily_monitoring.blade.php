@@ -15,22 +15,20 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 
-<body>
+<body class="hold-transition sidebar-mini">
     <div class="wrapper">
         <div class="container-fluid">
             <br>
-           
-                <div class="card card-primary col-md-2">
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label>Select Month:</label>
-                            <div class="input-group">
-                                <input type="month" id="month" name="month" class="form-control">
-                            </div>
+            <div class="card card-primary col-md-2">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="month">Select Month:</label>
+                        <div class="input-group">
+                            <input type="month" class="form-control" id="ChooseMonth" name="month">
                         </div>
                     </div>
                 </div>
-            
+            </div>
             <br>
             <div class="card">
                 <div class="card-header">
@@ -93,7 +91,43 @@
         <br>
     </div>
     <script>
+    function refreshMonitoringTable(selectedMonth) {
+        $.ajax({
+            url: "{{ route('monitoring.index') }}",
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                month: selectedMonth
+            },
+            success: function(data) {
+                var table = $('#MonitoringTable').DataTable();
+                var existingRows = table.rows().remove().draw(false);
+                data.forEach(function(batch) {
+                    var quantityAvailable = batch.quantity_produced - batch.sold_quantity_before;
+                    table.row.add([
+                        batch.im.code,
+                        batch.im.title,
+                        batch.name,
+                        batch.price.toFixed(2),
+                        quantityAvailable
+                    ]);
+                });
+                table.draw();
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
     $(document).ready(function() {
+        var startDate = new Date();
+        startDate.setMonth(startDate.getMonth() - 1);
+        startDate.setDate(1);
+        var today = new Date();
+        today.setDate(1);
+        $('#ChooseMonth').val(today.toISOString().slice(0,
+            7));
+        refreshMonitoringTable(today.toISOString().slice(0, 7));
         $('#MonitoringTable').DataTable({
             "paging": true,
             "lengthChange": false,
@@ -108,11 +142,22 @@
             "buttons": ["copy", "excel", "pdf", "print"],
             "pageLength": 8
         }).buttons().container().appendTo('#MonitoringTable_wrapper .col-md-6:eq(0)');
+        $('#ChooseMonth').on('change', function() {
+            var selectedMonth = $(this).val();
+            refreshMonitoringTable(selectedMonth);
+        });
+        var previousWidth = $(window).width();
+        $(window).on('resize', function() {
+            var currentWidth = $(window).width();
+            if (currentWidth !== previousWidth) {
+                var selectedMonth = $('#ChooseMonth').val();
+                refreshMonitoringTable(selectedMonth);
+                previousWidth = currentWidth;
+            }
+        });
     });
     </script>
-
 </body>
-
 
 </html>
 @endsection

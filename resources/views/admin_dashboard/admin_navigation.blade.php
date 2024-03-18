@@ -65,9 +65,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="daily_monitoring" class="nav-link">
+                        <a href="{{ route('monitoring.index') }}" class="nav-link">
                             <i class="far fa-calendar-alt"></i>
-                            <p> Daily Monitoring</p>
+                            <p>Daily Monitoring</p>
                         </a>
                     </li>
                     <li class="nav-item">
