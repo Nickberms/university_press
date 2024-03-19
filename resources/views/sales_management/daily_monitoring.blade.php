@@ -36,8 +36,8 @@
                 </div>
                 <div class="card-body">
                     <!-- MONITORING TABLE -->
-                    <table class="table table-bordered table-striped" id="MonitoringTable" style="font-size: 12px">
-                        <thead>
+                    <table class="table table-bordered table-striped" id="MonitoringTable" style="font-size: 10px">
+                        <thead class="text-center">
                             <tr>
                                 <th>Code</th>
                                 <th>Title</th>
@@ -104,13 +104,29 @@
                 var existingRows = table.rows().remove().draw(false);
                 data.forEach(function(batch) {
                     var quantityAvailable = batch.quantity_produced - batch.sold_quantity_before;
-                    table.row.add([
+                    var unitSold = batch.sold_quantity_within;
+                    var sales = batch.price.toFixed(2) * batch.sold_quantity_within;
+                    var availableStocks = quantityAvailable - batch.sold_quantity_within;
+                    var inventoryValue = batch.price.toFixed(2) * availableStocks;
+                    var row = [
                         batch.im.code,
                         batch.im.title,
                         batch.name,
                         batch.price.toFixed(2),
                         quantityAvailable
-                    ]);
+                    ];
+                    for (var i = 1; i <= 31; i++) {
+                        if (batch.daily_sales && batch.daily_sales[i]) {
+                            row.push(batch.daily_sales[i]);
+                        } else {
+                            row.push('');
+                        }
+                    }
+                    row[36] = unitSold;
+                    row[37] = sales.toFixed(2);
+                    row[38] = availableStocks;
+                    row[39] = inventoryValue.toFixed(2);
+                    table.row.add(row);
                 });
                 table.draw();
             },

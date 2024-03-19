@@ -10,9 +10,9 @@ class MonitoringController extends Controller
 {
     public function index(Request $request)
     {
-        $selectedMonth = $request->input('month');
-        if (!empty ($selectedMonth)) {
-            $startDate = Carbon::createFromFormat('Y-m', $selectedMonth)->startOfMonth();
+        $month = $request->input('month');
+        if (!empty ($month)) {
+            $startDate = Carbon::createFromFormat('Y-m', $month)->startOfMonth();
             $endDate = $startDate->copy()->endOfMonth();
             $previousDay = clone $startDate;
             $previousDay->subDay();
@@ -27,6 +27,17 @@ class MonitoringController extends Controller
                 ->orderByDesc('batches.updated_at')
                 ->orderByDesc('batches.created_at')
                 ->get();
+            foreach ($batches as $batch) {
+                $dailySales = [];
+                $batchPurchases = $batch->purchases()
+                    ->whereBetween('date_sold', [$startDate, $endDate])
+                    ->get();
+                foreach ($batchPurchases as $purchase) {
+                    $day = Carbon::createFromFormat('Y-m-d', $purchase->date_sold)->day;
+                    $dailySales[$day] = ($dailySales[$day] ?? 0) + $purchase->quantity;
+                }
+                $batch->daily_sales = $dailySales;
+            }
             if ($request->ajax()) {
                 return response()->json($batches);
             } else {
