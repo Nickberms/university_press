@@ -20,7 +20,8 @@
     <div class="wrapper">
         <div class="container-fluid">
             <br>
-            <a class="btn btn-primary" onClick="showAddInstructionalMaterialModal()" href="javascript:void(0)" style="background-color: #00491E;">
+            <a class="btn btn-primary" onClick="showAddInstructionalMaterialModal()" href="javascript:void(0)"
+                style="background-color: #00491E; border-color: #00491E;">
                 <i class="fas fa-plus"></i> Add Instructional Material
             </a>
             <br><br>
@@ -155,7 +156,8 @@
                                     <button type="button" class="btn btn-danger"
                                         onClick="hideAddInstructionalMaterialModal()"
                                         href="javascript:void(0)">Cancel</button>
-                                    <button type="submit" class="btn btn-primary" style="background-color: #00491E;">Add</button>
+                                    <button type="submit" class="btn btn-primary"
+                                        style="background-color: #00491E; border-color: #00491E;">Add</button>
                                 </div>
                             </div>
                         </form>
@@ -270,7 +272,8 @@
                                     <button type="button" class="btn btn-danger"
                                         onClick="hideEditInstructionalMaterialModal()"
                                         href="javascript:void(0)">Cancel</button>
-                                    <button type="submit" class="btn btn-primary">Update</button>
+                                    <button type="submit" class="btn btn-primary"
+                                        style="background-color: #00491E; border-color: #00491E;">Update</button>
                                 </div>
                             </div>
                         </form>
@@ -292,7 +295,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" onClick="hideDeleteInstructionalMaterialModal()"
-                            href="javascript:void(0)">Cancel</button>
+                            href="javascript:void(0)" style="background-color: #00491E; border-color: #00491E;">Cancel</button>
                         <button type="button" class="btn btn-danger" id="DeleteInstructionalMaterial">Delete</button>
                     </div>
                 </div>

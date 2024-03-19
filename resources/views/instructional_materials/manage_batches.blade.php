@@ -19,7 +19,8 @@
     <div class="wrapper">
         <div class="container-fluid">
             <br>
-            <a class="btn btn-primary" onClick="showAddBatchModal()" href="javascript:void(0)" style="background-color: #00491E;">
+            <a class="btn btn-primary" onClick="showAddBatchModal()" href="javascript:void(0)"
+                style="background-color: #00491E; border-color: #00491E;">
                 <i class="fas fa-plus"></i> Add Batch
             </a>
             <br><br>
@@ -118,7 +119,8 @@
                                 <div class="text-right">
                                     <button type="button" class="btn btn-danger" onClick="hideAddBatchModal()"
                                         href="javascript:void(0)">Cancel</button>
-                                    <button type="submit" class="btn btn-primary" style="background-color: #00491E;">Add</button>
+                                    <button type="submit" class="btn btn-primary"
+                                        style="background-color: #00491E; border-color: #00491E;">Add</button>
                                 </div>
                             </div>
                         </form>
@@ -198,7 +200,8 @@
                                 <div class="text-right">
                                     <button type="button" class="btn btn-danger" onClick="hideEditBatchModal()"
                                         href="javascript:void(0)">Cancel</button>
-                                    <button type="submit" class="btn btn-primary">Update</button>
+                                    <button type="submit" class="btn btn-primary"
+                                        style="background-color: #00491E; border-color: #00491E;">Update</button>
                                 </div>
                             </div>
                         </form>
@@ -220,7 +223,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" onClick="hideDeleteBatchModal()"
-                            href="javascript:void(0)">Cancel</button>
+                            href="javascript:void(0)" style="background-color: #00491E; border-color: #00491E;">Cancel</button>
                         <button type="button" class="btn btn-danger" id="DeleteBatch">Delete</button>
                     </div>
                 </div>

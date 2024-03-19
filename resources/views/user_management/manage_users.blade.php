@@ -19,7 +19,7 @@
     <div class="wrapper">
         <div class="container-fluid">
             <br>
-            <a class="btn btn-primary" onClick="showAddUserModal()" href="javascript:void(0)" style="background-color: #00491E;">
+            <a class="btn btn-primary" onClick="showAddUserModal()" href="javascript:void(0)" style="background-color: #00491E; border-color: #00491E;">
                 <i class="fas fa-plus"></i> Add User
             </a>
             <br><br>
@@ -30,7 +30,7 @@
                 <div class="card-body">
                     <!-- USERS TABLE -->
                     <table class="table table-bordered table-striped" id="UsersTable">
-                        <thead>
+                        <thead class="text-center">
                             <tr>
                                 <th class="text-center">Actions</th>
                                 <th>Username</th>
@@ -89,7 +89,7 @@
                                 <div class="text-right">
                                     <button type="button" class="btn btn-danger" onClick="hideAddUserModal()"
                                         href="javascript:void(0)">Cancel</button>
-                                    <button type="submit" class="btn btn-primary" style="background-color: #00491E;">Add</button>
+                                    <button type="submit" class="btn btn-primary" style="background-color: #00491E; border-color: #00491E;">Add</button>
                                 </div>
                             </div>
                         </form>
@@ -144,7 +144,7 @@
                                 <div class="text-right">
                                     <button type="button" class="btn btn-danger" onClick="hideEditUserModal()"
                                         href="javascript:void(0)">Cancel</button>
-                                    <button type="submit" class="btn btn-primary">Update</button>
+                                    <button type="submit" class="btn btn-primary" style="background-color: #00491E; border-color: #00491E;">Update</button>
                                 </div>
                             </div>
                         </form>
@@ -166,7 +166,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" onClick="hideDeleteUserModal()"
-                            href="javascript:void(0)">Cancel</button>
+                            href="javascript:void(0)" style="background-color: #00491E; border-color: #00491E;">Cancel</button>
                         <button type="button" class="btn btn-danger" id="DeleteUser">Delete</button>
                     </div>
                 </div>

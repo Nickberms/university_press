@@ -19,7 +19,8 @@
     <div class="wrapper">
         <div class="container-fluid">
             <br>
-            <a class="btn btn-primary" onClick="showNewPurchaseModal()" href="javascript:void(0)">
+            <a class="btn btn-primary" onClick="showNewPurchaseModal()" href="javascript:void(0)"
+                style="background-color: #00491E; border-color: #00491E;">
                 <i class="fas fa-plus"></i> New Purchase
             </a>
             <br><br>
@@ -30,7 +31,7 @@
                 <div class="card-body">
                     <!-- PURCHASES TABLE -->
                     <table class="table table-bordered table-striped" id="PurchasesTable">
-                        <thead>
+                        <thead class="text-center">
                             <tr>
                                 <th>Customer Name</th>
                                 <th>OR Number</th>
@@ -127,7 +128,8 @@
                                 <div class="text-right">
                                     <button type="button" class="btn btn-danger" onClick="hideNewPurchaseModal()"
                                         href="javascript:void(0)">Cancel</button>
-                                    <button type="submit" class="btn btn-primary">Record Purchase</button>
+                                    <button type="submit" class="btn btn-primary"
+                                        style="background-color: #00491E; border-color: #00491E;">Record Purchase</button>
                                 </div>
                             </div>
                         </form>

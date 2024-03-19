@@ -19,7 +19,8 @@
     <div class="wrapper">
         <div class="container-fluid">
             <br>
-            <a class="btn btn-primary" onClick="showAddAuthorModal()" href="javascript:void(0)" style="background-color: #00491E;">
+            <a class="btn btn-primary" onClick="showAddAuthorModal()" href="javascript:void(0)"
+                style="background-color: #00491E; border-color: #00491E;">
                 <i class="fas fa-plus"></i> Add Author
             </a>
             <br><br>
@@ -82,7 +83,8 @@
                                 <div class="text-right">
                                     <button type="button" class="btn btn-danger" onClick="hideAddAuthorModal()"
                                         href="javascript:void(0)">Cancel</button>
-                                    <button type="submit" class="btn btn-primary" style="background-color: #00491E;">Add</button>
+                                    <button type="submit" class="btn btn-primary"
+                                        style="background-color: #00491E; border-color: #00491E;">Add</button>
                                 </div>
                             </div>
                         </form>
@@ -132,7 +134,8 @@
                                 <div class="text-right">
                                     <button type="button" class="btn btn-danger" onClick="hideEditAuthorModal()"
                                         href="javascript:void(0)">Cancel</button>
-                                    <button type="submit" class="btn btn-primary">Update</button>
+                                    <button type="submit" class="btn btn-primary"
+                                        style="background-color: #00491E; border-color: #00491E;">Update</button>
                                 </div>
                             </div>
                         </form>
@@ -154,7 +157,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" onClick="hideDeleteAuthorModal()"
-                            href="javascript:void(0)">Cancel</button>
+                            href="javascript:void(0)" style="background-color: #00491E; border-color: #00491E;">Cancel</button>
                         <button type="button" class="btn btn-danger" id="DeleteAuthor">Delete</button>
                     </div>
                 </div>
@@ -166,11 +169,9 @@
     function showAddAuthorModal() {
         $('#AddAuthorModal').modal('show');
     }
-
     function hideAddAuthorModal() {
         $('#AddAuthorModal').modal('hide');
     }
-
     function showEditAuthorModal(authorId) {
         $.ajax({
             url: "{{ route('authors.edit', ':id') }}".replace(':id', authorId),
@@ -188,15 +189,12 @@
             }
         });
     }
-
     function hideEditAuthorModal() {
         $('#EditAuthorModal').modal('hide');
     }
-
     function showDeleteAuthorModal() {
         $('#DeleteAuthorModal').modal('show');
     }
-
     function hideDeleteAuthorModal() {
         $('#DeleteAuthorModal').modal('hide');
     }
@@ -267,7 +265,6 @@
             });
         });
     });
-
     function refreshAuthorsTable() {
         $.ajax({
             url: "{{ route('authors.index') }}",
