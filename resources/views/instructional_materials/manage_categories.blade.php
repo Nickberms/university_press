@@ -19,7 +19,7 @@
     <div class="wrapper">
         <div class="container-fluid">
             <br>
-            <a class="btn btn-primary" onClick="showAddCategoryModal()" href="javascript:void(0)">
+            <a class="btn btn-primary" onClick="showAddCategoryModal()" href="javascript:void(0)" style="background-color: #00491E;">
                 <i class="fas fa-plus"></i> Add Category
             </a>
             <br><br>
@@ -79,7 +79,7 @@
                                 <div class="text-right">
                                     <button type="button" class="btn btn-danger" onClick="hideAddCategoryModal()"
                                         href="javascript:void(0)">Cancel</button>
-                                    <button type="submit" class="btn btn-primary">Add</button>
+                                    <button type="submit" class="btn btn-primary" style="background-color: #00491E;">Add</button>
                                 </div>
                             </div>
                         </form>
