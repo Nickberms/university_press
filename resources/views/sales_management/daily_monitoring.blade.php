@@ -1,42 +1,48 @@
 @extends('layouts.app')
-
 @section('content')
+<html>
 
+<head>
+    <title>Daily Monitoring</title>
+    <link rel="stylesheet" href="admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="admin/plugins/toastr/toastr.min.css">
+    <script src="admin/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <script src="admin/plugins/toastr/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
 
-<br>
-
-<div class="col-md-2">
-    <div class="card card-primary">
-        <div class="card-body">
-            <!-- Date range -->
-            <div class="form-group">
-                <label for="month" style="display: block; margin-bottom: 5px;">Select Month:</label>
-                <div class="input-group">
-                    <input type="month" id="month" name="month" class="form-control" style="margin-top: 5px;">
-                </div>
-                <!-- /.input group -->
-            </div>
-            <!-- /.form group -->
-        </div>
-    </div>
-    <!-- /.card -->
-</div>
-
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <!-- /.card-header -->
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+        <div class="container-fluid">
+            <br>
+            <div class="card card-primary col-md-4">
                 <div class="card-body">
-                    <table id="example1" class="table table-bordered table-striped"
-                        style="font-size: 9px; border-collapse: collapse;">
-                        <thead>
+                    <div class="form-group">
+                        <label for="month">Select Month:</label>
+                        <div class="input-group">
+                            <input type="month" class="form-control" id="ChooseMonth" name="month">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Daily Monitoring</h3>
+                </div>
+                <div class="card-body">
+                    <!-- MONITORING TABLE -->
+                    <table class="table table-bordered table-striped" id="MonitoringTable" style="font-size: 14px">
+                        <thead class="text-center">
                             <tr>
-                                <th>Batch</th>
+                                <th>Code</th>
                                 <th>Title</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
+                                <th>Batch</th>
+                                <th>Unit Price</th>
+                                <th>Quantity Available</th>
                                 <th>1</th>
                                 <th>2</th>
                                 <th>3</th>
@@ -68,166 +74,105 @@
                                 <th>29</th>
                                 <th>30</th>
                                 <th>31</th>
-                                <th>Sold</th>
+                                <th>Unit Sold</th>
                                 <th>Sales</th>
-                                <th>Stocks</th>
+                                <th>Available Stocks</th>
                                 <th>Inventory Value</th>
-
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>scafcsgadvhdadjhbdhad  asbdjhadbhj asna sjd asbdhabsd aj da shd ashda sd a sdhabda sd</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-
-                            <tr>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                            </tr>
-
-                            <tr>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td></td>
-                                <td></td>
-                                <td>1</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                                <td>3</td>
-                            </tr>
-
+                        </tbody>
                     </table>
+                    <!-- MONITORING TABLE -->
                 </div>
-                <!-- /.card-body -->
             </div>
-            <!-- /.card -->
         </div>
+        <br>
     </div>
-</div>
+    <script>
+    function refreshMonitoringTable(selectedMonth) {
+        $.ajax({
+            url: "{{ route('monitoring.index') }}",
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                month: selectedMonth
+            },
+            success: function(data) {
+                var table = $('#MonitoringTable').DataTable();
+                var existingRows = table.rows().remove().draw(false);
+                data.forEach(function(batch) {
+                    var quantityAvailable = batch.quantity_produced - batch.sold_quantity_before;
+                    var unitSold = batch.sold_quantity_within;
+                    var sales = batch.price.toFixed(2) * batch.sold_quantity_within;
+                    var availableStocks = quantityAvailable - batch.sold_quantity_within;
+                    var inventoryValue = batch.price.toFixed(2) * availableStocks;
+                    var row = [
+                        batch.im.code,
+                        batch.im.title,
+                        batch.name,
+                        batch.price.toFixed(2),
+                        quantityAvailable
+                    ];
+                    for (var i = 1; i <= 31; i++) {
+                        if (batch.daily_sales && batch.daily_sales[i]) {
+                            row.push(batch.daily_sales[i]);
+                        } else {
+                            row.push('');
+                        }
+                    }
+                    row[36] = unitSold;
+                    row[37] = sales.toFixed(2);
+                    row[38] = availableStocks;
+                    row[39] = inventoryValue.toFixed(2);
+                    table.row.add(row);
+                });
+                table.draw();
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+    $(document).ready(function() {
+        var startDate = new Date();
+        startDate.setMonth(startDate.getMonth() - 1);
+        startDate.setDate(1);
+        var today = new Date();
+        today.setDate(1);
+        $('#ChooseMonth').val(today.toISOString().slice(0,
+            7));
+        refreshMonitoringTable(today.toISOString().slice(0, 7));
+        $('#MonitoringTable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "responsive": false,
+            "scrollX": true,
+            "scrollY": true,
+            "scrollCollapse": false,
+            "buttons": ["copy", "excel", "pdf", "print"],
+            "pageLength": 8
+        }).buttons().container().appendTo('#MonitoringTable_wrapper .col-md-6:eq(0)');
+        $('#ChooseMonth').on('change', function() {
+            var selectedMonth = $(this).val();
+            refreshMonitoringTable(selectedMonth);
+        });
+        var previousWidth = $(window).width();
+        $(window).on('resize', function() {
+            var currentWidth = $(window).width();
+            if (currentWidth !== previousWidth) {
+                var selectedMonth = $('#ChooseMonth').val();
+                refreshMonitoringTable(selectedMonth);
+                previousWidth = currentWidth;
+            }
+        });
+    });
+    </script>
+</body>
 
-<script>
-$(document).ready(function() {
-    $('#example1').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": true,
-        "ordering": false,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
-        "buttons": ["copy", "excel", "pdf", "print"],
-        "pageLength": 8,
-        "pageWidth": 39
-
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-});
-</script>
-
-
+</html>
 @endsection
