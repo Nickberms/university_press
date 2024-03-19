@@ -30,9 +30,9 @@
                 <div class="card-body">
                     <!-- AUTHORS TABLE -->
                     <table class="table table-bordered table-striped" id="AuthorsTable">
-                        <thead>
+                        <thead class="text-center">
                             <tr>
-                                <th class="text-center">Actions</th>
+                                <th>Actions</th>
                                 <th>Author Name</th>
                             </tr>
                         </thead>

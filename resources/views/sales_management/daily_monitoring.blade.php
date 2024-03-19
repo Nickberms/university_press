@@ -19,7 +19,7 @@
     <div class="wrapper">
         <div class="container-fluid">
             <br>
-            <div class="card card-primary col-md-2">
+            <div class="card card-primary col-md-4">
                 <div class="card-body">
                     <div class="form-group">
                         <label for="month">Select Month:</label>
@@ -29,14 +29,13 @@
                     </div>
                 </div>
             </div>
-            <br>
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Daily Monitoring</h3>
                 </div>
                 <div class="card-body">
                     <!-- MONITORING TABLE -->
-                    <table class="table table-bordered table-striped" id="MonitoringTable" style="font-size: 10px">
+                    <table class="table table-bordered table-striped" id="MonitoringTable" style="font-size: 14px">
                         <thead class="text-center">
                             <tr>
                                 <th>Code</th>

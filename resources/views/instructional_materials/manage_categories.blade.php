@@ -30,9 +30,9 @@
                 <div class="card-body">
                     <!-- CATEGORIES TABLE -->
                     <table class="table table-bordered table-striped" id="CategoriesTable">
-                        <thead>
+                        <thead class="text-center">
                             <tr>
-                                <th class="text-center">Actions</th>
+                                <th>Actions</th>
                                 <th>Category Name</th>
                                 <th>Description</th>
                             </tr>

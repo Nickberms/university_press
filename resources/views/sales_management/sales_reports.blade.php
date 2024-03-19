@@ -19,7 +19,7 @@
     <div class="wrapper">
         <div class="container-fluid">
             <br>
-            <div class="card card-primary col-md-3">
+            <div class="card card-primary col-md-6">
                 <div class="card-body">
                     <div class="form-group">
                         <label for="date_range">Specify Date Range:</label>
@@ -34,15 +34,14 @@
                     </div>
                 </div>
             </div>
-            <br>
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Sales Reports</h3>
                 </div>
                 <div class="card-body">
                     <!-- REPORTS TABLE -->
-                    <table class="table table-bordered table-striped" id="ReportsTable" style="font-size: 12px">
-                        <thead>
+                    <table class="table table-bordered table-striped" id="ReportsTable">
+                        <thead class="text-center">
                             <tr>
                                 <th>Code</th>
                                 <th>Title</th>
@@ -105,16 +104,28 @@
     }
     $(document).ready(function() {
         var startDate = new Date();
-        startDate.setFullYear(startDate.getFullYear() - 1);
+        startDate.setDate(1);
         startDate.setHours(0, 0, 0, 0);
-        var today = new Date();
+        var endDate = new Date();
+        endDate.setHours(0, 0, 0, 0);
         $('#ChooseDateRange').daterangepicker({
             startDate: startDate,
-            endDate: today,
+            endDate: endDate,
             locale: {
                 format: 'MM/DD/YYYY'
             }
         });
+        var formattedStartDate = startDate.toLocaleDateString('en-US', {
+            month: '2-digit',
+            day: '2-digit',
+            year: 'numeric'
+        });
+        var formattedEndDate = endDate.toLocaleDateString('en-US', {
+            month: '2-digit',
+            day: '2-digit',
+            year: 'numeric'
+        });
+        refreshReportsTable(formattedStartDate, formattedEndDate);
         $('#ReportsTable').DataTable({
             "paging": true,
             "lengthChange": false,

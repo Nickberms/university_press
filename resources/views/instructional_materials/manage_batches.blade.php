@@ -30,9 +30,9 @@
                 <div class="card-body">
                     <!-- BATCHES TABLE -->
                     <table class="table table-bordered table-striped" id="BatchesTable">
-                        <thead>
+                        <thead class="text-center">
                             <tr>
-                                <th class="text-center">Actions</th>
+                                <th>Actions</th>
                                 <th>Instructional Material</th>
                                 <th>Batch Name</th>
                                 <th>Production Date</th>

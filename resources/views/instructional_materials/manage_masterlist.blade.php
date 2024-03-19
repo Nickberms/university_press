@@ -31,9 +31,9 @@
                 <div class="card-body">
                     <!-- INSTRUCTIONAL MATERIALS TABLE -->
                     <table class="table table-bordered table-striped" id="InstructionalMaterialsTable">
-                        <thead>
+                        <thead class="text-center">
                             <tr>
-                                <th class="text-center">Actions</th>
+                                <th>Actions</th>
                                 <th>Code</th>
                                 <th>Title</th>
                                 <th>Authors</th>
