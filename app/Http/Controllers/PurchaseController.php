@@ -3,7 +3,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Purchase;
 use App\Models\IM;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PurchaseController extends Controller
@@ -38,13 +37,14 @@ class PurchaseController extends Controller
             return $input;
         }
         $request['customer_name'] = formatInput($request['customer_name']);
-        $dateSold = Carbon::now()->toDateString();
+        $request['or_number'] = formatInput($request['or_number']);
         $purchase = new Purchase([
             'customer_name' => $request->input('customer_name'),
+            'or_number' => $request->input('or_number'),
             'im_id' => $request->input('instructional_material'),
             'batch_id' => $request->input('im_batch'),
             'quantity' => $request->input('quantity'),
-            'date_sold' => $dateSold,
+            'date_sold' => $request->input('date_sold'),
         ]);
         $purchase->save();
         $batch = $purchase->batch;
