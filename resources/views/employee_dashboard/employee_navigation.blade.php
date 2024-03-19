@@ -65,15 +65,15 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="daily_monitoring" class="nav-link">
+                        <a href="{{ route('monitoring.index') }}" class="nav-link">
                             <i class="far fa-calendar-alt"></i>
-                            <p> Daily Monitoring</p>
+                            <p>Daily Monitoring</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="inventory_report" class="nav-link">
+                        <a href="{{ route('reports.index') }}" class="nav-link">
                             <i class="fas fa-chart-pie mr-1"></i>
-                            <p>Generate Reports</p>
+                            <p>Sales Reports</p>
                         </a>
                     </li>
                 </ul>

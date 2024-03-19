@@ -41,8 +41,8 @@ class BatchController extends Controller
             'production_date' => $request->input('production_date'),
             'production_cost' => $request->input('production_cost'),
             'price' => $request->input('price'),
-            'beginning_quantity' => $request->input('beginning_quantity'),
-            'available_stocks' => $request->input('beginning_quantity'),
+            'quantity_produced' => $request->input('quantity_produced'),
+            'available_stocks' => $request->input('quantity_produced'),
         ]);
         $batch->save();
         return response()->json(['success' => 'The batch has been successfully added!'], 200);
@@ -64,7 +64,7 @@ class BatchController extends Controller
             return $input;
         }
         $request['name'] = formatInput($request['name']);
-        if ($batch->available_stocks != $batch->beginning_quantity) {
+        if ($batch->available_stocks != $batch->quantity_produced) {
             return response()->json(['error' => 'Updates are prohibited since instructional materials have already been sold in this batch!'], 422);
         }
         $batch->update([
@@ -73,8 +73,8 @@ class BatchController extends Controller
             'production_date' => $request->input('production_date'),
             'production_cost' => $request->input('production_cost'),
             'price' => $request->input('price'),
-            'beginning_quantity' => $request->input('beginning_quantity'),
-            'available_stocks' => $request->input('beginning_quantity'),
+            'quantity_produced' => $request->input('quantity_produced'),
+            'available_stocks' => $request->input('quantity_produced'),
         ]);
         return response()->json(['success' => 'The batch has been successfully updated!'], 200);
     }
