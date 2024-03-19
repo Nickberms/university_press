@@ -10,6 +10,7 @@ class Purchase extends Model
     protected $table = 'purchases';
     protected $fillable = [
         'customer_name',
+        'or_number',
         'im_id',
         'batch_id',
         'quantity',

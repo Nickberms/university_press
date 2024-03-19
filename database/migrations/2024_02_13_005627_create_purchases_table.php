@@ -9,6 +9,7 @@ return new class extends Migration {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
             $table->string('customer_name');
+            $table->string('or_number');
             $table->foreignId('im_id')->constrained('ims');
             $table->foreignId('batch_id')->constrained('batches');
             $table->integer('quantity');

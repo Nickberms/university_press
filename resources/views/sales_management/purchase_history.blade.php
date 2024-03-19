@@ -33,6 +33,7 @@
                         <thead>
                             <tr>
                                 <th>Customer Name</th>
+                                <th>OR Number</th>
                                 <th>Instructional Material</th>
                                 <th>IM Batch</th>
                                 <th>Price</th>
@@ -63,12 +64,18 @@
                             <div class="container-fluid">
                                 <div class="card card-default">
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <!-- LEFT SIDE -->
+                                        <div class="col-md-6">
                                             <div class="card-body">
                                                 <div class="form-group">
                                                     <label for="customer_name">Customer Name</label>
                                                     <input type="text" class="form-control" name="customer_name"
                                                         placeholder="Enter Customer Name" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="or_number">OR Number</label>
+                                                    <input type="text" class="form-control" name="or_number"
+                                                        placeholder="Enter OR Number" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="instructional_material">Instructional Material</label>
@@ -85,6 +92,12 @@
                                                         style="width: 100%;" required>
                                                     </select>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <!-- LEFT SIDE -->
+                                        <!-- RIGHT SIDE -->
+                                        <div class="col-md-6">
+                                            <div class="card-body">
                                                 <div class="form-group">
                                                     <label for="price">Price</label>
                                                     <input type="text" readonly class="form-control" id="Price"
@@ -98,12 +111,17 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
+                                                    <label for="date_sold">Date Sold</label>
+                                                    <input type="date" class="form-control" name="date_sold" required>
+                                                </div>
+                                                <div class="form-group">
                                                     <label for="total_price">Total Price</label>
                                                     <input type="text" readonly class="form-control" id="TotalPrice"
                                                         name="total_price">
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- RIGHT SIDE -->
                                     </div>
                                 </div>
                                 <div class="text-right">
@@ -233,6 +251,7 @@
                     var totalPrice = purchase.batch.price.toFixed(2) * purchase.quantity;
                     table.row.add([
                         purchase.customer_name,
+                        purchase.or_number,
                         purchase.im.title,
                         purchase.batch.name,
                         purchase.batch.price.toFixed(2),
