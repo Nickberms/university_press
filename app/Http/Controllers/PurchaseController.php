@@ -46,12 +46,15 @@ class PurchaseController extends Controller
             'quantity' => $request->input('quantity'),
             'date_sold' => $request->input('date_sold'),
         ]);
-        $purchase->save();
         $batch = $purchase->batch;
         if ($batch) {
+            if ($batch->available_stocks <= 0) {
+                return view('sales_management.purchase_history', compact('purchases'));
+            }
             $batch->available_stocks -= $purchase->quantity;
             $batch->save();
         }
+        $purchase->save();
         return response()->json(['success' => 'The purchase has been successfully recorded!'], 200);
     }
 }

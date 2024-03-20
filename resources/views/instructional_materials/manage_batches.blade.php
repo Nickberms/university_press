@@ -390,6 +390,7 @@
                     };
                     var formattedProductionDateString = formattedProductionDate.toLocaleDateString(
                         'en-US', options);
+                    var availableStocks = batch.quantity_produced - batch.quantity_sold;
                     table.row.add([
                         '<div class="text-center">' +
                         '<a href="#" class="edit" title="Edit" data-toggle="tooltip" data-id="' +
@@ -404,7 +405,7 @@
                         batch.production_cost.toFixed(2),
                         batch.price.toFixed(2),
                         batch.quantity_produced,
-                        batch.available_stocks
+                        availableStocks
                     ]);
                 });
                 table.draw();

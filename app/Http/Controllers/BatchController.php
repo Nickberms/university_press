@@ -10,9 +10,15 @@ class BatchController extends Controller
 {
     public function index()
     {
-        $batches = Batch::with('im')
-            ->orderByDesc('updated_at')
-            ->orderByDesc('created_at')
+        $batches = Batch::with('im', 'purchases')
+            ->leftJoin('purchases', 'purchases.batch_id', '=', 'batches.id')
+            ->select(
+                'batches.*',
+                DB::raw('SUM(purchases.quantity) as quantity_sold')
+            )
+            ->groupBy('batches.id')
+            ->orderByDesc('batches.updated_at')
+            ->orderByDesc('batches.created_at')
             ->get();
         if (request()->ajax()) {
             return response()->json($batches);
@@ -42,7 +48,7 @@ class BatchController extends Controller
             'production_cost' => $request->input('production_cost'),
             'price' => $request->input('price'),
             'quantity_produced' => $request->input('quantity_produced'),
-            'available_stocks' => $request->input('quantity_produced'),
+            //'available_stocks' => $request->input('quantity_produced'),
         ]);
         $batch->save();
         return response()->json(['success' => 'The batch has been successfully added!'], 200);
@@ -64,9 +70,9 @@ class BatchController extends Controller
             return $input;
         }
         $request['name'] = formatInput($request['name']);
-        if ($batch->available_stocks != $batch->quantity_produced) {
-            return response()->json(['error' => 'Updates are prohibited since instructional materials have already been sold in this batch!'], 422);
-        }
+        // if ($batch->quantity_sold != $batch->quantity_produced) {
+        //     return response()->json(['error' => 'Updates are prohibited since instructional materials have already been sold in this batch!'], 422);
+        // }
         $batch->update([
             'im_id' => $request->input('instructional_material'),
             'name' => $request->input('name'),
@@ -74,7 +80,7 @@ class BatchController extends Controller
             'production_cost' => $request->input('production_cost'),
             'price' => $request->input('price'),
             'quantity_produced' => $request->input('quantity_produced'),
-            'available_stocks' => $request->input('quantity_produced'),
+            //'available_stocks' => $request->input('quantity_produced'),
         ]);
         return response()->json(['success' => 'The batch has been successfully updated!'], 200);
     }
