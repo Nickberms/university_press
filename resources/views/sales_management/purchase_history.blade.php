@@ -129,7 +129,8 @@
                                     <button type="button" class="btn btn-danger" onClick="hideNewPurchaseModal()"
                                         href="javascript:void(0)">Cancel</button>
                                     <button type="submit" class="btn btn-primary"
-                                        style="background-color: #00491E; border-color: #00491E;">Record Purchase</button>
+                                        style="background-color: #00491E; border-color: #00491E;">Record
+                                        Purchase</button>
                                 </div>
                             </div>
                         </form>
@@ -210,6 +211,7 @@
             }
         });
     }
+
     function hideNewPurchaseModal() {
         $('#NewPurchaseModal').modal('hide');
     }
@@ -233,6 +235,7 @@
             }
         });
     });
+
     function refreshPurchasesTable() {
         $.ajax({
             url: "{{ route('purchases.index') }}",
@@ -269,6 +272,7 @@
             }
         });
     }
+
     function NumbersOnly(inputField) {
         var pattern = /^[0-9]+$/;
         var inputValue = inputField.value;
