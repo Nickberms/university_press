@@ -157,7 +157,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" onClick="hideDeleteAuthorModal()"
-                            href="javascript:void(0)" style="background-color: #00491E; border-color: #00491E;">Cancel</button>
+                            href="javascript:void(0)"
+                            style="background-color: #00491E; border-color: #00491E;">Cancel</button>
                         <button type="button" class="btn btn-danger" id="DeleteAuthor">Delete</button>
                     </div>
                 </div>
@@ -185,7 +186,9 @@
                 $('#EditAuthorModal').modal('show');
             },
             error: function(xhr, status, error) {
-                console.error(xhr.responseText);
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
             }
         });
     }
@@ -213,8 +216,9 @@
                 refreshAuthorsTable();
             },
             error: function(xhr, status, error) {
-                location.reload();
-                console.error(xhr.responseText);
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
             }
         });
     });
@@ -234,8 +238,9 @@
                 refreshAuthorsTable();
             },
             error: function(xhr, status, error) {
-                location.reload();
-                console.error(xhr.responseText);
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
             }
         });
     });
@@ -290,7 +295,9 @@
                 table.draw();
             },
             error: function(xhr, status, error) {
-                console.error(xhr.responseText);
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
             }
         });
     }
