@@ -25,6 +25,13 @@ class PurchaseController extends Controller
             ->orderByDesc('updated_at')
             ->orderByDesc('created_at')
             ->get();
+        $ims->transform(function ($im) {
+            $im->batches->each(function ($batch) {
+                $batch->quantity_sold = $batch->purchases->sum('quantity');
+                unset ($batch->purchases);
+            });
+            return $im;
+        });
         if (request()->ajax()) {
             return response()->json($ims);
         }
@@ -48,11 +55,12 @@ class PurchaseController extends Controller
         ]);
         $batch = $purchase->batch;
         if ($batch) {
-            if ($batch->available_stocks <= 0) {
-                return view('sales_management.purchase_history', compact('purchases'));
+            $batch->load('purchases');
+            $batch->quantity_sold = $batch->purchases->sum('quantity');
+            $availableStocks = $batch->quantity_produced - $batch->quantity_sold;
+            if ($availableStocks <= 0) {
+                return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);
             }
-            $batch->available_stocks -= $purchase->quantity;
-            $batch->save();
         }
         $purchase->save();
         return response()->json(['success' => 'The purchase has been successfully recorded!'], 200);

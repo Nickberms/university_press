@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Batch;
 use App\Models\IM;
+use App\Models\Purchase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -48,7 +49,6 @@ class BatchController extends Controller
             'production_cost' => $request->input('production_cost'),
             'price' => $request->input('price'),
             'quantity_produced' => $request->input('quantity_produced'),
-            //'available_stocks' => $request->input('quantity_produced'),
         ]);
         $batch->save();
         return response()->json(['success' => 'The batch has been successfully added!'], 200);
@@ -70,9 +70,10 @@ class BatchController extends Controller
             return $input;
         }
         $request['name'] = formatInput($request['name']);
-        // if ($batch->quantity_sold != $batch->quantity_produced) {
-        //     return response()->json(['error' => 'Updates are prohibited since instructional materials have already been sold in this batch!'], 422);
-        // }
+        $quantitySold = Purchase::where('batch_id', $batch->id)->sum('quantity');
+        if ($quantitySold > 0) {
+            return response()->json(['error' => 'This batch holds other records and cannot be updated!'], 422);
+        }
         $batch->update([
             'im_id' => $request->input('instructional_material'),
             'name' => $request->input('name'),
@@ -80,7 +81,6 @@ class BatchController extends Controller
             'production_cost' => $request->input('production_cost'),
             'price' => $request->input('price'),
             'quantity_produced' => $request->input('quantity_produced'),
-            //'available_stocks' => $request->input('quantity_produced'),
         ]);
         return response()->json(['success' => 'The batch has been successfully updated!'], 200);
     }

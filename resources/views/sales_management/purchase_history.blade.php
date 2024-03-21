@@ -129,7 +129,8 @@
                                     <button type="button" class="btn btn-danger" onClick="hideNewPurchaseModal()"
                                         href="javascript:void(0)">Cancel</button>
                                     <button type="submit" class="btn btn-primary"
-                                        style="background-color: #00491E; border-color: #00491E;">Record Purchase</button>
+                                        style="background-color: #00491E; border-color: #00491E;">Record
+                                        Purchase</button>
                                 </div>
                             </div>
                         </form>
@@ -188,7 +189,9 @@
                         $('#Price').val(selectedBatch.price.toFixed(2));
                         var selectQuantity = $('#ChooseQuantity');
                         selectQuantity.empty();
-                        for (var i = 1; i <= selectedBatch.available_stocks; i++) {
+                        var availableStocks = selectedBatch.quantity_produced - selectedBatch
+                            .quantity_sold;
+                        for (var i = 1; i <= availableStocks; i++) {
                             selectQuantity.append('<option value="' + i + '">' + i + '</option>');
                         }
                         selectQuantity.val(null).trigger('change');
@@ -228,8 +231,9 @@
                 refreshPurchasesTable();
             },
             error: function(xhr, status, error) {
-                location.reload();
-                console.error(xhr.responseText);
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
             }
         });
     });
