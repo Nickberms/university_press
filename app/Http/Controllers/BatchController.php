@@ -12,12 +12,18 @@ class BatchController extends Controller
     public function index()
     {
         $batches = Batch::with('im', 'purchases')
-            ->leftJoin('purchases', 'purchases.batch_id', '=', 'batches.id')
+            ->leftJoin('purchases', 'batches.id', '=', 'purchases.batch_id')
             ->select(
-                'batches.*',
-                DB::raw('SUM(purchases.quantity) as quantity_sold')
+                'batches.id',
+                'batches.im_id',
+                'batches.name',
+                'batches.production_date',
+                'batches.production_cost',
+                'batches.price',
+                'batches.quantity_produced',
+                DB::raw('COALESCE(SUM(purchases.quantity), 0) as quantity_sold')
             )
-            ->groupBy('batches.id')
+            ->groupBy('batches.id', 'batches.im_id', 'batches.name', 'batches.production_date', 'batches.production_cost', 'batches.price', 'batches.quantity_produced')
             ->orderByDesc('batches.updated_at')
             ->orderByDesc('batches.created_at')
             ->get();

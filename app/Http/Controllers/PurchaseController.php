@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Purchase;
 use App\Models\IM;
+use App\Models\Batch;
 use Illuminate\Http\Request;
 
 class PurchaseController extends Controller
@@ -63,6 +64,9 @@ class PurchaseController extends Controller
             }
         }
         $purchase->save();
+        $batchId = $purchase->batch_id;
+        $batch = Batch::findOrFail($batchId);
+        $batch->touch();
         return response()->json(['success' => 'The purchase has been successfully recorded!'], 200);
     }
 }

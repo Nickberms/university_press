@@ -18,13 +18,19 @@ class ReportController extends Controller
             $previousDay = clone $startDate;
             $previousDay->subDay();
             $batches = Batch::with('im', 'purchases')
-                ->join('purchases', 'purchases.batch_id', '=', 'batches.id')
+                ->join('purchases', 'batches.id', '=', 'purchases.batch_id')
                 ->select(
-                    'batches.*',
+                    'batches.id',
+                    'batches.im_id',
+                    'batches.name',
+                    'batches.production_date',
+                    'batches.production_cost',
+                    'batches.price',
+                    'batches.quantity_produced',
                     DB::raw('SUM(CASE WHEN purchases.date_sold < "' . $startDate . '" THEN purchases.quantity ELSE 0 END) as sold_quantity_before'),
                     DB::raw('SUM(CASE WHEN purchases.date_sold BETWEEN "' . $startDate . '" AND "' . $endDate . '" THEN purchases.quantity ELSE 0 END) as sold_quantity_within')
                 )
-                ->groupBy('batches.id')
+                ->groupBy('batches.id', 'batches.im_id', 'batches.name', 'batches.production_date', 'batches.production_cost', 'batches.price', 'batches.quantity_produced')
                 ->orderByDesc('batches.updated_at')
                 ->orderByDesc('batches.created_at')
                 ->get();
