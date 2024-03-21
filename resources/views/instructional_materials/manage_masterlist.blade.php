@@ -295,7 +295,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" onClick="hideDeleteInstructionalMaterialModal()"
-                            href="javascript:void(0)" style="background-color: #00491E; border-color: #00491E;">Cancel</button>
+                            href="javascript:void(0)"
+                            style="background-color: #00491E; border-color: #00491E;">Cancel</button>
                         <button type="button" class="btn btn-danger" id="DeleteInstructionalMaterial">Delete</button>
                     </div>
                 </div>
@@ -329,7 +330,9 @@
                 $('#AddInstructionalMaterialModal').modal('show');
             },
             error: function(xhr, status, error) {
-                console.error(xhr.responseText);
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
             }
         });
     }
@@ -395,12 +398,16 @@
                         $('#EditInstructionalMaterialModal').modal('show');
                     },
                     error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
+                        var errorMessage = JSON.parse(xhr.responseText).error;
+                        console.error(errorMessage);
+                        toastr.error(errorMessage);
                     }
                 });
             },
             error: function(xhr, status, error) {
-                console.error(xhr.responseText);
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
             }
         });
     }
@@ -428,8 +435,9 @@
                 refreshInstructionalMaterialsTable();
             },
             error: function(xhr, status, error) {
-                location.reload();
-                console.error(xhr.responseText);
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
             }
         });
     });
@@ -450,8 +458,9 @@
                 refreshInstructionalMaterialsTable();
             },
             error: function(xhr, status, error) {
-                location.reload();
-                console.error(xhr.responseText);
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
             }
         });
     });
@@ -519,7 +528,9 @@
                 table.draw();
             },
             error: function(xhr, status, error) {
-                console.error(xhr.responseText);
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
             }
         });
     }

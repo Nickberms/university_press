@@ -223,7 +223,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" onClick="hideDeleteBatchModal()"
-                            href="javascript:void(0)" style="background-color: #00491E; border-color: #00491E;">Cancel</button>
+                            href="javascript:void(0)"
+                            style="background-color: #00491E; border-color: #00491E;">Cancel</button>
                         <button type="button" class="btn btn-danger" id="DeleteBatch">Delete</button>
                     </div>
                 </div>
@@ -249,7 +250,9 @@
                 $('#AddBatchModal').modal('show');
             },
             error: function(xhr, status, error) {
-                console.error(xhr.responseText);
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
             }
         });
     }
@@ -287,12 +290,16 @@
                         $('#EditBatchModal').modal('show');
                     },
                     error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
+                        var errorMessage = JSON.parse(xhr.responseText).error;
+                        console.error(errorMessage);
+                        toastr.error(errorMessage);
                     }
                 });
             },
             error: function(xhr, status, error) {
-                console.error(xhr.responseText);
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
             }
         });
     }
@@ -320,8 +327,9 @@
                 refreshBatchesTable();
             },
             error: function(xhr, status, error) {
-                location.reload();
-                console.error(xhr.responseText);
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
             }
         });
     });
@@ -411,7 +419,9 @@
                 table.draw();
             },
             error: function(xhr, status, error) {
-                console.error(xhr.responseText);
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
             }
         });
     }

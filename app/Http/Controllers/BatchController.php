@@ -42,53 +42,65 @@ class BatchController extends Controller
     }
     public function store(Request $request)
     {
-        function formatInput(string $input): string
-        {
-            $input = preg_replace('/\s+/', ' ', trim($input));
-            return $input;
+        try {
+            function formatInput(string $input): string
+            {
+                $input = preg_replace('/\s+/', ' ', trim($input));
+                return $input;
+            }
+            $request['name'] = formatInput($request['name']);
+            $batch = new Batch([
+                'im_id' => $request->input('instructional_material'),
+                'name' => $request->input('name'),
+                'production_date' => $request->input('production_date'),
+                'production_cost' => $request->input('production_cost'),
+                'price' => $request->input('price'),
+                'quantity_produced' => $request->input('quantity_produced'),
+            ]);
+            $batch->save();
+            return response()->json(['success' => 'The batch has been successfully added!'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);
         }
-        $request['name'] = formatInput($request['name']);
-        $batch = new Batch([
-            'im_id' => $request->input('instructional_material'),
-            'name' => $request->input('name'),
-            'production_date' => $request->input('production_date'),
-            'production_cost' => $request->input('production_cost'),
-            'price' => $request->input('price'),
-            'quantity_produced' => $request->input('quantity_produced'),
-        ]);
-        $batch->save();
-        return response()->json(['success' => 'The batch has been successfully added!'], 200);
     }
     public function show(batch $batch)
     {
     }
     public function edit($id)
     {
-        $batch = Batch::findOrFail($id);
-        return response()->json($batch);
+        try {
+            $batch = Batch::findOrFail($id);
+            return response()->json($batch);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);
+        }
     }
     public function update(Request $request, $id)
     {
-        $batch = Batch::findOrFail($id);
-        function formatInput(string $input): string
-        {
-            $input = preg_replace('/\s+/', ' ', trim($input));
-            return $input;
+        try {
+            $batch = Batch::findOrFail($id);
+            function formatInput(string $input): string
+            {
+                $input = preg_replace('/\s+/', ' ', trim($input));
+                return $input;
+            }
+            $request['name'] = formatInput($request['name']);
+            $quantitySold = Purchase::where('batch_id', $batch->id)->sum('quantity');
+            if ($quantitySold > 0) {
+                return response()->json(['error' => 'This batch holds other records and cannot be updated!'], 422);
+            }
+            $batch->update([
+                'im_id' => $request->input('instructional_material'),
+                'name' => $request->input('name'),
+                'production_date' => $request->input('production_date'),
+                'production_cost' => $request->input('production_cost'),
+                'price' => $request->input('price'),
+                'quantity_produced' => $request->input('quantity_produced'),
+            ]);
+            return response()->json(['success' => 'The batch has been successfully updated!'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);
         }
-        $request['name'] = formatInput($request['name']);
-        $quantitySold = Purchase::where('batch_id', $batch->id)->sum('quantity');
-        if ($quantitySold > 0) {
-            return response()->json(['error' => 'This batch holds other records and cannot be updated!'], 422);
-        }
-        $batch->update([
-            'im_id' => $request->input('instructional_material'),
-            'name' => $request->input('name'),
-            'production_date' => $request->input('production_date'),
-            'production_cost' => $request->input('production_cost'),
-            'price' => $request->input('price'),
-            'quantity_produced' => $request->input('quantity_produced'),
-        ]);
-        return response()->json(['success' => 'The batch has been successfully updated!'], 200);
     }
     public function destroy($id)
     {
@@ -96,6 +108,8 @@ class BatchController extends Controller
             $batch = Batch::findOrFail($id);
             $batch->delete();
             return response()->json(['success' => 'The batch has been successfully deleted!'], 200);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);
         } catch (\Illuminate\Database\QueryException $e) {
             return response()->json(['error' => 'This batch holds other records and cannot be deleted!'], 422);
         }
