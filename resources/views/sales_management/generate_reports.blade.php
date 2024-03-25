@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>Sales Reports</title>
+    <title>Generate Reports</title>
     <link rel="stylesheet" href="admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
@@ -36,7 +36,7 @@
             </div>
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Sales Reports</h3>
+                    <h3 class="card-title">Generate Reports</h3>
                 </div>
                 <div class="card-body">
                     <!-- REPORTS TABLE -->

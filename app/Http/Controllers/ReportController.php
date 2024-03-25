@@ -37,10 +37,10 @@ class ReportController extends Controller
             if ($request->ajax()) {
                 return response()->json($batches);
             } else {
-                return view('sales_management.sales_reports', compact('batches'));
+                return view('sales_management.generate_reports', compact('batches'));
             }
         } else {
-            return view('sales_management.sales_reports');
+            return view('sales_management.generate_reports');
         }
     }
 }
