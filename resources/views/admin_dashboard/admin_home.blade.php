@@ -51,7 +51,7 @@
                         <div class="icon">
                             <i class="fas fa-book"></i>
                         </div>
-                        <a href="{{ route('instructional_materials.index') }}" class="small-box-footer">More info <i
+                        <a href="{{ route('masterlist.index') }}" class="small-box-footer">More info <i
                                 class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>

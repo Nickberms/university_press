@@ -127,7 +127,7 @@
                     <div class="dropdown-menu dropdown-menu-right" style="left: inherit; right: 0px;">
                         <a href="{{ route('profile.show') }}" class="dropdown-item">
                             <i class="mr-2 fas fa-file"></i>
-                            {{ __('My profile') }}
+                            {{ __('My Profile') }}
                         </a>
                         <div class="dropdown-divider"></div>
                         <form method="POST" action="{{ route('logout') }}">
@@ -147,11 +147,10 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-light-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="/" class="brand-link">
+            <a class="brand-link">
                 <span class="brand-text font-weight-light" style="text-align:center;color:white;">University
                     Press</span>
             </a>
-
             @if(Auth::check())
                 @if(Auth::user()->account_type == 'Admin' || Auth::user()->account_type == 'Super Admin')
                     @include('admin_dashboard.admin_navigation')

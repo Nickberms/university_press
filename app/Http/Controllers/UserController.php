@@ -29,7 +29,7 @@ class UserController extends Controller
         $request['name'] = formatInput($request['name']);
         $email = strtolower($request->input('email'));
         if (User::where('email', $email)->exists()) {
-            return response()->json(['error' => 'The email you inputted has already been taken.'], 422);
+            return response()->json(['error' => 'The email has already been taken!'], 422);
         }
         $password = 'cmu_press_' . $email;
         $user = new User([
@@ -64,7 +64,7 @@ class UserController extends Controller
         $email = strtolower($request->input('email'));
         if ($email !== $user->email) {
             if (User::where('email', $email)->exists()) {
-                return response()->json(['error' => 'The email you inputted has already been taken.'], 422);
+                return response()->json(['error' => 'The email has already been taken!'], 422);
             }
         }
         $user->update([
