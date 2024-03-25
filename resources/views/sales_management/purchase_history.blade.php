@@ -189,7 +189,9 @@
                         $('#Price').val(selectedBatch.price.toFixed(2));
                         var selectQuantity = $('#ChooseQuantity');
                         selectQuantity.empty();
-                        for (var i = 1; i <= selectedBatch.available_stocks; i++) {
+                        var availableStocks = selectedBatch.quantity_produced - selectedBatch
+                            .quantity_sold;
+                        for (var i = 1; i <= availableStocks; i++) {
                             selectQuantity.append('<option value="' + i + '">' + i + '</option>');
                         }
                         selectQuantity.val(null).trigger('change');
@@ -211,7 +213,6 @@
             }
         });
     }
-
     function hideNewPurchaseModal() {
         $('#NewPurchaseModal').modal('hide');
     }
@@ -230,12 +231,12 @@
                 refreshPurchasesTable();
             },
             error: function(xhr, status, error) {
-                location.reload();
-                console.error(xhr.responseText);
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
             }
         });
     });
-
     function refreshPurchasesTable() {
         $.ajax({
             url: "{{ route('purchases.index') }}",
@@ -272,7 +273,6 @@
             }
         });
     }
-
     function NumbersOnly(inputField) {
         var pattern = /^[0-9]+$/;
         var inputValue = inputField.value;

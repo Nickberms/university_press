@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function () {
 Route::resource('users', UserController::class)->middleware(['auth', 'admin']);
 Route::resource('authors', AuthorController::class)->middleware('auth');
 Route::resource('categories', CategoryController::class)->middleware('auth');
-Route::resource('instructional_materials', IMController::class)->middleware('auth');
+Route::resource('masterlist', IMController::class)->middleware('auth');
 Route::resource('batches', BatchController::class)->middleware('auth');
 Route::resource('purchases', PurchaseController::class)->middleware('auth');
 Route::resource('reports', ReportController::class)->middleware('auth');

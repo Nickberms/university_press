@@ -13,7 +13,7 @@ class CategoryController extends Controller
         if (request()->ajax()) {
             return response()->json($categories);
         } else {
-            return view('instructional_materials.manage_categories', compact('categories'));
+            return view('inventory_records.manage_categories', compact('categories'));
         }
     }
     public function create()
@@ -40,24 +40,32 @@ class CategoryController extends Controller
     }
     public function edit($id)
     {
-        $category = Category::findOrFail($id);
-        return response()->json($category);
+        try {
+            $category = Category::findOrFail($id);
+            return response()->json($category);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);
+        }
     }
     public function update(Request $request, $id)
     {
-        $category = Category::findOrFail($id);
-        function formatInput(string $input): string
-        {
-            $input = preg_replace('/\s+/', ' ', trim($input));
-            return $input;
+        try {
+            $category = Category::findOrFail($id);
+            function formatInput(string $input): string
+            {
+                $input = preg_replace('/\s+/', ' ', trim($input));
+                return $input;
+            }
+            $request['name'] = formatInput($request['name']);
+            $request['description'] = $request->input('description') ? formatInput($request->input('description')) : null;
+            $category->update([
+                'name' => $request->input('name'),
+                'description' => $request->input('description'),
+            ]);
+            return response()->json(['success' => 'The category has been successfully updated!'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);
         }
-        $request['name'] = formatInput($request['name']);
-        $request['description'] = $request->input('description') ? formatInput($request->input('description')) : null;
-        $category->update([
-            'name' => $request->input('name'),
-            'description' => $request->input('description'),
-        ]);
-        return response()->json(['success' => 'The category has been successfully updated!'], 200);
     }
     public function destroy($id)
     {
@@ -65,6 +73,8 @@ class CategoryController extends Controller
             $category = Category::findOrFail($id);
             $category->delete();
             return response()->json(['success' => 'The category has been successfully deleted!'], 200);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);
         } catch (\Illuminate\Database\QueryException $e) {
             return response()->json(['error' => 'This category holds other records and cannot be deleted!'], 422);
         }

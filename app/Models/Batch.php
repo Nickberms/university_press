@@ -15,7 +15,6 @@ class Batch extends Model
         'production_cost',
         'price',
         'quantity_produced',
-        'available_stocks',
     ];
     public function im()
     {

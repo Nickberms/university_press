@@ -18,7 +18,7 @@ class IMController extends Controller
         if (request()->ajax()) {
             return response()->json($ims);
         } else {
-            return view('instructional_materials.manage_masterlist', compact('ims'));
+            return view('inventory_records.manage_masterlist', compact('ims'));
         }
     }
     public function create()
@@ -35,84 +35,120 @@ class IMController extends Controller
     }
     public function store(Request $request)
     {
-        function formatInput(string $input): string
-        {
-            $input = preg_replace('/\s+/', ' ', trim($input));
-            return $input;
+        try {
+            function formatInput(string $input): string
+            {
+                $input = preg_replace('/\s+/', ' ', trim($input));
+                return $input;
+            }
+            $request['code'] = formatInput($request['code']);
+            $request['title'] = formatInput($request['title']);
+            $request['college'] = $request->input('college') ? formatInput($request->input('college')) : null;
+            $request['publisher'] = $request->input('publisher') ? formatInput($request->input('publisher')) : null;
+            $request['edition'] = $request->input('edition') ? formatInput($request->input('edition')) : null;
+            $request['isbn'] = $request->input('isbn') ? formatInput($request->input('isbn')) : null;
+            $request['description'] = $request->input('description') ? formatInput($request->input('description')) : null;
+            $im = new IM([
+                'code' => $request->input('code'),
+                'title' => $request->input('title'),
+                'category_id' => $request->input('category'),
+                'college' => $request->input('college'),
+                'publisher' => $request->input('publisher'),
+                'edition' => $request->input('edition'),
+                'isbn' => $request->input('isbn'),
+                'description' => $request->input('description'),
+            ]);
+            $authors = $request->input('authors', []);
+            if (count($authors) > 0) {
+                $existingAuthors = Author::whereIn('id', $authors)->count();
+                if ($existingAuthors !== count($authors)) {
+                    return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);
+                }
+            }
+            try {
+                $im->save();
+                $im->authors()->attach($authors);
+                return response()->json(['success' => 'The instructional material has been successfully added!'], 200);
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);
         }
-        $request['code'] = formatInput($request['code']);
-        $request['title'] = formatInput($request['title']);
-        $request['college'] = $request->input('college') ? formatInput($request->input('college')) : null;
-        $request['publisher'] = $request->input('publisher') ? formatInput($request->input('publisher')) : null;
-        $request['edition'] = $request->input('edition') ? formatInput($request->input('edition')) : null;
-        $request['isbn'] = $request->input('isbn') ? formatInput($request->input('isbn')) : null;
-        $request['description'] = $request->input('description') ? formatInput($request->input('description')) : null;
-        $im = new IM([
-            'code' => $request->input('code'),
-            'title' => $request->input('title'),
-            'category_id' => $request->input('category'),
-            'college' => $request->input('college'),
-            'publisher' => $request->input('publisher'),
-            'edition' => $request->input('edition'),
-            'isbn' => $request->input('isbn'),
-            'description' => $request->input('description'),
-        ]);
-        $im->save();
-        $authors = $request->input('authors', []);
-        $im->authors()->attach($authors);
-        return response()->json(['success' => 'The instructional material has been successfully added!'], 200);
     }
     public function show(IM $im)
     {
     }
     public function edit($id)
     {
-        $im = IM::findOrFail($id);
-        $im->load('authors');
-        return response()->json($im);
+        try {
+            $im = IM::findOrFail($id);
+            $im->load('authors');
+            return response()->json($im);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);
+        }
     }
     public function update(Request $request, $id)
     {
-        $im = IM::findOrFail($id);
-        function formatInput(string $input): string
-        {
-            $input = preg_replace('/\s+/', ' ', trim($input));
-            return $input;
+        try {
+            $im = IM::findOrFail($id);
+            function formatInput(string $input): string
+            {
+                $input = preg_replace('/\s+/', ' ', trim($input));
+                return $input;
+            }
+            $request['code'] = formatInput($request['code']);
+            $request['title'] = formatInput($request['title']);
+            $request['college'] = $request->input('college') ? formatInput($request->input('college')) : null;
+            $request['publisher'] = $request->input('publisher') ? formatInput($request->input('publisher')) : null;
+            $request['edition'] = $request->input('edition') ? formatInput($request->input('edition')) : null;
+            $request['isbn'] = $request->input('isbn') ? formatInput($request->input('isbn')) : null;
+            $request['description'] = $request->input('description') ? formatInput($request->input('description')) : null;
+            $authors = $request->input('authors', []);
+            if (count($authors) > 0) {
+                $existingAuthors = Author::whereIn('id', $authors)->count();
+                if ($existingAuthors !== count($authors)) {
+                    return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);
+                }
+            }
+            try {
+                $im->update([
+                    'code' => $request->input('code'),
+                    'title' => $request->input('title'),
+                    'category_id' => $request->input('category'),
+                    'college' => $request->input('college'),
+                    'publisher' => $request->input('publisher'),
+                    'edition' => $request->input('edition'),
+                    'isbn' => $request->input('isbn'),
+                    'description' => $request->input('description'),
+                ]);
+                $im->touch();
+                $im->authors()->sync($authors);
+                return response()->json(['success' => 'The instructional material has been successfully updated!'], 200);
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);
         }
-        $request['code'] = formatInput($request['code']);
-        $request['title'] = formatInput($request['title']);
-        $request['college'] = $request->input('college') ? formatInput($request->input('college')) : null;
-        $request['publisher'] = $request->input('publisher') ? formatInput($request->input('publisher')) : null;
-        $request['edition'] = $request->input('edition') ? formatInput($request->input('edition')) : null;
-        $request['isbn'] = $request->input('isbn') ? formatInput($request->input('isbn')) : null;
-        $request['description'] = $request->input('description') ? formatInput($request->input('description')) : null;
-        $im->update([
-            'code' => $request->input('code'),
-            'title' => $request->input('title'),
-            'category_id' => $request->input('category'),
-            'college' => $request->input('college'),
-            'publisher' => $request->input('publisher'),
-            'edition' => $request->input('edition'),
-            'isbn' => $request->input('isbn'),
-            'description' => $request->input('description'),
-        ]);
-        $im->touch();
-        $authors = $request->input('authors', []);
-        $im->authors()->sync($authors);
-        return response()->json(['success' => 'The instructional material has been successfully updated!'], 200);
     }
     public function destroy($id)
     {
-        $im = IM::findOrFail($id);
-        if ($im->batches()->exists()) {
-            return response()->json(['error' => 'This instructional material holds other records and cannot be deleted!'], 422);
-        }
         try {
-            $im->authors()->detach();
-            $im->delete();
-            return response()->json(['success' => 'The instructional material has been successfully deleted!'], 200);
-        } catch (\Illuminate\Database\QueryException $e) {
-            return response()->json(['error' => 'This instructional material holds other records and cannot be deleted!'], 422);
+            $im = IM::findOrFail($id);
+            if ($im->batches()->exists()) {
+                return response()->json(['error' => 'This instructional material holds other records and cannot be deleted!'], 422);
+            }
+            try {
+                $im->authors()->detach();
+                $im->delete();
+                return response()->json(['success' => 'The instructional material has been successfully deleted!'], 200);
+            } catch (\Illuminate\Database\QueryException $e) {
+                return response()->json(['error' => 'This instructional material holds other records and cannot be deleted!'], 422);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);
         }
     }
 }

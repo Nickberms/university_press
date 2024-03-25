@@ -40,7 +40,9 @@
                                 <th>Production Cost</th>
                                 <th>Price</th>
                                 <th>Quantity Produced</th>
+                                <th>Quantity Sold</th>
                                 <th>Available Stocks</th>
+                                <th>Total Revenue</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -223,7 +225,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" onClick="hideDeleteBatchModal()"
-                            href="javascript:void(0)" style="background-color: #00491E; border-color: #00491E;">Cancel</button>
+                            href="javascript:void(0)"
+                            style="background-color: #00491E; border-color: #00491E;">Cancel</button>
                         <button type="button" class="btn btn-danger" id="DeleteBatch">Delete</button>
                     </div>
                 </div>
@@ -249,7 +252,9 @@
                 $('#AddBatchModal').modal('show');
             },
             error: function(xhr, status, error) {
-                console.error(xhr.responseText);
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
             }
         });
     }
@@ -287,12 +292,16 @@
                         $('#EditBatchModal').modal('show');
                     },
                     error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
+                        var errorMessage = JSON.parse(xhr.responseText).error;
+                        console.error(errorMessage);
+                        toastr.error(errorMessage);
                     }
                 });
             },
             error: function(xhr, status, error) {
-                console.error(xhr.responseText);
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
             }
         });
     }
@@ -320,8 +329,9 @@
                 refreshBatchesTable();
             },
             error: function(xhr, status, error) {
-                location.reload();
-                console.error(xhr.responseText);
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
             }
         });
     });
@@ -391,6 +401,7 @@
                     var formattedProductionDateString = formattedProductionDate.toLocaleDateString(
                         'en-US', options);
                     var availableStocks = batch.quantity_produced - batch.quantity_sold;
+                    var totalRevenue = (batch.price.toFixed(2) * batch.quantity_sold) - batch.production_cost.toFixed(2);
                     table.row.add([
                         '<div class="text-center">' +
                         '<a href="#" class="edit" title="Edit" data-toggle="tooltip" data-id="' +
@@ -405,13 +416,17 @@
                         batch.production_cost.toFixed(2),
                         batch.price.toFixed(2),
                         batch.quantity_produced,
-                        availableStocks
+                        batch.quantity_sold,
+                        availableStocks,
+                        totalRevenue
                     ]);
                 });
                 table.draw();
             },
             error: function(xhr, status, error) {
-                console.error(xhr.responseText);
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
             }
         });
     }

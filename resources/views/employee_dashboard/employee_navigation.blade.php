@@ -10,7 +10,7 @@
                 <a href="{{ route('dashboard.index') }}" class="nav-link">
                     <i class="nav-icon fas fa-th"></i>
                     <p>
-                        {{ __('Dashboard') }}
+                        Dashboard
                     </p>
                 </a>
             </li>
@@ -18,7 +18,7 @@
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-file"></i>
                     <p>
-                        IMs
+                        Inventory Records
                         <i class="fas fa-angle-left right"></i>
                     </p>
                 </a>
@@ -30,7 +30,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('instructional_materials.index') }}" class="nav-link">
+                        <a href="{{ route('masterlist.index') }}" class="nav-link">
                             <i class="fas fa-book"></i>
                             <p>Masterlist</p>
                         </a>
@@ -61,19 +61,19 @@
                     <li class="nav-item">
                         <a href="{{ route('purchases.index') }}" class="nav-link">
                             <i class="fas fa-tag"></i>
-                            <p>New Purchase</p>
+                            <p>Purchases</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('monitoring.index') }}" class="nav-link">
                             <i class="far fa-calendar-alt"></i>
-                            <p>Daily Monitoring</p>
+                            <p>Monitoring</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('reports.index') }}" class="nav-link">
                             <i class="fas fa-chart-pie mr-1"></i>
-                            <p>Sales Reports</p>
+                            <p>Reports</p>
                         </a>
                     </li>
                 </ul>

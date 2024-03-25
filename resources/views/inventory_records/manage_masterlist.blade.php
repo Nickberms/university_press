@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>Manage Instructional Materials</title>
+    <title>Manage Masterlist</title>
     <link rel="stylesheet" href="admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
@@ -27,11 +27,11 @@
             <br><br>
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Manage Instructional Materials</h3>
+                    <h3 class="card-title">Manage Masterlist</h3>
                 </div>
                 <div class="card-body">
-                    <!-- INSTRUCTIONAL MATERIALS TABLE -->
-                    <table class="table table-bordered table-striped" id="InstructionalMaterialsTable">
+                    <!-- MASTERLIST TABLE -->
+                    <table class="table table-bordered table-striped" id="MasterlistTable">
                         <thead class="text-center">
                             <tr>
                                 <th>Actions</th>
@@ -49,7 +49,7 @@
                         <tbody>
                         </tbody>
                     </table>
-                    <!-- INSTRUCTIONAL MATERIALS TABLE -->
+                    <!-- MASTERLIST TABLE -->
                 </div>
             </div>
         </div>
@@ -295,7 +295,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" onClick="hideDeleteInstructionalMaterialModal()"
-                            href="javascript:void(0)" style="background-color: #00491E; border-color: #00491E;">Cancel</button>
+                            href="javascript:void(0)"
+                            style="background-color: #00491E; border-color: #00491E;">Cancel</button>
                         <button type="button" class="btn btn-danger" id="DeleteInstructionalMaterial">Delete</button>
                     </div>
                 </div>
@@ -306,7 +307,7 @@
     <script>
     function showAddInstructionalMaterialModal() {
         $.ajax({
-            url: "{{ route('instructional_materials.create') }}",
+            url: "{{ route('masterlist.create') }}",
             type: 'GET',
             dataType: 'json',
             success: function(response) {
@@ -329,7 +330,9 @@
                 $('#AddInstructionalMaterialModal').modal('show');
             },
             error: function(xhr, status, error) {
-                console.error(xhr.responseText);
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
             }
         });
     }
@@ -338,7 +341,7 @@
     }
     function showEditInstructionalMaterialModal(instructionalMaterialId) {
         $.ajax({
-            url: "{{ route('instructional_materials.create') }}",
+            url: "{{ route('masterlist.create') }}",
             type: 'GET',
             dataType: 'json',
             success: function(response) {
@@ -357,7 +360,7 @@
                 });
                 selectCategory.select2();
                 $.ajax({
-                    url: "{{ route('instructional_materials.edit', ':id') }}".replace(':id',
+                    url: "{{ route('masterlist.edit', ':id') }}".replace(':id',
                         instructionalMaterialId),
                     type: 'GET',
                     dataType: 'json',
@@ -395,12 +398,16 @@
                         $('#EditInstructionalMaterialModal').modal('show');
                     },
                     error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
+                        var errorMessage = JSON.parse(xhr.responseText).error;
+                        console.error(errorMessage);
+                        toastr.error(errorMessage);
                     }
                 });
             },
             error: function(xhr, status, error) {
-                console.error(xhr.responseText);
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
             }
         });
     }
@@ -417,7 +424,7 @@
         event.preventDefault();
         var formData = $(this).serialize();
         $.ajax({
-            url: "{{ route('instructional_materials.store') }}",
+            url: "{{ route('masterlist.store') }}",
             type: 'POST',
             data: formData,
             success: function(response) {
@@ -425,11 +432,12 @@
                 console.log(successMessage);
                 hideAddInstructionalMaterialModal();
                 toastr.success(successMessage);
-                refreshInstructionalMaterialsTable();
+                refreshMasterlistTable();
             },
             error: function(xhr, status, error) {
-                location.reload();
-                console.error(xhr.responseText);
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
             }
         });
     });
@@ -438,7 +446,7 @@
         var formData = $(this).serialize();
         var instructionalMaterialId = $('#InstructionalMaterialId').val();
         $.ajax({
-            url: "{{ route('instructional_materials.update', ':id') }}".replace(':id',
+            url: "{{ route('masterlist.update', ':id') }}".replace(':id',
                 instructionalMaterialId),
             type: 'POST',
             data: formData,
@@ -447,21 +455,22 @@
                 console.log(successMessage);
                 hideEditInstructionalMaterialModal();
                 toastr.success(successMessage);
-                refreshInstructionalMaterialsTable();
+                refreshMasterlistTable();
             },
             error: function(xhr, status, error) {
-                location.reload();
-                console.error(xhr.responseText);
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
             }
         });
     });
-    $('#InstructionalMaterialsTable').on('click', '.delete', function(event) {
+    $('#MasterlistTable').on('click', '.delete', function(event) {
         event.preventDefault();
         var instructionalMaterialId = $(this).data('id');
         showDeleteInstructionalMaterialModal();
         $('#DeleteInstructionalMaterial').off().on('click', function() {
             $.ajax({
-                url: "{{ route('instructional_materials.destroy', ':id') }}".replace(':id',
+                url: "{{ route('masterlist.destroy', ':id') }}".replace(':id',
                     instructionalMaterialId),
                 type: 'DELETE',
                 data: {
@@ -472,7 +481,7 @@
                     console.log(successMessage);
                     hideDeleteInstructionalMaterialModal();
                     toastr.success(successMessage);
-                    refreshInstructionalMaterialsTable();
+                    refreshMasterlistTable();
                 },
                 error: function(xhr, status, error) {
                     var errorMessage = JSON.parse(xhr.responseText).error;
@@ -482,13 +491,13 @@
             });
         });
     });
-    function refreshInstructionalMaterialsTable() {
+    function refreshMasterlistTable() {
         $.ajax({
-            url: "{{ route('instructional_materials.index') }}",
+            url: "{{ route('masterlist.index') }}",
             type: 'GET',
             dataType: 'json',
             success: function(data) {
-                var table = $('#InstructionalMaterialsTable').DataTable();
+                var table = $('#MasterlistTable').DataTable();
                 var existingRows = table.rows().remove().draw(false);
                 data.forEach(function(im) {
                     var authors = '';
@@ -519,12 +528,14 @@
                 table.draw();
             },
             error: function(xhr, status, error) {
-                console.error(xhr.responseText);
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
             }
         });
     }
     $(document).ready(function() {
-        $('#InstructionalMaterialsTable').DataTable({
+        $('#MasterlistTable').DataTable({
             "paging": true,
             "lengthChange": false,
             "searching": true,
@@ -537,9 +548,9 @@
             "scrollCollapse": false,
             "buttons": ["copy", "excel", "pdf", "print"],
             "pageLength": 8
-        }).buttons().container().appendTo('#InstructionalMaterialsTable_wrapper .col-md-6:eq(0)');
-        refreshInstructionalMaterialsTable();
-        setInterval(refreshInstructionalMaterialsTable, 60000);
+        }).buttons().container().appendTo('#MasterlistTable_wrapper .col-md-6:eq(0)');
+        refreshMasterlistTable();
+        setInterval(refreshMasterlistTable, 60000);
         $('#AddInstructionalMaterialModal').on('hidden.bs.modal', function(e) {
             $('#AddInstructionalMaterialForm')[0].reset();
             $('#AddInstructionalMaterialModal select').val(null).trigger('change');
@@ -548,7 +559,7 @@
         $(window).on('resize', function() {
             var currentWidth = $(window).width();
             if (currentWidth !== previousWidth) {
-                refreshInstructionalMaterialsTable();
+                refreshMasterlistTable();
                 previousWidth = currentWidth;
             }
         });

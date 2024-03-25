@@ -14,7 +14,6 @@ return new class extends Migration {
             $table->float('production_cost');
             $table->float('price');
             $table->integer('quantity_produced');
-            $table->integer('available_stocks');
             $table->timestamps();
         });
     }
