@@ -30,7 +30,7 @@ class BatchController extends Controller
         if (request()->ajax()) {
             return response()->json($batches);
         } else {
-            return view('instructional_materials.manage_batches', compact('batches'));
+            return view('inventory_records.manage_batches', compact('batches'));
         }
     }
     public function create()

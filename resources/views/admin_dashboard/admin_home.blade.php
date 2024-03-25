@@ -46,7 +46,7 @@
                     <div class="small-box bg-success">
                         <div class="inner">
                             <h3>{{ $countIms }}</h3>
-                            <p>Instructional Materials</p>
+                            <p>Masterlist</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-book"></i>

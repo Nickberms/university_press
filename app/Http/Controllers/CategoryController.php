@@ -13,7 +13,7 @@ class CategoryController extends Controller
         if (request()->ajax()) {
             return response()->json($categories);
         } else {
-            return view('instructional_materials.manage_categories', compact('categories'));
+            return view('inventory_records.manage_categories', compact('categories'));
         }
     }
     public function create()

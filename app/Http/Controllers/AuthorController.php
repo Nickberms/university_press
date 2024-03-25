@@ -13,7 +13,7 @@ class AuthorController extends Controller
         if (request()->ajax()) {
             return response()->json($authors);
         } else {
-            return view('instructional_materials.manage_authors', compact('authors'));
+            return view('inventory_records.manage_authors', compact('authors'));
         }
     }
     public function create()

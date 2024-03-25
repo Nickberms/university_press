@@ -18,7 +18,7 @@ class IMController extends Controller
         if (request()->ajax()) {
             return response()->json($ims);
         } else {
-            return view('instructional_materials.manage_masterlist', compact('ims'));
+            return view('inventory_records.manage_masterlist', compact('ims'));
         }
     }
     public function create()
