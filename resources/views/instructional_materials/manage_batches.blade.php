@@ -40,7 +40,9 @@
                                 <th>Production Cost</th>
                                 <th>Price</th>
                                 <th>Quantity Produced</th>
+                                <th>Quantity Sold</th>
                                 <th>Available Stocks</th>
+                                <th>Total Revenue</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -399,6 +401,7 @@
                     var formattedProductionDateString = formattedProductionDate.toLocaleDateString(
                         'en-US', options);
                     var availableStocks = batch.quantity_produced - batch.quantity_sold;
+                    var totalRevenue = (batch.price.toFixed(2) * batch.quantity_sold) - batch.production_cost.toFixed(2);
                     table.row.add([
                         '<div class="text-center">' +
                         '<a href="#" class="edit" title="Edit" data-toggle="tooltip" data-id="' +
@@ -413,7 +416,9 @@
                         batch.production_cost.toFixed(2),
                         batch.price.toFixed(2),
                         batch.quantity_produced,
-                        availableStocks
+                        batch.quantity_sold,
+                        availableStocks,
+                        totalRevenue
                     ]);
                 });
                 table.draw();
