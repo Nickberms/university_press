@@ -1,11 +1,14 @@
 <div class="sidebar">
-    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="info">
-            <a href="{{ route('profile.show') }}" class="d-block">{{ Auth::user()->name }}</a>
-        </div>
-    </div>
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <li class="nav-item">
+                <a href="{{ route('profile.show') }}" class="nav-link">
+                    <i class="nav-icon fas fa-user-circle"></i>
+                    <p>
+                        My Profile
+                    </p>
+                </a>
+            </li>
             <li class="nav-item">
                 <a href="{{ route('dashboard.index') }}" class="nav-link">
                     <i class="nav-icon fas fa-th"></i>
@@ -16,7 +19,7 @@
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-file"></i>
+                    <i class="nav-icon fas fa-clipboard-check"></i>
                     <p>
                         Inventory Records
                         <i class="fas fa-angle-left right"></i>
@@ -37,7 +40,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('authors.index') }}" class="nav-link">
-                            <i class="fas fa-users"></i>
+                            <i class="fas fa-pen-nib"></i>
                             <p>Authors</p>
                         </a>
                     </li>
