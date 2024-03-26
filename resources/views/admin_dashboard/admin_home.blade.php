@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <link rel="stylesheet" href="admin/plugins/toastr/toastr.min.css">
+    <link rel="icon" href="images/cmu_press_logo.png" type="image/png">
     <script src="admin/plugins/sweetalert2/sweetalert2.min.js"></script>
     <script src="admin/plugins/toastr/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>

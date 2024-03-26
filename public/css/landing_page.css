@@ -1,305 +1,164 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
-
-*{
-  font-family: 'Nunito',sans-serif;
-  margin: 0;padding: 0;
-  box-sizing: border-box;
-  text-decoration: none;
-  text-transform: capitalize;
-  transition: .2s linear;  
+* {
+    font-family: 'Nunito', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    transition: .2s linear;
 }
-
-html{
-    font-size: 62.5;
+section {
+    padding: 2rem 18%;
 }
-
-section{
-    padding: 2rem 9%;
-}
-
-.header{
+.header {
     position: fixed;
-    top: 0; left: 0; right: 0;
+    top: 0;
+    left: 0;
+    right: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 1rem 9%;
-    z-index: 2;
-    background: #fff;
-    box-shadow: 0px 2px 4px rgba(0,73,30);
+    z-index: 1;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 4px rgba(0, 73, 30);
 }
-
-.header .logo {
-    display: flex;
-    align-items: center; /* Center items vertically */
-}
-
-.header .logo img{
-    height: 4rem;
-}
-
 .header .logo span {
     margin-left: 0.5rem;
-    font-weight: bold; 
-    display: inline-block; 
-    vertical-align: middle; 
-    color: #00491e;
-    font-size: 1.3rem;
+    font-weight: bold;
+    display: inline-block;
+    vertical-align: middle;
+    color: #00491E;
+    font-size: 1.5rem;
 }
-
-.header .navbar #close{
+.header .navbar #Close {
     display: none;
     position: absolute;
     top: 4rem;
     right: 2rem;
     cursor: pointer;
     font-size: 3rem;
-    color: #000;
+    color: #000000;
 }
-
-.header .navbar a{
+.header .navbar a {
     font-size: 1.3rem;
     margin-right: 2rem;
-    color:#00491e;
+    color: #00491E;
 }
-
-.header .navbar a:hover{
-    color: #ffc600;
+.header .navbar a:hover {
+    color: #FFC600;
 }
-
-.header #menu{
+.header #Menu {
     display: none;
     cursor: pointer;
     font-size: 2.5rem;
-    color: #000;
+    color: #000000;
 }
-
-/* ends */
-
-/* home */
-.home{
+.home {
     display: flex;
+    margin-top: 1rem;
     flex-wrap: wrap;
     gap: 1.5rem;
     min-height: 100vh;
     align-items: center;
     justify-content: center;
-    background: #fff;
+    background: #E9ECEF;
 }
-
-.home .content{
+.home .content {
     flex: 1 1 40rem;
     padding-top: 6.5rem;
 }
-
 .home #content .title {
-    font-size: 6rem;
-    color: #00491e;
-    text-transform: uppercase;
-}
-
-.home #content .title span{
-    text-transform: uppercase;
-    color: #919f02;
-}
-
-.home #content .description{
-    font-size: 2rem;
-    font-weight: lighter;
-    line-height: 1.8;
-    padding: 1rem 0;
-    color: #00491e;
-}
-
-.home #content .btn {
-    margin-top: 1rem;
-    display: inline-block;
-    padding: .9rem 3rem;
-    font-size: 1.7rem;
-    color: #fff;
-    background: #ffc600;
-    cursor: pointer;
-}
-
-.home #content .btn:hover {
-    letter-spacing: .2rem;
-}
-
-.home .image{
-    flex: 1 1 40rem;
-}
-
-.home .image img{
-    width: 100%;
-}
-
-/* end */
-
-/* aboutus */
-
-.about_us{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    min-height: 100vh;
-    align-items: center;
-    justify-content: center;
-    background: #fff;
-}
-
-.about_us .content{
-    flex: 1 1 40rem;
-    padding-top: 6.5rem;
-}
-
-.about_us #content .title {
     font-size: 4rem;
-    color: #00491e;
-    text-transform: uppercase;
+    color: #00491E;
+    padding-top: 3rem;
 }
-
-.about_us #content .title span{
-    text-transform: uppercase;
-    color: #919f02;
+.home #content .title span {
+    color: #919F02;
 }
-
-.about_us #content .description {
-    font-size: 1rem;
-    font-weight: 500; /* or 700 */
-    line-height: 1.8;
-    padding: 1rem 0;
-    color: #00491e;
+.home #content .description {
+    font-size: 1.7rem;
+    font-weight: lighter;
+    color: #00491E;
 }
-
-.about_us #content .btn {
-    margin-top: 1rem;
+.home #content .btn {
+    margin-top: 3rem;
     display: inline-block;
     padding: .9rem 3rem;
-    font-size: 1.7rem;
-    color: #fff;
-    background: #ffc600;
+    font-size: 1.5rem;
+    color: #FFFFFF;
+    background: #02681E;
     cursor: pointer;
 }
-
-.about_us #content .btn:hover {
-    letter-spacing: .2rem;
-}
-
-.about_us .image{
+.home .image {
     flex: 1 1 40rem;
 }
-
-.about_us .image img{
-    width: 100%;
-}
-
 .about_us {
     display: flex;
-    align-items: center;
-}
-/* end */
-
-/* aims */
-.aims{
-    display: flex;
     flex-wrap: wrap;
-    gap: 1.5rem;
-    min-height: 100vh;
+    min-height: 110vh;
     align-items: center;
     justify-content: center;
-    background: #fff;
+    background: #FFFFFF;
 }
-
-.aims .content{
-    flex: 1 1 40rem;
-    padding-top: 6.5rem;
+.about_us #content .title {
+    font-size: 4rem;
+    color: #00491E;
 }
-
-.aims #content .title {
-    font-size: 2.5rem;
-    color: #00491e;
-    text-transform: uppercase;
+.about_us #content .title span {
+    color: #919F02;
 }
-
-.aims #content .title span{
-    text-transform: uppercase;
-    color: #919f02;
-}
-
-.aims #content .description {
-    font-size: 1.3rem;
-    font-weight: 500; /* or 700 */
+.about_us #content .description {
+    font-size: 1rem;
+    font-weight: 500;
     line-height: 1.8;
-    padding: 1rem 0;
-    color: #00491e;
+    padding: 0.5rem 0;
+    color: #00491E;
+    text-align: justify;
+    letter-spacing: -0.5px;
 }
-
-.aims #content .btn {
-    margin-top: 1rem;
-    display: inline-block;
-    padding: .9rem 3rem;
-    font-size: 1.7rem;
-    color: #fff;
-    background: #ffc600;
-    cursor: pointer;
-}
-
-.aims #content .btn:hover {
-    letter-spacing: .2rem;
-}
-
-.aims .image{
-    flex: 1 1 40rem;
-}
-
-.aims .image img{
-    width: 100%;
-}
-
 .aims {
     display: flex;
+    flex-wrap: wrap;
+    min-height: 110vh;
     align-items: center;
+    justify-content: center;
+    background: #E9ECEF;
 }
-/* end */
-
-
-
-
-
-#content {
-    flex: 1; /* Makes the content take up remaining space */
-    padding: 0 20px; /* Add padding for spacing */
+.aims #content .title {
+    font-size: 4rem;
+    color: #00491E;
 }
-
-#image {
-    margin-right: 20px; /* Add margin for spacing between image and text */
+.aims #content .title span {
+    color: #919F02;
 }
-
-@media (max-width:991px){
-    html{
+.aims #content .description {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.8;
+    padding: 0.5rem 0;
+    color: #00491E;
+    text-align: justify;
+    letter-spacing: -0.5px;
+}
+@media (max-width:991px) {
+    html {
         font-size: 55%;
     }
-
-    .header{
+    .header {
         padding: 2rem;
     }
-
-    section{
+    section {
         padding: 2rem;
     }
 }
-
-@media (max-width:768px){
-
-    .header #menu{
-        display: inline-block;
-    }
-
-    .header .navbar{
+@media (max-width:768px) {
+    .header .navbar {
         position: fixed;
-        top: 0; right: -105%;
+        top: 0;
+        right: -105%;
         width: 30rem;
-        background: rgba(255,255,255,0.2);
+        background: rgba(255, 255, 255, 0.2);
         backdrop-filter: blur(50px);
         transform: .5s;
         height: 100%;
@@ -308,37 +167,33 @@ section{
         justify-content: center;
         z-index: 1200;
     }
-
-    .header .navbar.active{
+    .header .navbar.active {
         right: 0;
     }
-
-    .header .navbar #close{
+    .header .navbar #Close {
         display: block;
     }
-
-    .header .navbar a{
+    .header .navbar a {
         display: block;
         margin: 1rem 0;
         text-align: center;
         font-size: 3rem;
     }
-
-    .home .content{
+    .header #Menu {
+        display: inline-block;
+    }
+    .home .content {
         padding-top: 9.5rem;
     }
-
-    .home .image .img{
-        width: 368px;
-    }
-
-    .home .content .title{
+    .home .content .title {
         font-size: 4rem;
     }
+    .home .image .img {
+        width: 368px;
+    }
 }
-
-@media (max-width:450px){
-    html{
+@media (max-width:450px) {
+    html {
         font-size: 50%;
     }
 }

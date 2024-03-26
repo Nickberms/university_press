@@ -1,13 +1,9 @@
 @extends('layouts.guest')
-
 @section('content')
 <div class="card-body login-card-body">
-    <p class="login-box-msg" style="font-size: 26px;">{{ __('Login') }}</p>
-
-
+    <p class="login-box-msg" style="font-size: 20px;">{{ __('Login') }}</p>
     <form action="{{ route('login') }}" method="post">
         @csrf
-
         <div class="input-group mb-3">
             <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
                 placeholder="{{ __('Email') }}" required autofocus>
@@ -22,7 +18,6 @@
             </span>
             @enderror
         </div>
-
         <div class="input-group mb-3">
             <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
                 placeholder="{{ __('Password') }}" required>
@@ -37,7 +32,6 @@
             </span>
             @enderror
         </div>
-
         <div class="row">
             <div class="col-8">
                 <div class="icheck-primary">
@@ -47,23 +41,16 @@
                     </label>
                 </div>
             </div>
-            <!-- /.col -->
             <div class="col-4">
                 <button type="submit" class="btn btn-success btn-block"
-                    style="background-color: #00491e; border-color: #00491e;"
-                    onmouseover="this.style.backgroundColor='#003d17'; this.style.borderColor='#003d17';"
-                    onmouseout="this.style.backgroundColor='#00491e'; this.style.borderColor='#00491e';">{{ __('Login') }}</button>
+                    style="background-color: #00491E; border-color: #00491E;">{{ __('Login') }}</button>
             </div>
-
-            <!-- /.col -->
         </div>
     </form>
-
-    <!-- @if (Route::has('password.request'))
-            <p class="mb-1">
-                <a href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a>
-            </p>
-        @endif -->
+    @if (Route::has('password.request'))
+    <p class="mb-1">
+        <a href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a>
+    </p>
+    @endif
 </div>
-<!-- /.login-card-body -->
 @endsection
