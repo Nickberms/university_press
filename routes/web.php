@@ -10,9 +10,9 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\MonitoringController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Auth::routes();
 //Route::resource('users', UserController::class)->middleware(['auth','admin']);
 Route::resource('dashboard', DashboardController::class)->middleware('auth');
@@ -29,3 +29,8 @@ Route::resource('batches', BatchController::class)->middleware('auth');
 Route::resource('purchases', PurchaseController::class)->middleware('auth');
 Route::resource('reports', ReportController::class)->middleware('auth');
 Route::resource('monitoring', MonitoringController::class)->middleware('auth');
+
+// Landing Page
+Route::get('/', function () {
+    return view('landing_page.landing_page');
+})->name('landing-page');
