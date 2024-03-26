@@ -84,7 +84,7 @@
                                     <button type="button" class="btn btn-danger" onClick="hideAddAuthorModal()"
                                         href="javascript:void(0)">Cancel</button>
                                     <button type="submit" class="btn btn-primary"
-                                        style="background-color: #00491E; border-color: #00491E;">Add</button>
+                                        style="background-color: #00491E; border-color: #00491E;">Add Author</button>
                                 </div>
                             </div>
                         </form>
@@ -135,7 +135,7 @@
                                     <button type="button" class="btn btn-danger" onClick="hideEditAuthorModal()"
                                         href="javascript:void(0)">Cancel</button>
                                     <button type="submit" class="btn btn-primary"
-                                        style="background-color: #00491E; border-color: #00491E;">Update</button>
+                                        style="background-color: #00491E; border-color: #00491E;">Update Author</button>
                                 </div>
                             </div>
                         </form>
@@ -159,7 +159,7 @@
                         <button type="button" class="btn btn-primary" onClick="hideDeleteAuthorModal()"
                             href="javascript:void(0)"
                             style="background-color: #00491E; border-color: #00491E;">Cancel</button>
-                        <button type="button" class="btn btn-danger" id="DeleteAuthor">Delete</button>
+                        <button type="button" class="btn btn-danger" id="DeleteAuthor">Delete Author</button>
                     </div>
                 </div>
             </div>

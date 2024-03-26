@@ -122,7 +122,7 @@
                                     <button type="button" class="btn btn-danger" onClick="hideAddBatchModal()"
                                         href="javascript:void(0)">Cancel</button>
                                     <button type="submit" class="btn btn-primary"
-                                        style="background-color: #00491E; border-color: #00491E;">Add</button>
+                                        style="background-color: #00491E; border-color: #00491E;">Add Batch</button>
                                 </div>
                             </div>
                         </form>
@@ -203,7 +203,7 @@
                                     <button type="button" class="btn btn-danger" onClick="hideEditBatchModal()"
                                         href="javascript:void(0)">Cancel</button>
                                     <button type="submit" class="btn btn-primary"
-                                        style="background-color: #00491E; border-color: #00491E;">Update</button>
+                                        style="background-color: #00491E; border-color: #00491E;">Update Batch</button>
                                 </div>
                             </div>
                         </form>
@@ -227,7 +227,7 @@
                         <button type="button" class="btn btn-primary" onClick="hideDeleteBatchModal()"
                             href="javascript:void(0)"
                             style="background-color: #00491E; border-color: #00491E;">Cancel</button>
-                        <button type="button" class="btn btn-danger" id="DeleteBatch">Delete</button>
+                        <button type="button" class="btn btn-danger" id="DeleteBatch">Delete Batch</button>
                     </div>
                 </div>
             </div>
@@ -418,7 +418,7 @@
                         batch.quantity_produced,
                         batch.quantity_sold,
                         availableStocks,
-                        totalRevenue
+                        totalRevenue.toFixed(2)
                     ]);
                 });
                 table.draw();

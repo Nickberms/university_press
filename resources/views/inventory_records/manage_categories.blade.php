@@ -81,7 +81,7 @@
                                     <button type="button" class="btn btn-danger" onClick="hideAddCategoryModal()"
                                         href="javascript:void(0)">Cancel</button>
                                     <button type="submit" class="btn btn-primary"
-                                        style="background-color: #00491E; border-color: #00491E;">Add</button>
+                                        style="background-color: #00491E; border-color: #00491E;">Add Category</button>
                                 </div>
                             </div>
                         </form>
@@ -128,7 +128,7 @@
                                     <button type="button" class="btn btn-danger" onClick="hideEditCategoryModal()"
                                         href="javascript:void(0)">Cancel</button>
                                     <button type="submit" class="btn btn-primary"
-                                        style="background-color: #00491E; border-color: #00491E;">Update</button>
+                                        style="background-color: #00491E; border-color: #00491E;">Update Category</button>
                                 </div>
                             </div>
                         </form>
@@ -152,7 +152,7 @@
                         <button type="button" class="btn btn-primary" onClick="hideDeleteCategoryModal()"
                             href="javascript:void(0)"
                             style="background-color: #00491E; border-color: #00491E;">Cancel</button>
-                        <button type="button" class="btn btn-danger" id="DeleteCategory">Delete</button>
+                        <button type="button" class="btn btn-danger" id="DeleteCategory">Delete Category</button>
                     </div>
                 </div>
             </div>

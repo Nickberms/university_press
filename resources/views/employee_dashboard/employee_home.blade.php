@@ -62,7 +62,7 @@
                             <p>Authors</p>
                         </div>
                         <div class="icon">
-                            <i class="fas fa-users"></i>
+                            <i class="fas fa-pen-nib"></i>
                         </div>
                         <a href="{{ route('authors.index') }}" class="small-box-footer">More info <i
                                 class="fas fa-arrow-circle-right"></i></a>

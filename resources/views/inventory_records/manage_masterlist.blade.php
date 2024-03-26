@@ -157,7 +157,7 @@
                                         onClick="hideAddInstructionalMaterialModal()"
                                         href="javascript:void(0)">Cancel</button>
                                     <button type="submit" class="btn btn-primary"
-                                        style="background-color: #00491E; border-color: #00491E;">Add</button>
+                                        style="background-color: #00491E; border-color: #00491E;">Add Instructional Material</button>
                                 </div>
                             </div>
                         </form>
@@ -273,7 +273,7 @@
                                         onClick="hideEditInstructionalMaterialModal()"
                                         href="javascript:void(0)">Cancel</button>
                                     <button type="submit" class="btn btn-primary"
-                                        style="background-color: #00491E; border-color: #00491E;">Update</button>
+                                        style="background-color: #00491E; border-color: #00491E;">Update Instructional Material</button>
                                 </div>
                             </div>
                         </form>
@@ -297,7 +297,7 @@
                         <button type="button" class="btn btn-primary" onClick="hideDeleteInstructionalMaterialModal()"
                             href="javascript:void(0)"
                             style="background-color: #00491E; border-color: #00491E;">Cancel</button>
-                        <button type="button" class="btn btn-danger" id="DeleteInstructionalMaterial">Delete</button>
+                        <button type="button" class="btn btn-danger" id="DeleteInstructionalMaterial">Delete Instructional Material</button>
                     </div>
                 </div>
             </div>
