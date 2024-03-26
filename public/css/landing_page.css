@@ -163,9 +163,9 @@ section{
     color: #919f02;
 }
 
-.about_us #content .description{
+.about_us #content .description {
     font-size: 1rem;
-    font-weight: lighter;
+    font-weight: 500; /* or 700 */
     line-height: 1.8;
     padding: 1rem 0;
     color: #00491e;
@@ -197,6 +197,74 @@ section{
     display: flex;
     align-items: center;
 }
+/* end */
+
+/* aims */
+.aims{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+}
+
+.aims .content{
+    flex: 1 1 40rem;
+    padding-top: 6.5rem;
+}
+
+.aims #content .title {
+    font-size: 2.5rem;
+    color: #00491e;
+    text-transform: uppercase;
+}
+
+.aims #content .title span{
+    text-transform: uppercase;
+    color: #919f02;
+}
+
+.aims #content .description {
+    font-size: 1.3rem;
+    font-weight: 500; /* or 700 */
+    line-height: 1.8;
+    padding: 1rem 0;
+    color: #00491e;
+}
+
+.aims #content .btn {
+    margin-top: 1rem;
+    display: inline-block;
+    padding: .9rem 3rem;
+    font-size: 1.7rem;
+    color: #fff;
+    background: #ffc600;
+    cursor: pointer;
+}
+
+.aims #content .btn:hover {
+    letter-spacing: .2rem;
+}
+
+.aims .image{
+    flex: 1 1 40rem;
+}
+
+.aims .image img{
+    width: 100%;
+}
+
+.aims {
+    display: flex;
+    align-items: center;
+}
+/* end */
+
+
+
+
 
 #content {
     flex: 1; /* Makes the content take up remaining space */

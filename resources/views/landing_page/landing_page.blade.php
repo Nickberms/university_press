@@ -24,6 +24,7 @@
 
         <nav class="navbar">
             <div id="close" class="fas fa-times"></div>
+            <a href="#aims" class="nav_item">Aims</a>
             <a href="#about_us" class="nav_item">About Us</a>
             <a href="{{ route('login') }}" class="nav_item">Login</a>
         </nav>
@@ -49,11 +50,9 @@
     </section>
 
     <section class="about_us" id="about_us">
-        <div id="image">
-            <img src="{{ asset('images/cmu_press.png')}}" alt="" data-speed="-3" class="move">
-        </div>
         <div id="content">
             <h1 class="title">About <span>Us</span> </h1>
+            <br>
             <p class="description">The University Press was first established as the Instructional Materials Development
                 Center (IMDC) from 2007 until 2015, then as CMU Press from 2015 to 2023 until it eventually
                 metamorphosed into what it is today. </p>
@@ -90,13 +89,30 @@
                 disseminate these materials within the University, other HEIs, and to interested agencies. It envisions
                 becoming a leading academic publisher in the country and the Association of Southeast Asian Nations
                 (ASEAN) region.</p>
-
-
         </div>
     </section>
 
-
-
+    <section class="aims" id="aims">
+        <div id="content">
+            <h1 class="title">THE GOAL AND OBJECTIVES OF THE <span>UNIVERSITY PRESS</span> </h1>
+            <p class="description">The University Press supports the University's academic mission by publishing quality
+                instructional materials, research, extension, and other intellectual outputs of the faculty, students,
+                and other stakeholders. It aims to attain the following objectives:</p>
+            <p class="description">1. To facilitate development programs and activities within and outside of the
+                University, such as trainings, seminars, and workshops for the faculty, staff, and students;</p>
+            <p class="description">2. To publish peer-reviewed materials like books, lecture notes, learning guides,
+                laboratory manuals, workbooks, modules, monographs, proceedings, compendia, journals, magazines,
+                literary folio, and other creative works;</p>
+            <p class="description">3. To partner with HEIs and other institutions recognized for their best publication
+                practices;
+            </p>
+            <p class="description">4. To operate in a manner that sustains its growth and productivity; and
+            </p>
+            <p class="description">5. To help cultivate a culture of professional and creative excellence as a model to
+                other HEIs
+            </p>
+        </div>
+    </section>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 

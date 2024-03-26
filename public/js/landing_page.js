@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 document.addEventListener("DOMContentLoaded", function() {
-    const aboutUsLink = document.querySelector('.nav_item');
+    const aboutUsLink = document.querySelector('.nav_item[href="#about_us"]');
     aboutUsLink.addEventListener('click', function(event) {
         event.preventDefault();
         const aboutUsSection = document.querySelector('.about_us');
@@ -47,12 +47,15 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+document.addEventListener("DOMContentLoaded", function() {
+    const aimsLink = document.querySelector('.nav_item[href="#aims"]');
+    aimsLink.addEventListener('click', function(event) {
+        event.preventDefault();
+        const aimsSection = document.querySelector('#aims');
+        aimsSection.scrollIntoView({ behavior: 'smooth' });
+    });
+});
 
-
-
-
-
-gsap.from('.logo', {opacity: 1, duration: 1, delay: 0.5, y:10})
 gsap.from('.navbar .nav_item', {opacity: 1, duration: 1, delay: 1, y:30, stagger: 0.2})
 
 gsap.from('.title', {opacity: 1, duration: 1, delay: 1.6, y:30})
