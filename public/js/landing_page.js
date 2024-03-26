@@ -20,6 +20,35 @@ function move(e){
     });
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+    const aboutUsLink = document.querySelector('.btn');
+    aboutUsLink.addEventListener('click', function(event) {
+        event.preventDefault();
+        const aboutUsSection = document.querySelector('.about_us');
+        aboutUsSection.scrollIntoView({ behavior: 'smooth' });
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    const aboutUsLink = document.querySelector('.nav_item');
+    aboutUsLink.addEventListener('click', function(event) {
+        event.preventDefault();
+        const aboutUsSection = document.querySelector('.about_us');
+        aboutUsSection.scrollIntoView({ behavior: 'smooth' });
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    const logoLink = document.querySelector('.logo');
+    logoLink.addEventListener('click', function(event) {
+        event.preventDefault();
+        const homeSection = document.querySelector('#home');
+        homeSection.scrollIntoView({ behavior: 'smooth' });
+    });
+});
+
+
+
 
 
 

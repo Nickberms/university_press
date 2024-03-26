@@ -18,23 +18,20 @@
 
     <style>
     body {
-        /* Set the background image using the asset helper */
-        background-image: url('{{ asset('admin/image/R.jpg') }}');
-        /* Ensure the image covers the entire viewport */
-        background-size: cover;
-        /* Center the background image */
-        background-position: center;
-        /* Fix the background image */
-        background-attachment: fixed;
-        /* Add a fallback background color in case the image is not available */
-        background-color: #f1f1f1;
+        /* Set background color to white */
+        background-color: #FFFFFF;
     }
 
     /* Additional styles for your content */
     /* For example: */
-    .content {
-        padding: 20px;
-        color: #333;
+    .custom-btn-color {
+        background-color: #00491e;
+        border-color: #00491e;
+    }
+
+    .custom-btn-color:hover {
+        background-color: #ffc600;
+        border-color: #ffc600;
     }
     </style>
 </head>
@@ -42,8 +39,12 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="/"
-                style="font-weight: bold; color: white; text-decoration: none; font-size: 24px;">{{ config('app.name', 'Laravel') }}</a>
+            <div>
+                <img src="{{ asset('images/cmu_press.png')}}" alt="Logo" style="width: 200px; height: auto;">
+            </div>
+            <a href="/" style="font-weight: bold; color: #00491e; text-decoration: none; font-size: 30px;">
+                {{ config('app.name', 'Laravel') }}
+            </a>
         </div>
         <!-- /.login-logo -->
         <div class="card">

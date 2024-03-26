@@ -135,6 +135,78 @@ section{
 
 /* end */
 
+/* aboutus */
+
+.about_us{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+}
+
+.about_us .content{
+    flex: 1 1 40rem;
+    padding-top: 6.5rem;
+}
+
+.about_us #content .title {
+    font-size: 4rem;
+    color: #00491e;
+    text-transform: uppercase;
+}
+
+.about_us #content .title span{
+    text-transform: uppercase;
+    color: #919f02;
+}
+
+.about_us #content .description{
+    font-size: 1rem;
+    font-weight: lighter;
+    line-height: 1.8;
+    padding: 1rem 0;
+    color: #00491e;
+}
+
+.about_us #content .btn {
+    margin-top: 1rem;
+    display: inline-block;
+    padding: .9rem 3rem;
+    font-size: 1.7rem;
+    color: #fff;
+    background: #ffc600;
+    cursor: pointer;
+}
+
+.about_us #content .btn:hover {
+    letter-spacing: .2rem;
+}
+
+.about_us .image{
+    flex: 1 1 40rem;
+}
+
+.about_us .image img{
+    width: 100%;
+}
+
+.about_us {
+    display: flex;
+    align-items: center;
+}
+
+#content {
+    flex: 1; /* Makes the content take up remaining space */
+    padding: 0 20px; /* Add padding for spacing */
+}
+
+#image {
+    margin-right: 20px; /* Add margin for spacing between image and text */
+}
+
 @media (max-width:991px){
     html{
         font-size: 55%;
