@@ -6,7 +6,7 @@
         @csrf
         <div class="input-group mb-3">
             <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                placeholder="{{ __('Name') }}" required autocomplete="name" autofocus>
+                placeholder="{{ __('Username') }}" required autocomplete="name" autofocus>
             <div class="input-group-append">
                 <div class="input-group-text">
                     <span class="fas fa-user"></span>
