@@ -402,7 +402,11 @@
                     var formattedProductionDateString = formattedProductionDate.toLocaleDateString(
                         'en-US', options);
                     var availableStocks = batch.quantity_produced - batch.quantity_sold;
-                    var totalRevenue = (batch.price.toFixed(2) * batch.quantity_sold) - batch.production_cost.toFixed(2);
+                    var totalRevenue = (batch.price.toFixed(2) * batch.quantity_sold) - batch
+                        .production_cost.toFixed(2);
+                    function monetaryValue(x) {
+                        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    }
                     table.row.add([
                         '<div class="text-center">' +
                         '<a href="#" class="edit" title="Edit" data-toggle="tooltip" data-id="' +
@@ -414,12 +418,15 @@
                         batch.im.title,
                         batch.name,
                         formattedProductionDateString,
-                        batch.production_cost.toFixed(2),
-                        batch.price.toFixed(2),
-                        batch.quantity_produced,
-                        batch.quantity_sold,
-                        availableStocks,
-                        totalRevenue.toFixed(2)
+                        '<span style="float:right;">' + monetaryValue(batch
+                            .production_cost.toFixed(2)) + '</span>',
+                        '<span style="float:right;">' + monetaryValue(batch.price
+                            .toFixed(2)) + '</span>',
+                        '<span style="float:right;">' + batch.quantity_produced + '</span>',
+                        '<span style="float:right;">' + batch.quantity_sold + '</span>',
+                        '<span style="float:right;">' + availableStocks + '</span>',
+                        '<span style="float:right;">' + monetaryValue(totalRevenue
+                            .toFixed(2)) + '</span>'
                     ]);
                 });
                 table.draw();
@@ -455,7 +462,7 @@
             "ordering": false,
             "info": true,
             "autoWidth": false,
-            "responsive": true,
+            "responsive": false,
             "scrollX": true,
             "scrollY": true,
             "scrollCollapse": false,

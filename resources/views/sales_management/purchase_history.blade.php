@@ -38,9 +38,9 @@
                                 <th>OR Number</th>
                                 <th>Instructional Material</th>
                                 <th>IM Batch</th>
+                                <th>Date Sold</th>
                                 <th>Price</th>
                                 <th>Quantity</th>
-                                <th>Date Sold</th>
                                 <th>Total Price</th>
                             </tr>
                         </thead>
@@ -256,15 +256,20 @@
                     var formattedDateSoldString = formattedDateSold.toLocaleDateString('en-US',
                         options);
                     var totalPrice = purchase.batch.price.toFixed(2) * purchase.quantity;
+                    function monetaryValue(x) {
+                        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    }
                     table.row.add([
                         purchase.customer_name,
                         purchase.or_number,
                         purchase.im.title,
                         purchase.batch.name,
-                        purchase.batch.price.toFixed(2),
-                        purchase.quantity,
                         formattedDateSoldString,
-                        totalPrice.toFixed(2)
+                        '<span style="float:right;">' + monetaryValue(purchase.batch.price
+                            .toFixed(2)) + '</span>',
+                        '<span style="float:right;">' + purchase.quantity + '</span>',
+                        '<span style="float:right;">' + monetaryValue(totalPrice.toFixed(
+                        2)) + '</span>'
                     ]);
                 });
                 table.draw();
@@ -289,7 +294,7 @@
             "ordering": false,
             "info": true,
             "autoWidth": false,
-            "responsive": true,
+            "responsive": false,
             "scrollX": true,
             "scrollY": true,
             "scrollCollapse": false,
