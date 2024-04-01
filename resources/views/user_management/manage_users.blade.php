@@ -20,7 +20,8 @@
     <div class="wrapper">
         <div class="container-fluid">
             <br>
-            <a class="btn btn-primary" onClick="showAddUserModal()" href="javascript:void(0)" style="background-color: #00491E; border-color: #00491E;">
+            <a class="btn btn-primary" onClick="showAddUserModal()" href="javascript:void(0)"
+                style="background-color: #00491E; border-color: #00491E;">
                 <i class="fas fa-plus"></i> Add User
             </a>
             <br><br>
@@ -37,6 +38,7 @@
                                 <th>Username</th>
                                 <th>Email</th>
                                 <th>Account Type</th>
+                                <th>Email Verified At</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -90,7 +92,8 @@
                                 <div class="text-right">
                                     <button type="button" class="btn btn-danger" onClick="hideAddUserModal()"
                                         href="javascript:void(0)">Cancel</button>
-                                    <button type="submit" class="btn btn-primary" style="background-color: #00491E; border-color: #00491E;">Add</button>
+                                    <button type="submit" class="btn btn-primary"
+                                        style="background-color: #00491E; border-color: #00491E;">Add User</button>
                                 </div>
                             </div>
                         </form>
@@ -145,7 +148,8 @@
                                 <div class="text-right">
                                     <button type="button" class="btn btn-danger" onClick="hideEditUserModal()"
                                         href="javascript:void(0)">Cancel</button>
-                                    <button type="submit" class="btn btn-primary" style="background-color: #00491E; border-color: #00491E;">Update</button>
+                                    <button type="submit" class="btn btn-primary"
+                                        style="background-color: #00491E; border-color: #00491E;">Update User</button>
                                 </div>
                             </div>
                         </form>
@@ -167,8 +171,9 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" onClick="hideDeleteUserModal()"
-                            href="javascript:void(0)" style="background-color: #00491E; border-color: #00491E;">Cancel</button>
-                        <button type="button" class="btn btn-danger" id="DeleteUser">Delete</button>
+                            href="javascript:void(0)"
+                            style="background-color: #00491E; border-color: #00491E;">Cancel</button>
+                        <button type="button" class="btn btn-danger" id="DeleteUser">Delete User</button>
                     </div>
                 </div>
             </div>
@@ -287,6 +292,19 @@
                 var table = $('#UsersTable').DataTable();
                 var existingRows = table.rows().remove().draw(false);
                 data.forEach(function(user) {
+                    var formattedEmailVerifiedAtString = 'Not Verified';
+                    if (user.email_verified_at) {
+                        var formattedEmailVerifiedAt = new Date(user.email_verified_at);
+                        var options = {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                            hour: 'numeric',
+                            minute: 'numeric'
+                        };
+                        formattedEmailVerifiedAtString = formattedEmailVerifiedAt
+                            .toLocaleDateString('en-US', options);
+                    }
                     table.row.add([
                         '<div class="text-center">' +
                         '<a href="#" class="edit" title="Edit" data-toggle="tooltip" data-id="' +
@@ -297,7 +315,8 @@
                         '</div>',
                         user.name,
                         user.email,
-                        user.account_type
+                        user.account_type,
+                        formattedEmailVerifiedAtString
                     ]);
                 });
                 table.draw();
