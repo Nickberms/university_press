@@ -83,17 +83,25 @@
                     var soldAmount = batch.price.toFixed(2) * batch.sold_quantity_within;
                     var endingQuantity = beginningQuantity - batch.sold_quantity_within;
                     var endingAmount = batch.price.toFixed(2) * endingQuantity;
+                    function monetaryValue(x) {
+                        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    }
                     table.row.add([
                         batch.im.code,
                         batch.im.title,
                         batch.name,
-                        batch.price.toFixed(2),
-                        beginningQuantity,
-                        beginningAmount.toFixed(2),
-                        batch.sold_quantity_within,
-                        soldAmount.toFixed(2),
-                        endingQuantity,
-                        endingAmount.toFixed(2)
+                        '<span style="float:right;">' + monetaryValue(batch.price.toFixed(
+                            2)) + '</span>',
+                        '<span style="float:right;">' + beginningQuantity + '</span>',
+                        '<span style="float:right;">' + monetaryValue(beginningAmount
+                            .toFixed(2)) + '</span>',
+                        '<span style="float:right;">' + batch.sold_quantity_within +
+                        '</span>',
+                        '<span style="float:right;">' + monetaryValue(soldAmount.toFixed(
+                        2)) + '</span>',
+                        '<span style="float:right;">' + endingQuantity + '</span>',
+                        '<span style="float:right;">' + monetaryValue(endingAmount.toFixed(
+                            2)) + '</span>'
                     ]);
                 });
                 table.draw();

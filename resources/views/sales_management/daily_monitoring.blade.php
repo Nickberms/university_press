@@ -108,24 +108,31 @@
                     var sales = batch.price.toFixed(2) * batch.sold_quantity_within;
                     var availableStocks = quantityAvailable - batch.sold_quantity_within;
                     var inventoryValue = batch.price.toFixed(2) * availableStocks;
+                    function monetaryValue(x) {
+                        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    }
                     var row = [
                         batch.im.code,
                         batch.im.title,
                         batch.name,
-                        batch.price.toFixed(2),
-                        quantityAvailable
+                        '<span style="float:right;">' + monetaryValue(batch.price.toFixed(2)) +
+                        '</span>',
+                        '<span style="float:right;">' + quantityAvailable + '</span>'
                     ];
                     for (var i = 1; i <= 31; i++) {
                         if (batch.daily_sales && batch.daily_sales[i]) {
-                            row.push(batch.daily_sales[i]);
+                            row.push('<span style="float:right;">' + batch.daily_sales[i] +
+                                '</span>');
                         } else {
                             row.push('');
                         }
                     }
-                    row[36] = unitSold;
-                    row[37] = sales.toFixed(2);
-                    row[38] = availableStocks;
-                    row[39] = inventoryValue.toFixed(2);
+                    row[36] = '<span style="float:right;">' + unitSold + '</span>';
+                    row[37] = '<span style="float:right;">' + monetaryValue(sales.toFixed(2)) +
+                        '</span>';
+                    row[38] = '<span style="float:right;">' + availableStocks + '</span>';
+                    row[39] = '<span style="float:right;">' + monetaryValue(inventoryValue.toFixed(
+                        2)) + '</span>';
                     table.row.add(row);
                 });
                 table.draw();
