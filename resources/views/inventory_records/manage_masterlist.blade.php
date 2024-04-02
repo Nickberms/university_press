@@ -17,7 +17,7 @@
     <script src="https://cdn.datatables.net/fixedcolumns/3.3.2/js/dataTables.fixedColumns.min.js"></script>
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini" style="font-family: Roboto, sans-serif">
     <div class="wrapper">
         <div class="container-fluid">
             <br>

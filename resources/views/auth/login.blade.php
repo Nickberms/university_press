@@ -1,6 +1,6 @@
 @extends('layouts.guest')
 @section('content')
-<div class="card-body login-card-body">
+<div class="card-body login-card-body" style="font-family: Roboto, sans-serif">
     <p class="login-box-msg" style="font-size: 20px;">{{ __('Login') }}</p>
     <form action="{{ route('login') }}" method="post">
         @csrf
