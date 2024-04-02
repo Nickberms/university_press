@@ -301,7 +301,7 @@
             "ordering": false,
             "info": true,
             "autoWidth": false,
-            "responsive": true,
+            "responsive": false,
             "scrollX": true,
             "scrollY": true,
             "scrollCollapse": false,
