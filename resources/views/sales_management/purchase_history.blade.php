@@ -61,7 +61,7 @@
                     </div>
                     <div class="modal-body">
                         <!-- NEW PURCHASE FORM -->
-                        <form id="NewPurchaseForm" method="POST">
+                        <form id="NewPurchaseForm" method="POST" style="display: none;">
                             @csrf
                             <div class="container-fluid">
                                 <div class="card card-default">
@@ -70,28 +70,18 @@
                                         <div class="col-md-6">
                                             <div class="card-body">
                                                 <div class="form-group">
-                                                    <label for="customer_name">Customer Name</label>
-                                                    <input type="text" class="form-control" name="customer_name"
-                                                        placeholder="Enter Customer Name" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="or_number">OR Number</label>
-                                                    <input type="text" class="form-control" name="or_number"
-                                                        placeholder="Enter OR Number" required>
-                                                </div>
-                                                <div class="form-group">
                                                     <label for="instructional_material">Instructional Material</label>
-                                                    <select class="select2 form-control"
-                                                        id="ChooseInstructionalMaterial" name="instructional_material"
+                                                    <select id="ChooseInstructionalMaterial"
+                                                        name="instructional_material"
                                                         data-placeholder="Select Instructional Material"
                                                         style="width: 100%;" required>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="im_batch">IM Batch</label>
-                                                    <select class="select2 form-control" id="ChooseImBatch"
-                                                        name="im_batch" data-placeholder="Select IM Batch"
-                                                        style="width: 100%;" required>
+                                                    <select id="ChooseImBatch" name="im_batch"
+                                                        data-placeholder="Select IM Batch" style="width: 100%;"
+                                                        required>
                                                     </select>
                                                 </div>
                                             </div>
@@ -107,35 +97,34 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="quantity">Quantity</label>
-                                                    <select class="select2 form-control" id="ChooseQuantity"
-                                                        name="quantity" data-placeholder="Select Quantity"
-                                                        style="width: 100%;" required>
+                                                    <select id="ChooseQuantity" name="quantity"
+                                                        data-placeholder="Select Quantity" style="width: 100%;"
+                                                        required>
                                                     </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="date_sold">Date Sold</label>
-                                                    <input type="date" class="form-control" name="date_sold" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="total_price">Total Price</label>
-                                                    <input type="text" readonly class="form-control" id="TotalPrice"
-                                                        name="total_price">
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- RIGHT SIDE -->
                                     </div>
                                 </div>
-                                <div class="text-right">
-                                    <button type="button" class="btn btn-danger" onClick="hideNewPurchaseModal()"
-                                        href="javascript:void(0)">Cancel</button>
-                                    <button type="submit" class="btn btn-primary"
-                                        style="background-color: #00491E; border-color: #00491E;">Record
-                                        Purchase</button>
-                                </div>
                             </div>
                         </form>
                         <!-- NEW PURCHASE FORM -->
+
+
+                        <div id="NewPurchaseFormContainer"></div>
+
+
+
+                        <div class="text-right">
+                            <button type="button" class="btn btn-danger" onClick="hideNewPurchaseModal()"
+                                href="javascript:void(0)">Cancel</button>
+                            <button type="submit" class="btn btn-primary"
+                                style="background-color: #00491E; border-color: #00491E;">Record
+                                Purchase</button>
+                            <button type="button" class="btn btn-primary" onClick="addItem()"
+                                style="background-color: #00491E; border-color: #00491E;">Add Item</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -144,76 +133,139 @@
     </div>
     <script type="text/javascript">
     function showNewPurchaseModal() {
-        $.ajax({
-            url: "{{ route('purchases.create') }}",
-            type: 'GET',
-            dataType: 'json',
-            success: function(response) {
-                var selectInstructionalMaterial = $('#ChooseInstructionalMaterial');
-                selectInstructionalMaterial.empty();
-                response.forEach(function(im) {
-                    selectInstructionalMaterial.append('<option value="' + im.id + '">' + im.title +
-                        '</option>');
-                });
-                $('#NewPurchaseModal').modal('show');
-                selectInstructionalMaterial.val(null).trigger('change');
-                selectInstructionalMaterial.select2();
-                $('#ChooseInstructionalMaterial').on('change', function() {
-                    $('#TotalPrice').val(null);
-                    var imId = $(this).val();
-                    if (imId) {
-                        var selectedInstructionalMaterial = response.find(function(im) {
-                            return im.id == imId;
-                        });
-                        var batches = selectedInstructionalMaterial.batches;
-                        var selectImBatch = $('#ChooseImBatch');
-                        selectImBatch.empty();
-                        batches.forEach(function(batch) {
-                            selectImBatch.append('<option value="' + batch.id + '">' + batch
-                                .name + '</option>');
-                        });
-                        selectImBatch.val(null).trigger('change');
-                        selectImBatch.select2();
-                    }
-                });
-                $('#ChooseImBatch').on('change', function() {
-                    $('#TotalPrice').val(null);
-                    var batchId = $(this).val();
-                    if (batchId) {
-                        var selectedInstructionalMaterial = response.find(function(im) {
-                            return im.id == $('#ChooseInstructionalMaterial').val();
-                        });
-                        var selectedBatch = selectedInstructionalMaterial.batches.find(function(
-                            batch) {
-                            return batch.id == batchId;
-                        });
-                        $('#Price').val(selectedBatch.price.toFixed(2));
-                        var selectQuantity = $('#ChooseQuantity');
-                        selectQuantity.empty();
-                        var availableStocks = selectedBatch.quantity_produced - selectedBatch
-                            .quantity_sold;
-                        for (var i = 1; i <= availableStocks; i++) {
-                            selectQuantity.append('<option value="' + i + '">' + i + '</option>');
-                        }
-                        selectQuantity.val(null).trigger('change');
-                        selectQuantity.select2();
-                    } else {
-                        $('#Price').val(null);
-                        $('#ChooseQuantity').empty();
-                    }
-                });
-                $('#Price, #ChooseQuantity').on('input', function() {
-                    var price = parseFloat($('#Price').val()) || 0;
-                    var quantity = parseInt($('#ChooseQuantity').val()) || 0;
-                    var totalPrice = price * quantity;
-                    $('#TotalPrice').val(totalPrice.toFixed(2));
-                });
-            },
-            error: function(xhr, status, error) {
-                console.error(xhr.responseText);
-            }
-        });
+        $('#NewPurchaseModal').modal('show');
+        addItem();
     }
+
+    var formCounter = 1;
+
+    function addItem() {
+
+
+
+        // 1. Clone the hidden form
+        var newForm = $('#NewPurchaseForm').clone();
+
+        // 2. Update IDs within the cloned form
+        newForm.find('[id]').each(function() {
+            var currentId = $(this).attr('id');
+            var newId = currentId + '-' + formCounter;
+            $(this).attr('id', newId);
+        });
+
+        // 3. Update names 
+        newForm.find('[name]').each(function() {
+            var currentName = $(this).attr('name');
+            var newName = currentName + '-' + formCounter;
+            $(this).attr('name', newName);
+        });
+
+        // 4. Append the form to the appropriate place in your DOM, and show it
+        $('#NewPurchaseFormContainer').append(newForm);
+        newForm.show();
+
+        // 5. Re-initialize plugins 
+        newForm.find('.select2').select2();
+
+        // 6. Create and execute the AJAX population function 
+        var newFunction = populateNewPurchaseFormFields(formCounter);
+        newFunction();
+
+        formCounter++;
+    }
+
+
+
+    function populateNewPurchaseFormFields(idSuffix) {
+        var selectInstructionalMaterial = $('#ChooseInstructionalMaterial-' + idSuffix);
+        selectInstructionalMaterial.select2();
+        var selectImBatch = $('#ChooseImBatch-' + idSuffix);
+        selectImBatch.select2();
+        var selectQuantity = $('#ChooseQuantity-' + idSuffix);
+        selectQuantity.select2();
+
+
+        return function() {
+            console.log("AJAX Function Started - Suffix:", idSuffix);
+            $.ajax({
+                url: "{{ route('purchases.create') }}",
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    console.log("AJAX Success - Data:", response);
+                    
+                    selectInstructionalMaterial.empty();
+                    response.forEach(function(im) {
+                        selectInstructionalMaterial.append('<option value="' + im.id + '">' + im
+                            .title +
+                            '</option>');
+                    });
+                    selectInstructionalMaterial.val(null).trigger('change');
+                   
+                    $('#ChooseInstructionalMaterial-' + idSuffix).on('change', function() {
+                        var imId = $(this).val();
+                        if (imId) {
+                            var selectedInstructionalMaterial = response.find(function(im) {
+                                return im.id == imId;
+                            });
+                            var batches = selectedInstructionalMaterial.batches;
+                            
+                            selectImBatch.empty();
+                            batches.forEach(function(batch) {
+                                selectImBatch.append('<option value="' + batch.id +
+                                    '">' + batch
+                                    .name + '</option>');
+                            });
+                            selectImBatch.val(null).trigger('change');
+                            
+                        }
+                    });
+                    $('#ChooseImBatch-' + idSuffix).on('change', function() {
+                        var batchId = $(this).val();
+                        if (batchId) {
+                            var selectedInstructionalMaterial = response.find(function(im) {
+                                return im.id == $('#ChooseInstructionalMaterial-' +
+                                    idSuffix).val();
+                            });
+                            var selectedBatch = selectedInstructionalMaterial.batches.find(
+                                function(
+                                    batch) {
+                                    return batch.id == batchId;
+                                });
+                            $('#Price-' + idSuffix).val(selectedBatch.price.toFixed(2));
+                            
+                            selectQuantity.empty();
+                            var availableStocks = selectedBatch.quantity_produced -
+                                selectedBatch
+                                .quantity_sold;
+                            for (var i = 1; i <= availableStocks; i++) {
+                                selectQuantity.append('<option value="' + i + '">' + i +
+                                    '</option>');
+                            }
+                            selectQuantity.val(null).trigger('change');
+                            
+                        } else {
+                            $('#Price-' + idSuffix).val(null);
+                            $('#ChooseQuantity-' + idSuffix).empty();
+                        }
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        };
+    }
+
+
+
+
+
+
+
+
+
+
     function hideNewPurchaseModal() {
         $('#NewPurchaseModal').modal('hide');
     }
@@ -238,6 +290,7 @@
             }
         });
     });
+
     function refreshPurchasesTable() {
         $.ajax({
             url: "{{ route('purchases.index') }}",
@@ -256,6 +309,7 @@
                     var formattedDateSoldString = formattedDateSold.toLocaleDateString('en-US',
                         options);
                     var totalPrice = purchase.batch.price.toFixed(2) * purchase.quantity;
+
                     function monetaryValue(x) {
                         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                     }
@@ -269,7 +323,7 @@
                             .toFixed(2)) + '</span>',
                         '<span style="float:right;">' + purchase.quantity + '</span>',
                         '<span style="float:right;">' + monetaryValue(totalPrice.toFixed(
-                        2)) + '</span>'
+                            2)) + '</span>'
                     ]);
                 });
                 table.draw();
@@ -279,6 +333,7 @@
             }
         });
     }
+
     function NumbersOnly(inputField) {
         var pattern = /^[0-9]+$/;
         var inputValue = inputField.value;
