@@ -13,8 +13,8 @@ class Purchase extends Model
         'or_number',
         'im_id',
         'batch_id',
-        'quantity',
         'date_sold',
+        'quantity',
     ];
     public function im()
     {

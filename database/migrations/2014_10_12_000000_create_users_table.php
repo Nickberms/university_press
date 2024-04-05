@@ -10,6 +10,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('or_pattern')->nullable();
             $table->string('account_type')->default('Employee');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

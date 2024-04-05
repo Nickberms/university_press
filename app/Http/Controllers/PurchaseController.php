@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Purchase;
 use App\Models\IM;
 use App\Models\Batch;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PurchaseController extends Controller
@@ -11,7 +12,7 @@ class PurchaseController extends Controller
     public function index()
     {
         $purchases = Purchase::with('im', 'batch')
-            ->orderByDesc('updated_at')
+            ->orderByDesc('date_sold')
             ->orderByDesc('created_at')
             ->get();
         if (request()->ajax()) {
@@ -65,6 +66,13 @@ class PurchaseController extends Controller
                 }
             }
             $purchase->save();
+            $userId = auth()->id();
+            $user = User::findOrFail($userId);
+            if ($user) {
+                $currentOrNumber = (int) $user->or_pattern;
+                $nextOrNumber = $currentOrNumber + 1;
+                $user->update(['or_pattern' => str_pad($nextOrNumber, strlen($user->or_pattern), '0', STR_PAD_LEFT)]);
+            }
             $batchId = $purchase->batch_id;
             $batch = Batch::findOrFail($batchId);
             $batch->touch();

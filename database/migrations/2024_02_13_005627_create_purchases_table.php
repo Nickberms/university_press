@@ -12,8 +12,8 @@ return new class extends Migration {
             $table->string('or_number');
             $table->foreignId('im_id')->constrained('ims');
             $table->foreignId('batch_id')->constrained('batches');
-            $table->integer('quantity');
             $table->date('date_sold');
+            $table->integer('quantity');
             $table->timestamps();
         });
     }
