@@ -60,9 +60,7 @@
                         <h4 class="modal-title">New Purchase</h4>
                     </div>
                     <div class="modal-body">
-                        <!-- NEW PURCHASE FORM -->
-                        <form id="NewPurchaseForm" method="POST" style="display: none;">
-                            @csrf
+                        <form id="PurchaseSummaryForm" method="POST">
                             <div class="container-fluid">
                                 <div class="card card-default">
                                     <div class="row">
@@ -70,7 +68,51 @@
                                         <div class="col-md-6">
                                             <div class="card-body">
                                                 <div class="form-group">
-                                                    <label for="instructional_material">Instructional Material</label>
+                                                    <label>Customer Name</label>
+                                                    <input type="text" class="form-control" id="CustomerName"
+                                                        placeholder="Enter Customer Name" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>OR Number</label>
+                                                    <input type="text" class="form-control" id="OrNumber"
+                                                        placeholder="Enter OR Number" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- LEFT SIDE -->
+                                        <!-- RIGHT SIDE -->
+                                        <div class="col-md-6">
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <label>Date Sold</label>
+                                                    <input type="date" class="form-control" id="DateSold" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Total Amount</label>
+                                                    <input type="text" readonly class="form-control" id="TotalAmount"
+                                                        value="0.00">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- RIGHT SIDE -->
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- NEW PURCHASE FORM -->
+                        <form id="NewPurchaseForm" method="POST" style="display: none;">
+                            @csrf
+                            <input type="text" class="customer-name-mirror" name="customer_name">
+                            <input type="text" class="or-number-mirror" name="or_number">
+                            <input type="text" class="date-sold-mirror" name="date_sold">
+                            <div class="container-fluid">
+                                <div class="card card-default">
+                                    <div class="row">
+                                        <!-- LEFT SIDE -->
+                                        <div class="col-md-6">
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <label>Instructional Material</label>
                                                     <select id="ChooseInstructionalMaterial"
                                                         name="instructional_material"
                                                         data-placeholder="Select Instructional Material"
@@ -78,7 +120,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="im_batch">IM Batch</label>
+                                                    <label>IM Batch</label>
                                                     <select id="ChooseImBatch" name="im_batch"
                                                         data-placeholder="Select IM Batch" style="width: 100%;"
                                                         required>
@@ -91,16 +133,21 @@
                                         <div class="col-md-6">
                                             <div class="card-body">
                                                 <div class="form-group">
-                                                    <label for="price">Price</label>
+                                                    <label>Price</label>
                                                     <input type="text" readonly class="form-control" id="Price"
                                                         name="price">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="quantity">Quantity</label>
+                                                    <label>Quantity</label>
                                                     <select id="ChooseQuantity" name="quantity"
                                                         data-placeholder="Select Quantity" style="width: 100%;"
                                                         required>
                                                     </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Total Price</label>
+                                                    <input type="text" readonly class="form-control total-price"
+                                                        id="TotalPrice" name="total_price">
                                                 </div>
                                             </div>
                                         </div>
@@ -132,6 +179,59 @@
         <!-- NEW PURCHASE MODAL -->
     </div>
     <script type="text/javascript">
+    function mirrorCustomerName() {
+        const sourceInput = document.getElementById('CustomerName');
+        const mirrorInputs = document.querySelectorAll('.customer-name-mirror');
+        sourceInput.addEventListener('input', function() {
+            mirrorInputs.forEach(input => {
+                input.value = sourceInput.value;
+            });
+        });
+    }
+    const customerNameInput = document.getElementById('CustomerName');
+    customerNameInput.addEventListener('input', mirrorCustomerName);
+
+
+    function mirrorOrNumber() {
+        const sourceInput = document.getElementById('OrNumber');
+        const mirrorInputs = document.querySelectorAll('.or-number-mirror');
+        sourceInput.addEventListener('input', function() {
+            mirrorInputs.forEach(input => {
+                input.value = sourceInput.value;
+            });
+        });
+    }
+    const orNumberInput = document.getElementById('OrNumber');
+    orNumberInput.addEventListener('input', mirrorOrNumber);
+
+    function mirrorDateSold() {
+        const sourceInput = document.getElementById('DateSold');
+        const mirrorInputs = document.querySelectorAll('.date-sold-mirror');
+        sourceInput.addEventListener('change', function() {
+            mirrorInputs.forEach(input => {
+                input.value = sourceInput.value;
+            });
+        });
+    }
+    const dateSoldInput = document.getElementById('DateSold');
+    dateSoldInput.addEventListener('input', mirrorDateSold);
+
+    function calculateTotal() {
+        const totalPrices = document.querySelectorAll('.total-price');
+        let totalAmount = 0.00;
+
+        totalPrices.forEach(input => {
+            totalAmount += parseFloat(input.value) || 0.00;
+        });
+
+        document.getElementById('TotalAmount').value = totalAmount.toFixed(2); // Display with 2 decimal places
+    }
+
+
+
+
+
+
     function showNewPurchaseModal() {
         $('#NewPurchaseModal').modal('show');
         addItem();
@@ -140,37 +240,28 @@
     var formCounter = 1;
 
     function addItem() {
-
-
-
         // 1. Clone the hidden form
         var newForm = $('#NewPurchaseForm').clone();
-
         // 2. Update IDs within the cloned form
         newForm.find('[id]').each(function() {
             var currentId = $(this).attr('id');
             var newId = currentId + '-' + formCounter;
             $(this).attr('id', newId);
         });
-
         // 3. Update names 
         newForm.find('[name]').each(function() {
             var currentName = $(this).attr('name');
             var newName = currentName + '-' + formCounter;
             $(this).attr('name', newName);
         });
-
         // 4. Append the form to the appropriate place in your DOM, and show it
         $('#NewPurchaseFormContainer').append(newForm);
         newForm.show();
-
         // 5. Re-initialize plugins 
         newForm.find('.select2').select2();
-
         // 6. Create and execute the AJAX population function 
         var newFunction = populateNewPurchaseFormFields(formCounter);
         newFunction();
-
         formCounter++;
     }
 
@@ -183,17 +274,12 @@
         selectImBatch.select2();
         var selectQuantity = $('#ChooseQuantity-' + idSuffix);
         selectQuantity.select2();
-
-
         return function() {
-            console.log("AJAX Function Started - Suffix:", idSuffix);
             $.ajax({
                 url: "{{ route('purchases.create') }}",
                 type: 'GET',
                 dataType: 'json',
                 success: function(response) {
-                    console.log("AJAX Success - Data:", response);
-                    
                     selectInstructionalMaterial.empty();
                     response.forEach(function(im) {
                         selectInstructionalMaterial.append('<option value="' + im.id + '">' + im
@@ -201,15 +287,14 @@
                             '</option>');
                     });
                     selectInstructionalMaterial.val(null).trigger('change');
-                   
                     $('#ChooseInstructionalMaterial-' + idSuffix).on('change', function() {
+                        $('#TotalPrice-' + idSuffix).val(null);
                         var imId = $(this).val();
                         if (imId) {
                             var selectedInstructionalMaterial = response.find(function(im) {
                                 return im.id == imId;
                             });
                             var batches = selectedInstructionalMaterial.batches;
-                            
                             selectImBatch.empty();
                             batches.forEach(function(batch) {
                                 selectImBatch.append('<option value="' + batch.id +
@@ -217,10 +302,11 @@
                                     .name + '</option>');
                             });
                             selectImBatch.val(null).trigger('change');
-                            
+                            calculateTotal();
                         }
                     });
                     $('#ChooseImBatch-' + idSuffix).on('change', function() {
+                        $('#TotalPrice-' + idSuffix).val(null);
                         var batchId = $(this).val();
                         if (batchId) {
                             var selectedInstructionalMaterial = response.find(function(im) {
@@ -233,7 +319,7 @@
                                     return batch.id == batchId;
                                 });
                             $('#Price-' + idSuffix).val(selectedBatch.price.toFixed(2));
-                            
+                            calculateTotal();
                             selectQuantity.empty();
                             var availableStocks = selectedBatch.quantity_produced -
                                 selectedBatch
@@ -243,11 +329,17 @@
                                     '</option>');
                             }
                             selectQuantity.val(null).trigger('change');
-                            
                         } else {
                             $('#Price-' + idSuffix).val(null);
                             $('#ChooseQuantity-' + idSuffix).empty();
                         }
+                    });
+                    $('#Price-' + idSuffix + ', #ChooseQuantity-' + idSuffix).on('input', function() {
+                        var price = parseFloat($('#Price-' + idSuffix).val()) || 0;
+                        var quantity = parseInt($('#ChooseQuantity-' + idSuffix).val()) || 0;
+                        var totalPrice = price * quantity;
+                        $('#TotalPrice-' + idSuffix).val(totalPrice.toFixed(2));
+                        calculateTotal();
                     });
                 },
                 error: function(xhr, status, error) {
@@ -358,10 +450,28 @@
         }).buttons().container().appendTo('#PurchasesTable_wrapper .col-md-6:eq(0)');
         refreshPurchasesTable();
         setInterval(refreshPurchasesTable, 60000);
+
         $('#NewPurchaseModal').on('hidden.bs.modal', function(e) {
+            $('#PurchaseSummaryForm')[0].reset();
+            $('#PurchaseSummaryForm select').val(null).trigger('change');
             $('#NewPurchaseForm')[0].reset();
-            $('#NewPurchaseModal select').val(null).trigger('change');
+            $('#NewPurchaseForm select').val(null).trigger('change');
+            $('form[id^="NewPurchaseForm-"], input[id], select[id]').each(function() {
+                if (this.type === 'select-one' || this.type === 'select-multiple') {
+                    $(this).val(null).trigger('change');
+                } else {
+                    this.value = '';
+                }
+            });
+            $('input[name], select[name]').each(function() {
+                if (this.type === 'select-one' || this.type === 'select-multiple') {
+                    $(this).val(null).trigger('change');
+                } else {
+                    this.value = '';
+                }
+            });
         });
+
         var previousWidth = $(window).width();
         $(window).on('resize', function() {
             var currentWidth = $(window).width();
