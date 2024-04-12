@@ -166,11 +166,10 @@
                         <div class="text-right">
                             <button type="button" class="btn btn-danger" onClick="hideNewPurchaseModal()"
                                 href="javascript:void(0)">Cancel</button>
-                            <button type="submit" class="btn btn-primary"
-                                style="background-color: #00491E; border-color: #00491E;">Record
+                            <button type="button" class="btn btn-primary" onClick="submitAllForms()">Record
                                 Purchase</button>
-                            <button type="button" class="btn btn-primary" onClick="addItem()"
-                                style="background-color: #00491E; border-color: #00491E;">Add Item</button>
+                            <button type="button" class="btn btn-primary" onClick="addItem()">Add Item</button>
+                            <button type="button" class="btn btn-danger" onClick="removeItem()">Remove Item</button>
                         </div>
                     </div>
                 </div>
@@ -178,7 +177,20 @@
         </div>
         <!-- NEW PURCHASE MODAL -->
     </div>
+
+
     <script type="text/javascript">
+    function showNewPurchaseModal() {
+        $('#NewPurchaseModal').modal('show');
+        addItem();
+    }
+
+    function hideNewPurchaseModal() {
+        $('#NewPurchaseModal').modal('hide');
+    }
+
+
+
     function mirrorCustomerName() {
         const sourceInput = document.getElementById('CustomerName');
         const mirrorInputs = document.querySelectorAll('.customer-name-mirror');
@@ -190,7 +202,6 @@
     }
     const customerNameInput = document.getElementById('CustomerName');
     customerNameInput.addEventListener('input', mirrorCustomerName);
-
 
     function mirrorOrNumber() {
         const sourceInput = document.getElementById('OrNumber');
@@ -219,12 +230,10 @@
     function calculateTotal() {
         const totalPrices = document.querySelectorAll('.total-price');
         let totalAmount = 0.00;
-
         totalPrices.forEach(input => {
             totalAmount += parseFloat(input.value) || 0.00;
         });
-
-        document.getElementById('TotalAmount').value = totalAmount.toFixed(2); // Display with 2 decimal places
+        document.getElementById('TotalAmount').value = totalAmount.toFixed(2);
     }
 
 
@@ -232,38 +241,45 @@
 
 
 
-    function showNewPurchaseModal() {
-        $('#NewPurchaseModal').modal('show');
-        addItem();
-    }
+
+
+
 
     var formCounter = 1;
 
     function addItem() {
-        // 1. Clone the hidden form
-        var newForm = $('#NewPurchaseForm').clone();
-        // 2. Update IDs within the cloned form
-        newForm.find('[id]').each(function() {
+        var clonedForm = $('#NewPurchaseForm').clone();
+        clonedForm.find('[id]').each(function() {
             var currentId = $(this).attr('id');
             var newId = currentId + '-' + formCounter;
             $(this).attr('id', newId);
         });
-        // 3. Update names 
-        newForm.find('[name]').each(function() {
-            var currentName = $(this).attr('name');
-            var newName = currentName + '-' + formCounter;
-            $(this).attr('name', newName);
-        });
-        // 4. Append the form to the appropriate place in your DOM, and show it
-        $('#NewPurchaseFormContainer').append(newForm);
-        newForm.show();
-        // 5. Re-initialize plugins 
-        newForm.find('.select2').select2();
-        // 6. Create and execute the AJAX population function 
-        var newFunction = populateNewPurchaseFormFields(formCounter);
-        newFunction();
+        // clonedForm.find('[name]').each(function() {
+        //     var currentName = $(this).attr('name');
+        //     var newName = currentName + '-' + formCounter;
+        //     $(this).attr('name', newName);
+        // });
+        $('#NewPurchaseFormContainer').append(clonedForm);
+        refreshCsrfTokens();
+        clonedForm.show();
+        clonedForm.addClass('new-purchase-form');
+        clonedForm.find('.select2').select2();
+        var clonedFunction = populateNewPurchaseFormFields(formCounter);
+        clonedFunction();
         formCounter++;
     }
+
+    function removeItem() {
+        if (formCounter > 2) {
+            const latestForm = $('#NewPurchaseFormContainer').children().last();
+            latestForm.find('*').remove();
+            calculateTotal();
+            latestForm.remove();
+            formCounter--;
+        }
+    }
+
+
 
 
 
@@ -349,39 +365,46 @@
         };
     }
 
-
-
-
-
-
-
-
-
-
-    function hideNewPurchaseModal() {
-        $('#NewPurchaseModal').modal('hide');
+    function refreshCsrfTokens() {
+        fetch('/csrf-token') // Assuming you have a route like this
+            .then(response => response.json())
+            .then(data => {
+                const clonedForms = $('.new-purchase-form');
+                clonedForms.each(function() {
+                    $(this).find('input[name="_token"]').val(data.token);
+                });
+            });
     }
-    $('#NewPurchaseForm').submit(function(event) {
-        event.preventDefault();
-        var formData = $(this).serialize();
-        $.ajax({
-            url: "{{ route('purchases.store') }}",
-            type: 'POST',
-            data: formData,
-            success: function(response) {
-                var successMessage = response.success;
-                console.log(successMessage);
-                hideNewPurchaseModal();
-                toastr.success(successMessage);
-                refreshPurchasesTable();
-            },
-            error: function(xhr, status, error) {
-                var errorMessage = JSON.parse(xhr.responseText).error;
-                console.error(errorMessage);
-                toastr.error(errorMessage);
-            }
+
+
+
+
+    function submitAllForms() {
+        const clonedForms = $('.new-purchase-form');
+        clonedForms.each(function() {
+            event.preventDefault();
+            const formData = $(this).serialize();
+            $.ajax({
+                url: "{{ route('purchases.store') }}",
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    var successMessage = response.success;
+                    console.log(successMessage);
+                    hideNewPurchaseModal();
+                    toastr.success(successMessage);
+                    refreshPurchasesTable();
+                },
+                error: function(xhr, status, error) {
+                    var errorMessage = JSON.parse(xhr.responseText).error;
+                    console.error(errorMessage);
+                    toastr.error(errorMessage);
+                }
+            });
         });
-    });
+    }
+
+
 
     function refreshPurchasesTable() {
         $.ajax({

@@ -30,3 +30,6 @@ Route::resource('monitoring', MonitoringController::class)->middleware(['auth', 
 Route::get('/', function () {
     return view('landing_page.landing_page');
 })->name('landing-page');
+Route::get('/csrf-token', function () {
+    return response()->json(['token' => csrf_token()]);
+});
