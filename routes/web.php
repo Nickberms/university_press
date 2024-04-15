@@ -30,3 +30,6 @@ Route::resource('monitoring', MonitoringController::class)->middleware(['auth', 
 Route::get('/', function () {
     return view('landing_page.landing_page');
 })->name('landing-page');
+Route::get('/manage_purchases', function () {
+    return view('sales_management.manage_purchases');
+});
