@@ -14,6 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
     .recent-row {
         background-color: #FFC600;
@@ -89,7 +90,7 @@
                     <table class="table table-bordered" id="AddedItemsTable">
                         <thead class="text-center">
                             <tr>
-                                <th>Actions</th>
+                                <th>Action</th>
                                 <th>Instructrional Material</th>
                                 <th>Batch</th>
                                 <th>Quantity</th>
@@ -158,23 +159,23 @@
         <div class="modal fade" id="ConfirmPurchaseModal">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header" style="background: #E9ECEF;">
-                        <h4 class="modal-title">Confirm Purchase</h4>
-                        <button type="button" class="close" onClick="hideConfirmPurchaseModal()">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body" style="background: #02681E;">
-                        <!-- CONFIRM PURCHASE FORM -->
-                        <form id="ConfirmPurchaseForm" method="POST">
-                            @csrf
+                    <!-- CONFIRM PURCHASE FORM -->
+                    <form id="ConfirmPurchaseForm" method="POST">
+                        @csrf
+                        <div class="modal-header" style="background: #E9ECEF;">
+                            <h4 class="modal-title">Confirm Purchase</h4>
+                            <button type="button" class="close" onClick="hideConfirmPurchaseModal()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="background: #02681E;">
                             <div class="container-fluid">
                                 <div class="card card-default">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="form-group col-6">
                                                 <label>Customer</label>
-                                                <input type="text" class="form-control" name="customer" required>
+                                                <input type="text" class="form-control" name="customer_name" required>
                                             </div>
                                             <div class="form-group col-6">
                                                 <label>Cash</label>
@@ -209,18 +210,18 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
-                        <!-- CONFIRM PURCHASE FORM -->
-                    </div>
-                    <div class="modal-footer" style="background: #E9ECEF;">
-                        <div class="text-right">
-                            <button type="button" class="btn btn-danger" onClick="hideConfirmPurchaseModal()"
-                                href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
-                            <button type="submit" class="btn btn-primary"
-                                style="background-color: #00491E; border-color: #00491E;"><i
-                                    class="fas fa-check"></i>&nbsp;&nbsp;Confirm Purchase</button>
                         </div>
-                    </div>
+                        <div class="modal-footer" style="background: #E9ECEF;">
+                            <div class="text-right">
+                                <button type="button" class="btn btn-danger" onClick="hideConfirmPurchaseModal()"
+                                    href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
+                                <button type="submit" class="btn btn-primary"
+                                    style="background-color: #00491E; border-color: #00491E;"><i
+                                        class="fas fa-check"></i>&nbsp;&nbsp;Confirm Purchase</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- CONFIRM PURCHASE FORM -->
                 </div>
             </div>
         </div>
@@ -244,7 +245,8 @@
             var existingTotalPrice = parseFloat(existingRow[5]);
             var newQuantity = existingQuantity + quantity;
             var newTotalPrice = existingTotalPrice + totalPrice;
-            existingRow[3] = newQuantity;
+            var quantityInput = '<input type="text" name="quantity[]" value="' + newQuantity + '">';
+            existingRow[3] = newQuantity + quantityInput;
             existingRow[5] = newTotalPrice.toFixed(2);
             var rowIndex = table.rows().data().toArray().findIndex(function(row) {
                 return row[1].includes('value="' + imId + '"') && row[2].includes(
@@ -257,13 +259,14 @@
         } else {
             var imIdInput = '<input type="text" name="im_id[]" value="' + imId + '">';
             var batchIdInput = '<input type="text" name="batch_id[]" value="' + batchId + '">';
+            var quantityInput = '<input type="text" name="quantity[]" value="' + quantity + '">';
             var newRow = [
                 '<div class="text-center">' +
                 '<a href="#" class="delete"><i class="material-icons">&#xE872;</i></a>' +
                 '</div>',
                 $('#SelectIm option:selected').text() + imIdInput,
                 $('#SelectBatch option:selected').text() + batchIdInput,
-                quantity,
+                $('#SelectQuantity option:selected').text() + quantityInput,
                 price.toFixed(2),
                 totalPrice.toFixed(2)
             ];
@@ -277,6 +280,7 @@
         var row = $(this).closest('tr');
         table.row(row).remove().draw(false);
     });
+
     function populateAddItemForm() {
         $.ajax({
             url: "{{ route('purchases.create') }}",
@@ -347,6 +351,7 @@
             }
         });
     }
+
     function checkAddedItemsTableRows() {
         var table = $('#AddedItemsTable').DataTable();
         var rowCount = table.rows().count();
@@ -356,21 +361,26 @@
             $('#ConfirmPurchaseButton').prop('disabled', true);
         }
     }
+
     function showPurchaseHistoryModal() {
         $('#PurchaseHistoryModal').modal('show');
         $('#PurchaseHistoryModal').on('shown.bs.modal', function(e) {
             refreshPurchaseHistoryTable();
         });
     }
+
     function hidePurchaseHistoryModal() {
         $('#PurchaseHistoryModal').modal('hide');
     }
+
     function showConfirmPurchaseModal() {
         $('#ConfirmPurchaseModal').modal('show');
     }
+
     function hideConfirmPurchaseModal() {
         $('#ConfirmPurchaseModal').modal('hide');
     }
+
     function refreshPurchaseHistoryTable() {
         $.ajax({
             url: "{{ route('purchases.index') }}",
@@ -389,6 +399,7 @@
                     var formattedDateSoldString = formattedDateSold.toLocaleDateString('en-US',
                         options);
                     var totalPrice = purchase.batch.price.toFixed(2) * purchase.quantity;
+
                     function monetaryValue(x) {
                         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                     }
@@ -412,6 +423,7 @@
             }
         });
     }
+
     function AmountOnly(inputField) {
         var inputValue = inputField.value;
         var cleanedValue = inputValue.replace(/(\.\d*)\./, '$1');
@@ -421,6 +433,52 @@
         }
         inputField.value = cleanedValue;
     }
+
+    $('#ConfirmPurchaseForm').submit(function(event) {
+        event.preventDefault();
+        var purchasedItems = [];
+        $('#AddedItemsTable tbody tr').each(function() {
+            var customerName = $('input[name="customer_name"]').val();
+            var orNumber = $('input[name="or_number"]').val();
+            var imId = $(this).find('input[name="im_id[]"]').val();
+            var batchId = $(this).find('input[name="batch_id[]"]').val();
+            var dateSold = $('input[name="date_sold"]').val();
+            var quantity = $(this).find('input[name="quantity[]"]').val();
+            var item = {
+                customer_name: customerName,
+                or_number: orNumber,
+                im_id: imId,
+                batch_id: batchId,
+                date_sold: dateSold,
+                quantity: quantity
+            };
+            purchasedItems.push(item);
+        });
+        $.ajax({
+            url: "{{ route('purchases.store') }}",
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                purchased_items: purchasedItems
+            },
+            success: function(response) {
+                var successMessage = response.success;
+                console.log(successMessage);
+                hideConfirmPurchaseModal();
+                toastr.success(successMessage);
+                var table = $('#AddedItemsTable').DataTable();
+                table.clear().draw();
+            },
+            error: function(xhr, status, error) {
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
+            }
+        });
+    });
+
     $(document).ready(function() {
         populateAddItemForm();
         $('#AddedItemsTable').DataTable({
@@ -438,6 +496,13 @@
         checkAddedItemsTableRows();
         $('#AddedItemsTable').on('draw.dt', function() {
             checkAddedItemsTableRows();
+        });
+        $('#ConfirmPurchaseModal').on('hidden.bs.modal', function(e) {
+            $('#AddItemForm')[0].reset();
+            $('#AddItemForm select').val(null).trigger('change');
+            populateAddItemForm();
+            $('#ConfirmPurchaseForm')[0].reset();
+            $('#ConfirmPurchaseModal select').val(null).trigger('change');
         });
         $('#PurchaseHistoryTable').DataTable({
             "paging": true,
