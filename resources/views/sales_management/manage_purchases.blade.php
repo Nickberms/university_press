@@ -87,7 +87,7 @@
                 </div>
                 <div class="card-body">
                     <!-- ADDED ITEMS TABLE -->
-                    <table class="table" id="AddedItemsTable">
+                    <table class="table" id="AddedItemsTable" style="font-size: 14px;">
                         <thead class="text-center">
                             <tr style="display: none;">
                                 <th></th>
@@ -103,7 +103,7 @@
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody style="font-size: 14px;">
+                        <tbody>
                         </tbody>
                         <tfoot>
                         </tfoot>
@@ -184,8 +184,8 @@
                                             </div>
                                             <div class="form-group col-6">
                                                 <label>Cash</label>
-                                                <input type="text" oninput="AmountOnly(this)" onpaste="return false;"
-                                                    class="form-control" name="cash">
+                                                <input type="text" oninput="calculateTotalChange(this)"
+                                                    onpaste="return false;" class="form-control" name="cash">
                                             </div>
                                         </div>
                                         <br>
@@ -284,13 +284,19 @@
             $('#AddedItemsTable tbody tr').removeClass('recent-row');
             $(rowNode).addClass('recent-row');
         }
+        var totalAmount = 0;
+        table.rows().every(function() {
+            var rowData = this.data();
+            var rowTotalPrice = parseFloat(rowData[10]);
+            totalAmount += rowTotalPrice;
+        });
+        $('#TotalAmount').val(totalAmount.toFixed(2));
     });
     $('#AddedItemsTable tbody').on('click', '.delete', function() {
         var table = $('#AddedItemsTable').DataTable();
         var row = $(this).closest('tr');
         table.row(row).remove().draw(false);
     });
-
     function populateAddItemForm() {
         $.ajax({
             url: "{{ route('purchases.create') }}",
@@ -361,7 +367,6 @@
             }
         });
     }
-
     function checkAddedItemsTableRows() {
         var table = $('#AddedItemsTable').DataTable();
         var rowCount = table.rows().count();
@@ -371,26 +376,15 @@
             $('#ConfirmPurchaseButton').prop('disabled', true);
         }
     }
-
     function showPurchaseHistoryModal() {
         $('#PurchaseHistoryModal').modal('show');
         $('#PurchaseHistoryModal').on('shown.bs.modal', function(e) {
             refreshPurchaseHistoryTable();
         });
     }
-
     function hidePurchaseHistoryModal() {
         $('#PurchaseHistoryModal').modal('hide');
     }
-
-    function showConfirmPurchaseModal() {
-        $('#ConfirmPurchaseModal').modal('show');
-    }
-
-    function hideConfirmPurchaseModal() {
-        $('#ConfirmPurchaseModal').modal('hide');
-    }
-
     function refreshPurchaseHistoryTable() {
         $.ajax({
             url: "{{ route('purchases.index') }}",
@@ -409,7 +403,6 @@
                     var formattedDateSoldString = formattedDateSold.toLocaleDateString('en-US',
                         options);
                     var totalPrice = purchase.batch.price.toFixed(2) * purchase.quantity;
-
                     function monetaryValue(x) {
                         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                     }
@@ -433,17 +426,22 @@
             }
         });
     }
-
-    function AmountOnly(inputField) {
-        var inputValue = inputField.value;
-        var cleanedValue = inputValue.replace(/(\.\d*)\./, '$1');
-        var pattern = /^\d*\.?\d*$/;
-        if (!pattern.test(cleanedValue)) {
-            cleanedValue = cleanedValue.replace(/[^0-9.]/g, '');
-        }
-        inputField.value = cleanedValue;
+    function showConfirmPurchaseModal() {
+        $('#ConfirmPurchaseModal').modal('show');
+        $('#ConfirmPurchaseModal').on('show.bs.modal', function(e) {
+            var totalAmount = 0;
+            var table = $('#AddedItemsTable').DataTable();
+            table.rows().every(function() {
+                var rowData = this.data();
+                var rowTotalPrice = parseFloat(rowData[10]);
+                totalAmount += rowTotalPrice;
+            });
+            $('#TotalAmount').val(totalAmount.toFixed(2));
+        });
     }
-
+    function hideConfirmPurchaseModal() {
+        $('#ConfirmPurchaseModal').modal('hide');
+    }
     $('#ConfirmPurchaseForm').submit(function(event) {
         event.preventDefault();
         var purchasedItems = [];
@@ -488,7 +486,19 @@
             }
         });
     });
-
+    function calculateTotalChange(cashInput) {
+        var inputValue = cashInput.value;
+        var cleanedValue = inputValue.replace(/(\.\d*)\./, '$1');
+        var pattern = /^\d*\.?\d*$/;
+        if (!pattern.test(cleanedValue)) {
+            cleanedValue = cleanedValue.replace(/[^0-9.]/g, '');
+        }
+        cashInput.value = cleanedValue;
+        var cash = parseFloat(cashInput.value);
+        var totalAmount = parseFloat($('#TotalAmount').val());
+        var totalChange = cash - totalAmount;
+        $('#TotalChange').val(totalChange.toFixed(2));
+    }
     $(document).ready(function() {
         populateAddItemForm();
         $('#AddedItemsTable').DataTable({
@@ -506,13 +516,6 @@
         checkAddedItemsTableRows();
         $('#AddedItemsTable').on('draw.dt', function() {
             checkAddedItemsTableRows();
-        });
-        $('#ConfirmPurchaseModal').on('hidden.bs.modal', function(e) {
-            $('#AddItemForm')[0].reset();
-            $('#AddItemForm select').val(null).trigger('change');
-            populateAddItemForm();
-            $('#ConfirmPurchaseForm')[0].reset();
-            $('#ConfirmPurchaseModal select').val(null).trigger('change');
         });
         $('#PurchaseHistoryTable').DataTable({
             "paging": true,
@@ -536,6 +539,13 @@
                 refreshPurchaseHistoryTable();
                 previousWidth = currentWidth;
             }
+        });
+        $('#ConfirmPurchaseModal').on('hidden.bs.modal', function(e) {
+            $('#AddItemForm')[0].reset();
+            $('#AddItemForm select').val(null).trigger('change');
+            populateAddItemForm();
+            $('#ConfirmPurchaseForm')[0].reset();
+            $('#ConfirmPurchaseModal select').val(null).trigger('change');
         });
     });
     </script>

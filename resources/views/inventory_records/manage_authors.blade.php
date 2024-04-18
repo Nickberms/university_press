@@ -16,17 +16,17 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 
-<body class="hold-transition sidebar-mini" style="font-family: Roboto, sans-serif">
+<body class="hold-transition sidebar-mini" style="font-family: Roboto, sans-serif;">
     <div class="wrapper">
         <div class="container-fluid">
             <br>
             <a class="btn btn-primary" onClick="showAddAuthorModal()" href="javascript:void(0)"
                 style="background-color: #00491E; border-color: #00491E;">
-                <i class="fas fa-plus"></i> Add Author
+                <i class="fas fa-plus"></i>&nbsp;&nbsp;Add Author
             </a>
             <br><br>
             <div class="card">
-                <div class="card-header">
+                <div class="card-header" style="background: #E9ECEF;">
                     <h3 class="card-title">Manage Authors</h3>
                 </div>
                 <div class="card-body">
@@ -40,6 +40,8 @@
                         </thead>
                         <tbody>
                         </tbody>
+                        <tfoot>
+                        </tfoot>
                     </table>
                     <!-- AUTHORS TABLE -->
                 </div>
@@ -50,47 +52,50 @@
         <div class="modal fade" id="AddAuthorModal">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Add Author</h4>
-                    </div>
-                    <div class="modal-body">
-                        <!-- ADD AUTHOR FORM -->
-                        <form id="AddAuthorForm" method="POST">
-                            @csrf
+                    <!-- ADD AUTHOR FORM -->
+                    <form id="AddAuthorForm" method="POST">
+                        @csrf
+                        <div class="modal-header" style="background: #E9ECEF;">
+                            <h4 class="modal-title">Add Author</h4>
+                            <button type="button" class="close" onClick="hideAddAuthorModal()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="background: #02681E;">
                             <div class="container-fluid">
                                 <div class="card card-default">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="card-body">
                                                 <div class="form-group">
-                                                    <label for="first_name">First Name</label>
-                                                    <input type="text" class="form-control" name="first_name"
-                                                        placeholder="Enter First Name" required>
+                                                    <label>First Name</label>
+                                                    <input type="text" class="form-control" name="first_name" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="middle_name">Middle Name</label>
-                                                    <input type="text" class="form-control" name="middle_name"
-                                                        placeholder="Enter Middle Name">
+                                                    <label>Middle Name</label>
+                                                    <input type="text" class="form-control" name="middle_name">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="last_name">Last Name</label>
-                                                    <input type="text" class="form-control" name="last_name"
-                                                        placeholder="Enter Last Name" required>
+                                                    <label>Last Name</label>
+                                                    <input type="text" class="form-control" name="last_name" required>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="text-right">
-                                    <button type="button" class="btn btn-danger" onClick="hideAddAuthorModal()"
-                                        href="javascript:void(0)">Cancel</button>
-                                    <button type="submit" class="btn btn-primary"
-                                        style="background-color: #00491E; border-color: #00491E;">Add Author</button>
-                                </div>
                             </div>
-                        </form>
-                        <!-- ADD AUTHOR FORM -->
-                    </div>
+                        </div>
+                        <div class="modal-footer" style="background: #E9ECEF;">
+                            <div class="text-right">
+                                <button type="button" class="btn btn-danger" onClick="hideAddAuthorModal()"
+                                    href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
+                                <button type="submit" class="btn btn-primary"
+                                    style="background-color: #00491E; border-color: #00491E;"><i
+                                        class="fas fa-plus"></i>&nbsp;&nbsp;Add Author</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- ADD AUTHOR FORM -->
                 </div>
             </div>
         </div>
@@ -99,14 +104,17 @@
         <div class="modal fade" id="EditAuthorModal">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Edit Author</h4>
-                    </div>
-                    <div class="modal-body">
-                        <!-- EDIT AUTHOR FORM -->
-                        <form id="EditAuthorForm" method="POST">
-                            @csrf
-                            @method('PUT')
+                    <!-- EDIT AUTHOR FORM -->
+                    <form id="EditAuthorForm" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-header" style="background: #E9ECEF;">
+                            <h4 class="modal-title">Edit Author</h4>
+                            <button type="button" class="close" onClick="hideEditAuthorModal()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="background: #02681E;">
                             <input type="hidden" id="AuthorId" name="author_id">
                             <div class="container-fluid">
                                 <div class="card card-default">
@@ -114,34 +122,37 @@
                                         <div class="col-md-12">
                                             <div class="card-body">
                                                 <div class="form-group">
-                                                    <label for="first_name">First Name</label>
+                                                    <label>First Name</label>
                                                     <input type="text" class="form-control" id="EditFirstName"
-                                                        name="first_name" placeholder="Enter First Name" required>
+                                                        name="first_name" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="middle_name">Middle Name</label>
+                                                    <label>Middle Name</label>
                                                     <input type="text" class="form-control" id="EditMiddleName"
-                                                        name="middle_name" placeholder="Enter Middle Name">
+                                                        name="middle_name">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="last_name">Last Name</label>
+                                                    <label>Last Name</label>
                                                     <input type="text" class="form-control" id="EditLastName"
-                                                        name="last_name" placeholder="Enter Last Name" required>
+                                                        name="last_name" required>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="text-right">
-                                    <button type="button" class="btn btn-danger" onClick="hideEditAuthorModal()"
-                                        href="javascript:void(0)">Cancel</button>
-                                    <button type="submit" class="btn btn-primary"
-                                        style="background-color: #00491E; border-color: #00491E;">Update Author</button>
-                                </div>
                             </div>
-                        </form>
-                        <!-- EDIT AUTHOR FORM -->
-                    </div>
+                        </div>
+                        <div class="modal-footer" style="background: #E9ECEF;">
+                            <div class="text-right">
+                                <button type="button" class="btn btn-danger" onClick="hideEditAuthorModal()"
+                                    href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
+                                <button type="submit" class="btn btn-primary"
+                                    style="background-color: #00491E; border-color: #00491E;"><i
+                                        class="fas fa-check"></i>&nbsp;&nbsp;Update Author</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- EDIT AUTHOR FORM -->
                 </div>
             </div>
         </div>
@@ -150,17 +161,23 @@
         <div class="modal fade" id="DeleteAuthorModal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header" style="background: #E9ECEF;">
                         <h4 class="modal-title">Delete Author</h4>
+                        <button type="button" class="close" onClick="hideDeleteAuthorModal()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style="background: #E9ECEF;">
                         Are you sure you want to delete this author?
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" onClick="hideDeleteAuthorModal()"
-                            href="javascript:void(0)"
-                            style="background-color: #00491E; border-color: #00491E;">Cancel</button>
-                        <button type="button" class="btn btn-danger" id="DeleteAuthor">Delete Author</button>
+                    <div class="modal-footer" style="background: #E9ECEF;">
+                        <div class="text-right">
+                            <button type="button" class="btn btn-primary" onClick="hideDeleteAuthorModal()"
+                                href="javascript:void(0)" style="background-color: #00491E; border-color: #00491E;"><i
+                                    class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
+                            <button type="button" class="btn btn-danger" id="DeleteAuthor"><i
+                                    class="fas fa-trash"></i>&nbsp;&nbsp;Delete Author</button>
+                        </div>
                     </div>
                 </div>
             </div>

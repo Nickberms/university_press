@@ -16,17 +16,17 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 
-<body class="hold-transition sidebar-mini" style="font-family: Roboto, sans-serif">
+<body class="hold-transition sidebar-mini" style="font-family: Roboto, sans-serif;">
     <div class="wrapper">
         <div class="container-fluid">
             <br>
             <a class="btn btn-primary" onClick="showAddCategoryModal()" href="javascript:void(0)"
                 style="background-color: #00491E; border-color: #00491E;">
-                <i class="fas fa-plus"></i> Add Category
+                <i class="fas fa-plus"></i>&nbsp;&nbsp;Add Category
             </a>
             <br><br>
             <div class="card">
-                <div class="card-header">
+                <div class="card-header" style="background: #E9ECEF;">
                     <h3 class="card-title">Manage Categories</h3>
                 </div>
                 <div class="card-body">
@@ -41,6 +41,8 @@
                         </thead>
                         <tbody>
                         </tbody>
+                        <tfoot>
+                        </tfoot>
                     </table>
                     <!-- CATEGORIES TABLE -->
                 </div>
@@ -51,43 +53,47 @@
         <div class="modal fade" id="AddCategoryModal">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Add Category</h4>
-                    </div>
-                    <div class="modal-body">
-                        <!-- ADD CATEGORY FORM -->
-                        <form id="AddCategoryForm" method="POST">
-                            @csrf
+                    <!-- ADD CATEGORY FORM -->
+                    <form id="AddCategoryForm" method="POST">
+                        @csrf
+                        <div class="modal-header" style="background: #E9ECEF;">
+                            <h4 class="modal-title">Add Category</h4>
+                            <button type="button" class="close" onClick="hideAddCategoryModal()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="background: #02681E;">
                             <div class="container-fluid">
                                 <div class="card card-default">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="card-body">
                                                 <div class="form-group">
-                                                    <label for="name">Category Name</label>
-                                                    <input type="text" class="form-control" name="name"
-                                                        placeholder="Enter Category Name" required>
+                                                    <label>Category Name</label>
+                                                    <input type="text" class="form-control" name="name" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="description">Description</label>
+                                                    <label>Description</label>
                                                     <textarea type="text" class="form-control" name="description"
-                                                        placeholder="Enter Description"
                                                         style="height: 100px;"></textarea>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="text-right">
-                                    <button type="button" class="btn btn-danger" onClick="hideAddCategoryModal()"
-                                        href="javascript:void(0)">Cancel</button>
-                                    <button type="submit" class="btn btn-primary"
-                                        style="background-color: #00491E; border-color: #00491E;">Add Category</button>
-                                </div>
                             </div>
-                        </form>
-                        <!-- ADD CATEGORY FORM -->
-                    </div>
+                        </div>
+                        <div class="modal-footer" style="background: #E9ECEF;">
+                            <div class="text-right">
+                                <button type="button" class="btn btn-danger" onClick="hideAddCategoryModal()"
+                                    href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
+                                <button type="submit" class="btn btn-primary"
+                                    style="background-color: #00491E; border-color: #00491E;"><i
+                                        class="fas fa-plus"></i>&nbsp;&nbsp;Add Category</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- ADD CATEGORY FORM -->
                 </div>
             </div>
         </div>
@@ -96,14 +102,17 @@
         <div class="modal fade" id="EditCategoryModal">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Edit Category</h4>
-                    </div>
-                    <div class="modal-body">
-                        <!-- EDIT CATEGORY FORM -->
-                        <form id="EditCategoryForm" method="POST">
-                            @csrf
-                            @method('PUT')
+                    <!-- EDIT CATEGORY FORM -->
+                    <form id="EditCategoryForm" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-header" style="background: #E9ECEF;">
+                            <h4 class="modal-title">Edit Category</h4>
+                            <button type="button" class="close" onClick="hideEditCategoryModal()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="background: #02681E;">
                             <input type="hidden" id="CategoryId" name="category_id">
                             <div class="container-fluid">
                                 <div class="card card-default">
@@ -111,30 +120,32 @@
                                         <div class="col-md-12">
                                             <div class="card-body">
                                                 <div class="form-group">
-                                                    <label for="name">Category Name</label>
+                                                    <label>Category Name</label>
                                                     <input type="text" class="form-control" id="EditName" name="name"
-                                                        placeholder="Enter Category Name" required>
+                                                        required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="description">Description</label>
+                                                    <label>Description</label>
                                                     <textarea type="text" class="form-control" id="EditDescription"
-                                                        name="description" placeholder="Enter Description"
-                                                        style="height: 100px;"></textarea>
+                                                        name="description" style="height: 100px;"></textarea>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="text-right">
-                                    <button type="button" class="btn btn-danger" onClick="hideEditCategoryModal()"
-                                        href="javascript:void(0)">Cancel</button>
-                                    <button type="submit" class="btn btn-primary"
-                                        style="background-color: #00491E; border-color: #00491E;">Update Category</button>
-                                </div>
                             </div>
-                        </form>
-                        <!-- EDIT CATEGORY FORM -->
-                    </div>
+                        </div>
+                        <div class="modal-footer" style="background: #E9ECEF;">
+                            <div class="text-right">
+                                <button type="button" class="btn btn-danger" onClick="hideEditCategoryModal()"
+                                    href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
+                                <button type="submit" class="btn btn-primary"
+                                    style="background-color: #00491E; border-color: #00491E;"><i
+                                        class="fas fa-check"></i>&nbsp;&nbsp;Update Category</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- EDIT CATEGORY FORM -->
                 </div>
             </div>
         </div>
@@ -143,17 +154,23 @@
         <div class="modal fade" id="DeleteCategoryModal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header" style="background: #E9ECEF;">
                         <h4 class="modal-title">Delete Category</h4>
+                        <button type="button" class="close" onClick="hideDeleteCategoryModal()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style="background: #E9ECEF;">
                         Are you sure you want to delete this category?
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" onClick="hideDeleteCategoryModal()"
-                            href="javascript:void(0)"
-                            style="background-color: #00491E; border-color: #00491E;">Cancel</button>
-                        <button type="button" class="btn btn-danger" id="DeleteCategory">Delete Category</button>
+                    <div class="modal-footer" style="background: #E9ECEF;">
+                        <div class="text-right">
+                            <button type="button" class="btn btn-primary" onClick="hideDeleteCategoryModal()"
+                                href="javascript:void(0)" style="background-color: #00491E; border-color: #00491E;"><i
+                                    class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
+                            <button type="button" class="btn btn-danger" id="DeleteCategory"><i
+                                    class="fas fa-trash"></i>&nbsp;&nbsp;Delete Category</button>
+                        </div>
                     </div>
                 </div>
             </div>
