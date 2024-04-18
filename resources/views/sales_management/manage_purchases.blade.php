@@ -87,18 +87,23 @@
                 </div>
                 <div class="card-body">
                     <!-- ADDED ITEMS TABLE -->
-                    <table class="table table-bordered" id="AddedItemsTable">
+                    <table class="table" id="AddedItemsTable">
                         <thead class="text-center">
-                            <tr>
-                                <th>Action</th>
-                                <th>Instructrional Material</th>
-                                <th>Batch</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                                <th>Total Price</th>
+                            <tr style="display: none;">
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody style="font-size: 14px;">
                         </tbody>
                         <tfoot>
                         </tfoot>
@@ -237,19 +242,19 @@
         var totalPrice = parseFloat($('#TotalPrice').val());
         var table = $('#AddedItemsTable').DataTable();
         var existingRow = table.rows().data().toArray().find(function(row) {
-            return row[1].includes('value="' + imId + '"') && row[2].includes('value="' +
+            return row[2].includes('value="' + imId + '"') && row[4].includes('value="' +
                 batchId + '"');
         });
         if (existingRow) {
-            var existingQuantity = parseInt(existingRow[3]);
-            var existingTotalPrice = parseFloat(existingRow[5]);
+            var existingQuantity = parseInt(existingRow[6]);
+            var existingTotalPrice = parseFloat(existingRow[10]);
             var newQuantity = existingQuantity + quantity;
             var newTotalPrice = existingTotalPrice + totalPrice;
-            var quantityInput = '<input type="text" name="quantity[]" value="' + newQuantity + '">';
-            existingRow[3] = newQuantity + quantityInput;
-            existingRow[5] = newTotalPrice.toFixed(2);
+            var quantityInput = '<input type="hidden" name="quantity[]" value="' + newQuantity + '">';
+            existingRow[6] = newQuantity + quantityInput;
+            existingRow[10] = newTotalPrice.toFixed(2);
             var rowIndex = table.rows().data().toArray().findIndex(function(row) {
-                return row[1].includes('value="' + imId + '"') && row[2].includes(
+                return row[2].includes('value="' + imId + '"') && row[4].includes(
                     'value="' +
                     batchId + '"');
             });
@@ -257,17 +262,22 @@
             $('#AddedItemsTable tbody tr').removeClass('recent-row');
             table.row(rowIndex).node().classList.add('recent-row');
         } else {
-            var imIdInput = '<input type="text" name="im_id[]" value="' + imId + '">';
-            var batchIdInput = '<input type="text" name="batch_id[]" value="' + batchId + '">';
-            var quantityInput = '<input type="text" name="quantity[]" value="' + quantity + '">';
+            var imIdInput = '<input type="hidden" name="im_id[]" value="' + imId + '">';
+            var batchIdInput = '<input type="hidden" name="batch_id[]" value="' + batchId + '">';
+            var quantityInput = '<input type="hidden" name="quantity[]" value="' + quantity + '">';
             var newRow = [
-                '<div class="text-center">' +
+                '<div class="text-right">' +
                 '<a href="#" class="delete"><i class="material-icons">&#xE872;</i></a>' +
                 '</div>',
+                '<p class="text-right" style="font-weight: bold;"> Instructional Material: </p>',
                 $('#SelectIm option:selected').text() + imIdInput,
+                '<p class="text-right" style="font-weight: bold;"> Batch: </p>',
                 $('#SelectBatch option:selected').text() + batchIdInput,
+                '<p class="text-right" style="font-weight: bold;"> Quantity: </p>',
                 $('#SelectQuantity option:selected').text() + quantityInput,
+                '<p class="text-right" style="font-weight: bold;"> Price: </p>',
                 price.toFixed(2),
+                '<p class="text-right" style="font-weight: bold;"> Total Price: </p>',
                 totalPrice.toFixed(2)
             ];
             var rowNode = table.row.add(newRow).draw(false).node();
