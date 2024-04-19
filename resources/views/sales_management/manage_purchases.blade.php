@@ -176,42 +176,46 @@
                         <div class="modal-body" style="background: #02681E;">
                             <div class="container-fluid">
                                 <div class="card card-default">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="form-group col-6">
-                                                <label>Customer</label>
-                                                <input type="text" class="form-control" name="customer_name" required>
-                                            </div>
-                                            <div class="form-group col-6">
-                                                <label>Cash</label>
-                                                <input type="text" oninput="calculateTotalChange(this)"
-                                                    onpaste="return false;" class="form-control" name="cash">
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="form-group col-6">
-                                                <label>OR Number</label>
-                                                <input type="text" class="form-control" name="or_number" required>
-                                            </div>
-                                            <div class="form-group col-6">
-                                                <label>Total Amount</label>
-                                                <input type="text" readonly class="form-control" id="TotalAmount"
-                                                    name="total_amount">
+                                    <div class="row">
+                                        <!-- LEFT SIDE -->
+                                        <div class="col-md-6">
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <label>Customer Name</label>
+                                                    <input type="text" class="form-control" name="customer_name" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>OR Number</label>
+                                                    <input type="text" class="form-control" name="or_number" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Date Sold</label>
+                                                    <input type="date" class="form-control" name="date_sold" required>
+                                                </div>
                                             </div>
                                         </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="form-group col-6">
-                                                <label>Date Sold</label>
-                                                <input type="date" class="form-control" name="date_sold" required>
-                                            </div>
-                                            <div class="form-group col-6">
-                                                <label>Total Change</label>
-                                                <input type="text" readonly class="form-control" id="TotalChange"
-                                                    name="total_change">
+                                        <!-- LEFT SIDE -->
+                                        <!-- RIGHT SIDE -->
+                                        <div class="col-md-6">
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <label>Cash</label>
+                                                    <input type="text" oninput="calculateTotalChange(this)"
+                                                        onpaste="return false;" class="form-control" name="cash">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Total Amount</label>
+                                                    <input type="text" readonly class="form-control" id="TotalAmount"
+                                                        name="total_amount">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Total Change</label>
+                                                    <input type="text" readonly class="form-control" id="TotalChange"
+                                                        name="total_change">
+                                                </div>
                                             </div>
                                         </div>
+                                        <!-- RIGHT SIDE -->
                                     </div>
                                 </div>
                             </div>

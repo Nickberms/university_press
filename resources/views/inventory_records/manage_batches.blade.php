@@ -237,7 +237,7 @@
                         <button type="button" class="btn btn-primary" onClick="hideDeleteBatchModal()"
                             href="javascript:void(0)" style="background-color: #00491E; border-color: #00491E;"><i
                                 class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
-                        <button type="button" class="btn btn-danger" id="DeleteBatch">D<i
+                        <button type="button" class="btn btn-danger" id="DeleteBatch"><i
                                 class="fas fa-trash"></i>&nbsp;&nbsp;Delete Batch</button>
                     </div>
                 </div>
