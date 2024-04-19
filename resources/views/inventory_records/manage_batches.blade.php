@@ -16,17 +16,17 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 
-<body class="hold-transition sidebar-mini" style="font-family: Roboto, sans-serif">
+<body class="hold-transition sidebar-mini" style="font-family: Roboto, sans-serif;">
     <div class="wrapper">
         <div class="container-fluid">
             <br>
             <a class="btn btn-primary" onClick="showAddBatchModal()" href="javascript:void(0)"
                 style="background-color: #00491E; border-color: #00491E;">
-                <i class="fas fa-plus"></i> Add Batch
+                <i class="fas fa-plus"></i>&nbsp;&nbsp;Add Batch
             </a>
             <br><br>
             <div class="card">
-                <div class="card-header">
+                <div class="card-header" style="background: #E9ECEF;">
                     <h3 class="card-title">Manage Batches</h3>
                 </div>
                 <div class="card-body">
@@ -48,6 +48,8 @@
                         </thead>
                         <tbody>
                         </tbody>
+                        <tfoot>
+                        </tfoot>
                     </table>
                     <!-- BATCHES TABLE -->
                 </div>
@@ -58,13 +60,16 @@
         <div class="modal fade" id="AddBatchModal">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Add Batch</h4>
-                    </div>
-                    <div class="modal-body">
-                        <!-- ADD BATCH FORM -->
-                        <form id="AddBatchForm" method="POST">
-                            @csrf
+                    <!-- ADD BATCH FORM -->
+                    <form id="AddBatchForm" method="POST">
+                        @csrf
+                        <div class="modal-header" style="background: #E9ECEF;">
+                            <h4 class="modal-title">Add Batch</h4>
+                            <button type="button" class="close" onClick="hideAddBatchModal()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="background: #02681E;">
                             <div class="container-fluid">
                                 <div class="card card-default">
                                     <div class="row">
@@ -72,20 +77,18 @@
                                         <div class="col-md-6">
                                             <div class="card-body">
                                                 <div class="form-group">
-                                                    <label for="instructional_material">Instructional Material</label>
+                                                    <label>Instructional Material</label>
                                                     <select class="select2 form-control"
-                                                        id="ChooseInstructionalMaterial" name="instructional_material"
-                                                        data-placeholder="Select Instructional Material"
+                                                        id="SelectInstructionalMaterial" name="im_id"
                                                         style="width: 100%;" required>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="name">Batch Name</label>
-                                                    <input type="text" class="form-control" name="name"
-                                                        placeholder="Enter Batch Name" required>
+                                                    <label>Batch Name</label>
+                                                    <input type="text" class="form-control" name="name" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="production_date">Production Date</label>
+                                                    <label>Production Date</label>
                                                     <input type="date" class="form-control" name="production_date"
                                                         required>
                                                 </div>
@@ -96,39 +99,40 @@
                                         <div class="col-md-6">
                                             <div class="card-body">
                                                 <div class="form-group">
-                                                    <label for="production_cost">Production Cost</label>
+                                                    <label>Production Cost</label>
                                                     <input type="text" oninput="AmountOnly(this)"
                                                         onpaste="return false;" class="form-control"
-                                                        name="production_cost" placeholder="Enter Production Cost"
-                                                        required>
+                                                        name="production_cost" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="price">Price</label>
+                                                    <label>Price</label>
                                                     <input type="text" oninput="AmountOnly(this)"
                                                         onpaste="return false;" class="form-control" name="price"
-                                                        placeholder="Enter Price" required>
+                                                        required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="quantity_produced">Quantity Produced</label>
+                                                    <label>Quantity Produced</label>
                                                     <input type="text" oninput="NumbersOnly(this)" class="form-control"
-                                                        name="quantity_produced" placeholder="Enter Quantity Produced"
-                                                        required>
+                                                        name="quantity_produced" required>
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- RIGHT SIDE -->
                                     </div>
                                 </div>
-                                <div class="text-right">
-                                    <button type="button" class="btn btn-danger" onClick="hideAddBatchModal()"
-                                        href="javascript:void(0)">Cancel</button>
-                                    <button type="submit" class="btn btn-primary"
-                                        style="background-color: #00491E; border-color: #00491E;">Add Batch</button>
-                                </div>
                             </div>
-                        </form>
-                        <!-- ADD BATCH FORM -->
-                    </div>
+                        </div>
+                        <div class="modal-footer" style="background: #E9ECEF;">
+                            <div class="text-right">
+                                <button type="button" class="btn btn-danger" onClick="hideAddBatchModal()"
+                                    href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
+                                <button type="submit" class="btn btn-primary"
+                                    style="background-color: #00491E; border-color: #00491E;"><i
+                                        class="fas fa-plus"></i>&nbsp;&nbsp;Add Batch</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- ADD BATCH FORM -->
                 </div>
             </div>
         </div>
@@ -137,14 +141,17 @@
         <div class="modal fade" id="EditBatchModal">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Edit Batch</h4>
-                    </div>
-                    <div class="modal-body">
-                        <!-- EDIT BATCH FORM -->
-                        <form id="EditBatchForm" method="POST">
-                            @csrf
-                            @method('PUT')
+                    <!-- EDIT BATCH FORM -->
+                    <form id="EditBatchForm" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-header" style="background: #E9ECEF;">
+                            <h4 class="modal-title">Edit Batch</h4>
+                            <button type="button" class="close" onClick="hideEditBatchModal()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="background: #02681E;">
                             <input type="hidden" id="BatchId" name="batch_id">
                             <div class="container-fluid">
                                 <div class="card card-default">
@@ -153,20 +160,18 @@
                                         <div class="col-md-6">
                                             <div class="card-body">
                                                 <div class="form-group">
-                                                    <label for="instructional_material">Instructional Material</label>
+                                                    <label>Instructional Material</label>
                                                     <select class="select2 form-control" id="EditInstructionalMaterial"
-                                                        name="instructional_material"
-                                                        data-placeholder="Select Instructional Material"
-                                                        style="width: 100%;" required>
+                                                        name="im_id" style="width: 100%;" required>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="name">Batch Name</label>
-                                                    <input type="text" class="form-control" id="EditName" name="name"
-                                                        placeholder="Enter Batch Name" required>
+                                                    <label>Batch Name</label>
+                                                    <input type="text" class="form-control" id="EditBatchName" name="name"
+                                                        required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="production_date">Production Date</label>
+                                                    <label>Production Date</label>
                                                     <input type="date" class="form-control" id="EditProductionDate"
                                                         name="production_date" required>
                                                 </div>
@@ -177,39 +182,40 @@
                                         <div class="col-md-6">
                                             <div class="card-body">
                                                 <div class="form-group">
-                                                    <label for="production_cost">Production Cost</label>
+                                                    <label>Production Cost</label>
                                                     <input type="text" oninput="AmountOnly(this)"
                                                         onpaste="return false;" class="form-control"
-                                                        id="EditProductionCost" name="production_cost"
-                                                        placeholder="Enter Production Cost" required>
+                                                        id="EditProductionCost" name="production_cost" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="price">Price</label>
+                                                    <label>Price</label>
                                                     <input type="text" oninput="AmountOnly(this)"
                                                         onpaste="return false;" class="form-control" id="EditPrice"
-                                                        name="price" placeholder="Enter Price" required>
+                                                        name="price" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="quantity_produced">Quantity Produced</label>
+                                                    <label>Quantity Produced</label>
                                                     <input type="text" oninput="NumbersOnly(this)" class="form-control"
-                                                        id="EditQuantityProduced" name="quantity_produced"
-                                                        placeholder="Enter Quantity Produced" required>
+                                                        id="EditQuantityProduced" name="quantity_produced" required>
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- RIGHT SIDE -->
                                     </div>
                                 </div>
-                                <div class="text-right">
-                                    <button type="button" class="btn btn-danger" onClick="hideEditBatchModal()"
-                                        href="javascript:void(0)">Cancel</button>
-                                    <button type="submit" class="btn btn-primary"
-                                        style="background-color: #00491E; border-color: #00491E;">Update Batch</button>
-                                </div>
                             </div>
-                        </form>
-                        <!-- EDIT BATCH FORM -->
-                    </div>
+                        </div>
+                        <div class="modal-footer" style="background: #E9ECEF;">
+                            <div class="text-right">
+                                <button type="button" class="btn btn-danger" onClick="hideEditBatchModal()"
+                                    href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
+                                <button type="submit" class="btn btn-primary"
+                                    style="background-color: #00491E; border-color: #00491E;"><i
+                                        class="fas fa-check"></i>&nbsp;&nbsp;Update Batch</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- EDIT BATCH FORM -->
                 </div>
             </div>
         </div>
@@ -218,17 +224,21 @@
         <div class="modal fade" id="DeleteBatchModal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header" style="background: #E9ECEF;">
                         <h4 class="modal-title">Delete Batch</h4>
+                        <button type="button" class="close" onClick="hideDeleteBatchModal()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style="background: #E9ECEF;">
                         Are you sure you want to delete this batch?
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer" style="background: #E9ECEF;">
                         <button type="button" class="btn btn-primary" onClick="hideDeleteBatchModal()"
-                            href="javascript:void(0)"
-                            style="background-color: #00491E; border-color: #00491E;">Cancel</button>
-                        <button type="button" class="btn btn-danger" id="DeleteBatch">Delete Batch</button>
+                            href="javascript:void(0)" style="background-color: #00491E; border-color: #00491E;"><i
+                                class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
+                        <button type="button" class="btn btn-danger" id="DeleteBatch">D<i
+                                class="fas fa-trash"></i>&nbsp;&nbsp;Delete Batch</button>
                     </div>
                 </div>
             </div>
@@ -242,7 +252,7 @@
             type: 'GET',
             dataType: 'json',
             success: function(response) {
-                var selectInstructionalMaterial = $('#ChooseInstructionalMaterial');
+                var selectInstructionalMaterial = $('#SelectInstructionalMaterial');
                 selectInstructionalMaterial.empty();
                 response.forEach(function(im) {
                     selectInstructionalMaterial.append('<option value="' + im.id + '">' + im.title +
@@ -282,7 +292,7 @@
                     success: function(batch) {
                         $('#BatchId').val(batch.id);
                         $('#EditInstructionalMaterial').val(batch.im_id).trigger('change');
-                        $('#EditName').val(batch.name);
+                        $('#EditBatchName').val(batch.name);
                         var productionDate = new Date(batch.production_date);
                         var formattedProductionDate = productionDate.toISOString().split('T')[
                             0];

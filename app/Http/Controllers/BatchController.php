@@ -50,7 +50,7 @@ class BatchController extends Controller
             }
             $request['name'] = formatInput($request['name']);
             $batch = new Batch([
-                'im_id' => $request->input('instructional_material'),
+                'im_id' => $request->input('im_id'),
                 'name' => $request->input('name'),
                 'production_date' => $request->input('production_date'),
                 'production_cost' => $request->input('production_cost'),
@@ -90,7 +90,7 @@ class BatchController extends Controller
                 return response()->json(['error' => 'This batch holds other records and cannot be updated!'], 422);
             }
             $batch->update([
-                'im_id' => $request->input('instructional_material'),
+                'im_id' => $request->input('im_id'),
                 'name' => $request->input('name'),
                 'production_date' => $request->input('production_date'),
                 'production_cost' => $request->input('production_cost'),

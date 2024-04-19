@@ -121,7 +121,7 @@
                                             <div class="card-body">
                                                 <div class="form-group">
                                                     <label>Category Name</label>
-                                                    <input type="text" class="form-control" id="EditName" name="name"
+                                                    <input type="text" class="form-control" id="EditCategoryName" name="name"
                                                         required>
                                                 </div>
                                                 <div class="form-group">
@@ -191,7 +191,7 @@
             dataType: 'json',
             success: function(category) {
                 $('#CategoryId').val(category.id);
-                $('#EditName').val(category.name);
+                $('#EditCategoryName').val(category.name);
                 $('#EditDescription').val(category.description);
                 $('#EditCategoryModal').modal('show');
             },
