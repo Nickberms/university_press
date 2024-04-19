@@ -17,17 +17,17 @@
     <script src="https://cdn.datatables.net/fixedcolumns/3.3.2/js/dataTables.fixedColumns.min.js"></script>
 </head>
 
-<body class="hold-transition sidebar-mini" style="font-family: Roboto, sans-serif">
+<body class="hold-transition sidebar-mini" style="font-family: Roboto, sans-serif;">
     <div class="wrapper">
         <div class="container-fluid">
             <br>
             <a class="btn btn-primary" onClick="showAddInstructionalMaterialModal()" href="javascript:void(0)"
                 style="background-color: #00491E; border-color: #00491E;">
-                <i class="fas fa-plus"></i> Add Instructional Material
+                <i class="fas fa-plus"></i>&nbsp;&nbsp;Add Instructional Material
             </a>
             <br><br>
             <div class="card">
-                <div class="card-header">
+                <div class="card-header" style="background: #E9ECEF;">
                     <h3 class="card-title">Manage Masterlist</h3>
                 </div>
                 <div class="card-body">
@@ -49,6 +49,8 @@
                         </thead>
                         <tbody>
                         </tbody>
+                        <tfoot>
+                        </tfoot>
                     </table>
                     <!-- MASTERLIST TABLE -->
                 </div>
@@ -59,13 +61,16 @@
         <div class="modal fade" id="AddInstructionalMaterialModal">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Add Instructional Material</h4>
-                    </div>
-                    <div class="modal-body">
-                        <!-- ADD INSTRUCTIONAL MATERIAL FORM -->
-                        <form id="AddInstructionalMaterialForm" method="POST">
-                            @csrf
+                    <!-- ADD INSTRUCTIONAL MATERIAL FORM -->
+                    <form id="AddInstructionalMaterialForm" method="POST">
+                        @csrf
+                        <div class="modal-header" style="background: #E9ECEF;">
+                            <h4 class="modal-title">Add Instructional Material</h4>
+                            <button type="button" class="close" onClick="hideAddInstructionalMaterialModal()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="background: #02681E;">
                             <div class="container-fluid">
                                 <div class="card card-default">
                                     <div class="row">
@@ -73,34 +78,30 @@
                                         <div class="col-md-6">
                                             <div class="card-body">
                                                 <div class="form-group">
-                                                    <label for="code">Code</label>
-                                                    <input type="text" class="form-control" name="code"
-                                                        placeholder="Enter Code" required>
+                                                    <label>Code</label>
+                                                    <input type="text" class="form-control" name="code" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="title">Title</label>
-                                                    <input type="text" class="form-control" name="title"
-                                                        placeholder="Enter Title" required>
+                                                    <label>Title</label>
+                                                    <input type="text" class="form-control" name="title" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="authors">Authors</label>
+                                                    <label>Authors</label>
                                                     <select multiple="multiple" class="select2 form-control"
-                                                        id="ChooseAuthors" name="authors[]"
-                                                        data-placeholder="Select Authors" style="width: 100%;" required>
+                                                        id="SelectAuthors" name="authors[]" style="width: 100%;"
+                                                        required>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="category">Category</label>
-                                                    <select class="select2 form-control" id="ChooseCategory"
-                                                        name="category" data-placeholder="Select Category"
-                                                        style="width: 100%;" required>
+                                                    <label>Category</label>
+                                                    <select class="select2 form-control" id="SelectCategory"
+                                                        name="category_id" style="width: 100%;" required>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="college">College</label>
+                                                    <label>College</label>
                                                     <select class="select2 form-control" name="college"
-                                                        data-placeholder="Select College" style="width: 100%;">
-                                                        <option value="" disabled selected>Select College</option>
+                                                        style="width: 100%;">
                                                         <option value=" "></option>
                                                         <option>College of Agriculture</option>
                                                         <option>College of Arts and Sciences</option>
@@ -123,29 +124,25 @@
                                         <div class="col-md-6">
                                             <div class="card-body">
                                                 <div class="form-group">
-                                                    <label for="publisher">Publisher</label>
+                                                    <label>Publisher</label>
                                                     <select class="select2 form-control" name="publisher"
-                                                        data-placeholder="Select Publisher" style="width: 100%;">
-                                                        <option value="" disabled selected>Select Publisher</option>
+                                                        style="width: 100%;">
                                                         <option value=" "></option>
                                                         <option>University Press</option>
                                                         <option>Consigned Material</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="edition">Edition</label>
-                                                    <input type="text" class="form-control" name="edition"
-                                                        placeholder="Enter Edition">
+                                                    <label>Edition</label>
+                                                    <input type="text" class="form-control" name="edition">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="isbn">ISBN</label>
-                                                    <input type="text" class="form-control" name="isbn"
-                                                        placeholder="Enter ISBN">
+                                                    <label>ISBN</label>
+                                                    <input type="text" class="form-control" name="isbn">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="description">Description</label>
+                                                    <label>Description</label>
                                                     <textarea type="text" class="form-control" name="description"
-                                                        placeholder="Enter Description"
                                                         style="height: 124px;"></textarea>
                                                 </div>
                                             </div>
@@ -153,17 +150,20 @@
                                         <!-- RIGHT SIDE -->
                                     </div>
                                 </div>
-                                <div class="text-right">
-                                    <button type="button" class="btn btn-danger"
-                                        onClick="hideAddInstructionalMaterialModal()"
-                                        href="javascript:void(0)">Cancel</button>
-                                    <button type="submit" class="btn btn-primary"
-                                        style="background-color: #00491E; border-color: #00491E;">Add Instructional Material</button>
-                                </div>
                             </div>
-                        </form>
-                        <!-- ADD INSTRUCTIONAL MATERIAL FORM -->
-                    </div>
+                        </div>
+                        <div class="modal-footer" style="background: #E9ECEF;">
+                            <div class="text-right">
+                                <button type="button" class="btn btn-danger"
+                                    onClick="hideAddInstructionalMaterialModal()" href="javascript:void(0)"><i
+                                        class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
+                                <button type="submit" class="btn btn-primary"
+                                    style="background-color: #00491E; border-color: #00491E;"><i
+                                        class="fas fa-plus"></i>&nbsp;&nbsp;Add Instructional Material</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- ADD INSTRUCTIONAL MATERIAL FORM -->
                 </div>
             </div>
         </div>
@@ -172,14 +172,17 @@
         <div class="modal fade" id="EditInstructionalMaterialModal">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Edit Instructional Material</h4>
-                    </div>
-                    <div class="modal-body">
-                        <!-- EDIT INSTRUCTIONAL MATERIAL FORM -->
-                        <form id="EditInstructionalMaterialForm" method="POST">
-                            @csrf
-                            @method('PUT')
+                    <!-- EDIT INSTRUCTIONAL MATERIAL FORM -->
+                    <form id="EditInstructionalMaterialForm" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-header" style="background: #E9ECEF;">
+                            <h4 class="modal-title">Edit Instructional Material</h4>
+                            <button type="button" class="close" onClick="hideEditInstructionalMaterialModal()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="background: #02681E;">
                             <input type="hidden" id="InstructionalMaterialId" name="instructional_material_id">
                             <div class="container-fluid">
                                 <div class="card card-default">
@@ -188,34 +191,31 @@
                                         <div class="col-md-6">
                                             <div class="card-body">
                                                 <div class="form-group">
-                                                    <label for="code">Code</label>
+                                                    <label>Code</label>
                                                     <input type="text" class="form-control" id="EditCode" name="code"
-                                                        placeholder="Enter Code" required>
+                                                        required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="title">Title</label>
+                                                    <label>Title</label>
                                                     <input type="text" class="form-control" id="EditTitle" name="title"
-                                                        placeholder="Enter Title" required>
+                                                        required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="authors">Authors</label>
+                                                    <label>Authors</label>
                                                     <select multiple="multiple" class="select2 form-control"
-                                                        id="EditAuthors" name="authors[]"
-                                                        data-placeholder="Select Authors" style="width: 100%;" required>
+                                                        id="EditAuthors" name="authors[]" style="width: 100%;" required>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="category">Category</label>
+                                                    <label>Category</label>
                                                     <select class="select2 form-control" id="EditCategory"
-                                                        name="category" data-placeholder="Select Category"
-                                                        style="width: 100%;" required>
+                                                        name="category_id" style="width: 100%;" required>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="college">College</label>
+                                                    <label>College</label>
                                                     <select class="select2 form-control" id="EditCollege" name="college"
-                                                        data-placeholder="Select College" style="width: 100%;">
-                                                        <option value="" disabled selected>Select College</option>
+                                                        style="width: 100%;">
                                                         <option value=" "></option>
                                                         <option>College of Agriculture</option>
                                                         <option>College of Arts and Sciences</option>
@@ -238,48 +238,47 @@
                                         <div class="col-md-6">
                                             <div class="card-body">
                                                 <div class="form-group">
-                                                    <label for="publisher">Publisher</label>
+                                                    <label>Publisher</label>
                                                     <select class="select2 form-control" id="EditPublisher"
-                                                        name="publisher" data-placeholder="Select Publisher"
-                                                        style="width: 100%;">
-                                                        <option value="" disabled selected>Select Publisher</option>
+                                                        name="publisher" style="width: 100%;">
                                                         <option value=" "></option>
                                                         <option>University Press</option>
                                                         <option>Consigned Material</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="edition">Edition</label>
+                                                    <label>Edition</label>
                                                     <input type="text" class="form-control" id="EditEdition"
-                                                        name="edition" placeholder="Enter Edition">
+                                                        name="edition">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="isbn">ISBN</label>
-                                                    <input type="text" class="form-control" id="EditIsbn" name="isbn"
-                                                        placeholder="Enter ISBN">
+                                                    <label>ISBN</label>
+                                                    <input type="text" class="form-control" id="EditIsbn" name="isbn">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="description">Description</label>
+                                                    <label>Description</label>
                                                     <textarea type="text" class="form-control" id="EditDescription"
-                                                        name="description" placeholder="Enter Description"
-                                                        style="height: 124px;"></textarea>
+                                                        name="description" style="height: 124px;"></textarea>
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- RIGHT SIDE -->
                                     </div>
                                 </div>
-                                <div class="text-right">
-                                    <button type="button" class="btn btn-danger"
-                                        onClick="hideEditInstructionalMaterialModal()"
-                                        href="javascript:void(0)">Cancel</button>
-                                    <button type="submit" class="btn btn-primary"
-                                        style="background-color: #00491E; border-color: #00491E;">Update Instructional Material</button>
-                                </div>
                             </div>
-                        </form>
-                        <!-- EDIT INSTRUCTIONAL MATERIAL FORM -->
-                    </div>
+                        </div>
+                        <div class="modal-footer" style="background: #E9ECEF;">
+                            <div class="text-right">
+                                <button type="button" class="btn btn-danger"
+                                    onClick="hideEditInstructionalMaterialModal()" href="javascript:void(0)"><i
+                                        class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
+                                <button type="submit" class="btn btn-primary"
+                                    style="background-color: #00491E; border-color: #00491E;"><i
+                                        class="fas fa-check"></i>&nbsp;&nbsp;Update Instructional Material</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- EDIT INSTRUCTIONAL MATERIAL FORM -->
                 </div>
             </div>
         </div>
@@ -288,17 +287,21 @@
         <div class="modal fade" id="DeleteInstructionalMaterialModal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header" style="background: #E9ECEF;">
                         <h4 class="modal-title">Delete Instructional Material</h4>
+                        <button type="button" class="close" onClick="hideDeleteInstructionalMaterialModal()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style="background: #E9ECEF;">
                         Are you sure you want to delete this instructional material?
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer" style="background: #E9ECEF;">
                         <button type="button" class="btn btn-primary" onClick="hideDeleteInstructionalMaterialModal()"
-                            href="javascript:void(0)"
-                            style="background-color: #00491E; border-color: #00491E;">Cancel</button>
-                        <button type="button" class="btn btn-danger" id="DeleteInstructionalMaterial">Delete Instructional Material</button>
+                            href="javascript:void(0)" style="background-color: #00491E; border-color: #00491E;"><i
+                                class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
+                        <button type="button" class="btn btn-danger" id="DeleteInstructionalMaterial"><i
+                                class="fas fa-trash"></i>&nbsp;&nbsp;Delete Instructional Material</button>
                     </div>
                 </div>
             </div>
@@ -312,7 +315,7 @@
             type: 'GET',
             dataType: 'json',
             success: function(response) {
-                var selectAuthors = $('#ChooseAuthors');
+                var selectAuthors = $('#SelectAuthors');
                 selectAuthors.empty();
                 response.authors.forEach(function(author) {
                     selectAuthors.append('<option value="' + author.id + '">' + author
@@ -320,7 +323,7 @@
                 });
                 selectAuthors.val(null).trigger('change');
                 selectAuthors.select2();
-                var selectCategory = $('#ChooseCategory');
+                var selectCategory = $('#SelectCategory');
                 selectCategory.empty();
                 response.categories.forEach(function(category) {
                     selectCategory.append('<option value="' + category.id + '">' + category

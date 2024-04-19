@@ -11,8 +11,8 @@ class IM extends Model
     protected $fillable = [
         'code',
         'title',
-        'college',
         'category_id',
+        'college',
         'publisher',
         'edition',
         'isbn',

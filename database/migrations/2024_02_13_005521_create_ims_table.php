@@ -10,8 +10,8 @@ return new class extends Migration {
             $table->id();
             $table->string('code');
             $table->string('title');
-            $table->string('college')->nullable();
             $table->foreignId('category_id')->constrained('categories');
+            $table->string('college')->nullable();
             $table->string('publisher')->nullable();
             $table->string('edition')->nullable();
             $table->string('isbn')->nullable();

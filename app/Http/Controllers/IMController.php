@@ -51,7 +51,7 @@ class IMController extends Controller
             $im = new IM([
                 'code' => $request->input('code'),
                 'title' => $request->input('title'),
-                'category_id' => $request->input('category'),
+                'category_id' => $request->input('category_id'),
                 'college' => $request->input('college'),
                 'publisher' => $request->input('publisher'),
                 'edition' => $request->input('edition'),
@@ -116,7 +116,7 @@ class IMController extends Controller
                 $im->update([
                     'code' => $request->input('code'),
                     'title' => $request->input('title'),
-                    'category_id' => $request->input('category'),
+                    'category_id' => $request->input('category_id'),
                     'college' => $request->input('college'),
                     'publisher' => $request->input('publisher'),
                     'edition' => $request->input('edition'),
