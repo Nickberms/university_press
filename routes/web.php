@@ -28,8 +28,8 @@ Route::resource('purchases', PurchaseController::class)->middleware(['auth', 've
 Route::resource('reports', ReportController::class)->middleware(['auth', 'verified']);
 Route::resource('monitoring', MonitoringController::class)->middleware(['auth', 'verified']);
 Route::get('/', function () {
-    return view('landing_page.landing_page');
+    return view('landing_page');
 })->name('landing-page');
 Route::get('/purchase_history', function () {
     return view('sales_management.purchase_history');
-});
+})->middleware(['auth', 'verified']);

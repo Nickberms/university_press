@@ -1,13 +1,215 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>University Press</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('css/landing_page.css') }}">
     <link rel="icon" href="images/cmu_press_logo.png" type="image/png">
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
+    * {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        text-decoration: none;
+        transition: .2s linear;
+    }
+    body {
+        zoom: 80%;
+    }
+    section {
+        padding: 2rem 18%;
+    }
+    .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 9%;
+        z-index: 1;
+        background: #FFFFFF;
+        box-shadow: 0px 2px 4px rgba(0, 73, 30);
+    }
+    .header .logo span {
+        margin-left: 0.5rem;
+        font-weight: bold;
+        display: inline-block;
+        vertical-align: middle;
+        color: #00491E;
+        font-size: 1.5rem;
+    }
+    .header .navbar #Close {
+        display: none;
+        position: absolute;
+        top: 4rem;
+        right: 2rem;
+        cursor: pointer;
+        font-size: 3rem;
+        color: #000000;
+    }
+    .header .navbar a {
+        font-size: 1.3rem;
+        margin-right: 2rem;
+        color: #00491E;
+    }
+    .header .navbar a:hover {
+        color: #FFC600;
+    }
+    .header #Menu {
+        display: none;
+        cursor: pointer;
+        font-size: 2.5rem;
+        color: #000000;
+    }
+    .home {
+        display: flex;
+        margin-top: 1rem;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        min-height: 120vh;
+        align-items: center;
+        justify-content: center;
+        background: #E9ECEF;
+    }
+    .home .content {
+        flex: 1 1 40rem;
+        padding-top: 6.5rem;
+    }
+    .home #content .title {
+        font-size: 4rem;
+        color: #00491E;
+        padding-top: 3rem;
+    }
+    .home #content .title span {
+        color: #919F02;
+    }
+    .home #content .description {
+        font-size: 1.5rem;
+        font-weight: lighter;
+        color: #00491E;
+    }
+    .home #content .btn {
+        margin-top: 3rem;
+        display: inline-block;
+        padding: .9rem 3rem;
+        font-size: 1.5rem;
+        color: #FFFFFF;
+        background: #02681E;
+        cursor: pointer;
+    }
+    .home .image {
+        flex: 1 1 40rem;
+    }
+    .about_us {
+        display: flex;
+        flex-wrap: wrap;
+        min-height: 120vh;
+        align-items: center;
+        justify-content: center;
+        background: #FFFFFF;
+    }
+    .about_us #content .title {
+        font-size: 3rem;
+        color: #00491E;
+    }
+    .about_us #content .title span {
+        color: #919F02;
+    }
+    .about_us #content .description {
+        font-size: 1rem;
+        font-weight: 500;
+        line-height: 1.8;
+        padding: 0.5rem 0;
+        color: #00491E;
+        text-align: justify;
+        letter-spacing: -0.5px;
+    }
+    .aims {
+        display: flex;
+        flex-wrap: wrap;
+        min-height: 120vh;
+        align-items: center;
+        justify-content: center;
+        background: #E9ECEF;
+    }
+    .aims #content .title {
+        font-size: 3rem;
+        color: #00491E;
+    }
+    .aims #content .title span {
+        color: #919F02;
+    }
+    .aims #content .description {
+        font-size: 1rem;
+        font-weight: 500;
+        line-height: 1.8;
+        padding: 0.5rem 0;
+        color: #00491E;
+        text-align: justify;
+        letter-spacing: -0.5px;
+    }
+    @media (max-width:991px) {
+        html {
+            font-size: 55%;
+        }
+        .header {
+            padding: 2rem;
+        }
+        section {
+            padding: 2rem;
+        }
+    }
+    @media (max-width:768px) {
+        .header .navbar {
+            position: fixed;
+            top: 0;
+            right: -105%;
+            width: 30rem;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(50px);
+            transform: .5s;
+            height: 100%;
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+            z-index: 1200;
+        }
+        .header .navbar.active {
+            right: 0;
+        }
+        .header .navbar #Close {
+            display: block;
+        }
+        .header .navbar a {
+            display: block;
+            margin: 1rem 0;
+            text-align: center;
+            font-size: 3rem;
+        }
+        .header #Menu {
+            display: inline-block;
+        }
+        .home .content {
+            padding-top: 9.5rem;
+        }
+        .home .content .title {
+            font-size: 4rem;
+        }
+        .home .image .img {
+            width: 368px;
+        }
+    }
+    @media (max-width:450px) {
+        html {
+            font-size: 50%;
+        }
+    }
+    </style>
 </head>
 
 <body>
@@ -96,7 +298,6 @@
         </div>
     </section>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="{{ asset('js/landing_page.js') }}"></script>
 </body>
 
 </html>
