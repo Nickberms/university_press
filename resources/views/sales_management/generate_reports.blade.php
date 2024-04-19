@@ -16,7 +16,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 
-<body class="hold-transition sidebar-mini" style="font-family: Roboto, sans-serif">
+<body class="hold-transition sidebar-mini" style="font-family: Roboto, sans-serif;">
     <div class="wrapper">
         <div class="container-fluid">
             <br>
@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="card">
-                <div class="card-header">
+                <div class="card-header" style="background: #E9ECEF;">
                     <h3 class="card-title">Generate Reports</h3>
                 </div>
                 <div class="card-body">
@@ -58,6 +58,8 @@
                         </thead>
                         <tbody>
                         </tbody>
+                        <tfoot>
+                        </tfoot>
                     </table>
                     <!-- REPORTS TABLE -->
                 </div>

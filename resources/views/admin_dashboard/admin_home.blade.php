@@ -16,7 +16,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 
-<body style="font-family: Roboto, sans-serif">
+<body style="font-family: Roboto, sans-serif;">
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -85,12 +85,12 @@
             </div>
             <!-- DASHBOARD CARDS -->
             <div class="card">
-                <div class="card-header">
+                <div class="card-header" style="background: #E9ECEF;">
                     <h3 class="card-title">Daily Monitoring</h3>
                 </div>
                 <div class="card-body">
                     <!-- MONITORING TABLE -->
-                    <table class="table table-bordered table-striped" id="MonitoringTable" style="font-size: 14px">
+                    <table class="table table-bordered table-striped" id="MonitoringTable" style="font-size: 14px;">
                         <thead class="text-center">
                             <tr>
                                 <th>Code</th>
@@ -137,6 +137,8 @@
                         </thead>
                         <tbody>
                         </tbody>
+                        <tfoot>
+                        </tfoot>
                     </table>
                     <!-- MONITORING TABLE -->
                 </div>
