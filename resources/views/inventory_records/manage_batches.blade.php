@@ -428,14 +428,14 @@
                         batch.im.title,
                         batch.name,
                         formattedProductionDateString,
-                        '<span style="float:right;">' + monetaryValue(batch
+                        '<span style="float: right;">' + monetaryValue(batch
                             .production_cost.toFixed(2)) + '</span>',
-                        '<span style="float:right;">' + monetaryValue(batch.price
+                        '<span style="float: right;">' + monetaryValue(batch.price
                             .toFixed(2)) + '</span>',
-                        '<span style="float:right;">' + batch.quantity_produced + '</span>',
-                        '<span style="float:right;">' + batch.quantity_sold + '</span>',
-                        '<span style="float:right;">' + availableStocks + '</span>',
-                        '<span style="float:right;">' + monetaryValue(totalRevenue
+                        '<span style="float: right;">' + batch.quantity_produced + '</span>',
+                        '<span style="float: right;">' + batch.quantity_sold + '</span>',
+                        '<span style="float: right;">' + availableStocks + '</span>',
+                        '<span style="float: right;">' + monetaryValue(totalRevenue
                             .toFixed(2)) + '</span>'
                     ]);
                 });

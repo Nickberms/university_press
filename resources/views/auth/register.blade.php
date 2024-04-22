@@ -16,7 +16,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 
-<body style="font-family: Roboto, sans-serif">
+<body style="font-family: Roboto, sans-serif;">
     <div class="card-body login-card-body">
         <p class="login-box-msg" style="font-size: 20px;">{{ __('Register') }}</p>
         <form method="POST" action="{{ route('register') }}">

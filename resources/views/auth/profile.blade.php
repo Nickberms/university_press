@@ -15,7 +15,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 
-<body style="font-family: Roboto, sans-serif">
+<body style="font-family: Roboto, sans-serif;">
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -92,7 +92,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-footer">
+                            <div class="card-footer" style="background: #E9ECEF;">
                                 <button type="submit" class="btn btn-primary"
                                     style="background-color: #00491E; border-color: #00491E;">{{ __('Update Profile') }}</button>
                             </div>

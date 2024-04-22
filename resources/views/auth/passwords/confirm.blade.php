@@ -1,6 +1,6 @@
 @extends('layouts.guest')
 @section('content')
-<div class="card-body login-card-body" style="font-family: Roboto, sans-serif">
+<div class="card-body login-card-body" style="font-family: Roboto, sans-serif;">
     <p class="login-box-msg">{{ __('Please confirm your password before continuing.') }}</p>
     <form method="POST" action="{{ route('password.confirm') }}">
         @csrf

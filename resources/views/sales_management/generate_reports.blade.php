@@ -92,17 +92,17 @@
                         batch.im.code,
                         batch.im.title,
                         batch.name,
-                        '<span style="float:right;">' + monetaryValue(batch.price.toFixed(
+                        '<span style="float: right;">' + monetaryValue(batch.price.toFixed(
                             2)) + '</span>',
-                        '<span style="float:right;">' + beginningQuantity + '</span>',
-                        '<span style="float:right;">' + monetaryValue(beginningAmount
+                        '<span style="float: right;">' + beginningQuantity + '</span>',
+                        '<span style="float: right;">' + monetaryValue(beginningAmount
                             .toFixed(2)) + '</span>',
-                        '<span style="float:right;">' + batch.sold_quantity_within +
+                        '<span style="float: right;">' + batch.sold_quantity_within +
                         '</span>',
-                        '<span style="float:right;">' + monetaryValue(soldAmount.toFixed(
+                        '<span style="float: right;">' + monetaryValue(soldAmount.toFixed(
                         2)) + '</span>',
-                        '<span style="float:right;">' + endingQuantity + '</span>',
-                        '<span style="float:right;">' + monetaryValue(endingAmount.toFixed(
+                        '<span style="float: right;">' + endingQuantity + '</span>',
+                        '<span style="float: right;">' + monetaryValue(endingAmount.toFixed(
                             2)) + '</span>'
                     ]);
                 });

@@ -117,23 +117,23 @@
                         batch.im.code,
                         batch.im.title,
                         batch.name,
-                        '<span style="float:right;">' + monetaryValue(batch.price.toFixed(2)) +
+                        '<span style="float: right;">' + monetaryValue(batch.price.toFixed(2)) +
                         '</span>',
-                        '<span style="float:right;">' + quantityAvailable + '</span>'
+                        '<span style="float: right;">' + quantityAvailable + '</span>'
                     ];
                     for (var i = 1; i <= 31; i++) {
                         if (batch.daily_sales && batch.daily_sales[i]) {
-                            row.push('<span style="float:right;">' + batch.daily_sales[i] +
+                            row.push('<span style="float: right;">' + batch.daily_sales[i] +
                                 '</span>');
                         } else {
                             row.push('');
                         }
                     }
-                    row[36] = '<span style="float:right;">' + unitSold + '</span>';
-                    row[37] = '<span style="float:right;">' + monetaryValue(sales.toFixed(2)) +
+                    row[36] = '<span style="float: right;">' + unitSold + '</span>';
+                    row[37] = '<span style="float: right;">' + monetaryValue(sales.toFixed(2)) +
                         '</span>';
-                    row[38] = '<span style="float:right;">' + availableStocks + '</span>';
-                    row[39] = '<span style="float:right;">' + monetaryValue(inventoryValue.toFixed(
+                    row[38] = '<span style="float: right;">' + availableStocks + '</span>';
+                    row[39] = '<span style="float: right;">' + monetaryValue(inventoryValue.toFixed(
                         2)) + '</span>';
                     table.row.add(row);
                 });

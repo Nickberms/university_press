@@ -22,7 +22,7 @@
     </style>
 </head>
 
-<body class="hold-transition sidebar-mini" style="font-family: Roboto, sans-serif">
+<body class="hold-transition sidebar-mini" style="font-family: Roboto, sans-serif;">
     <div class="wrapper">
         <div class="container-fluid">
             <br>
@@ -142,8 +142,8 @@
                                             <th>Instructional Material</th>
                                             <th>Batch</th>
                                             <th>Date Sold</th>
-                                            <th>Price</th>
                                             <th>Quantity</th>
+                                            <th>Price</th>
                                             <th>Total Price</th>
                                         </tr>
                                     </thead>
@@ -416,10 +416,10 @@
                         purchase.im.title,
                         purchase.batch.name,
                         formattedDateSoldString,
-                        '<span style="float:right;">' + monetaryValue(purchase.batch.price
+                        '<span style="float: right;">' + purchase.quantity + '</span>',
+                        '<span style="float: right;">' + monetaryValue(purchase.batch.price
                             .toFixed(2)) + '</span>',
-                        '<span style="float:right;">' + purchase.quantity + '</span>',
-                        '<span style="float:right;">' + monetaryValue(totalPrice.toFixed(
+                        '<span style="float: right;">' + monetaryValue(totalPrice.toFixed(
                             2)) + '</span>'
                     ]);
                 });

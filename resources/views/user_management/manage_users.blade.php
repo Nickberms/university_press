@@ -16,17 +16,17 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 
-<body class="hold-transition sidebar-mini" style="font-family: Roboto, sans-serif">
+<body class="hold-transition sidebar-mini" style="font-family: Roboto, sans-serif;">
     <div class="wrapper">
         <div class="container-fluid">
             <br>
             <a class="btn btn-primary" onClick="showAddUserModal()" href="javascript:void(0)"
                 style="background-color: #00491E; border-color: #00491E;">
-                <i class="fas fa-plus"></i> Add User
+                <i class="fas fa-plus"></i>&nbsp;&nbsp;Add User
             </a>
             <br><br>
             <div class="card">
-                <div class="card-header">
+                <div class="card-header" style="background: #E9ECEF;">
                     <h3 class="card-title">Manage Users</h3>
                 </div>
                 <div class="card-body">
@@ -43,6 +43,8 @@
                         </thead>
                         <tbody>
                         </tbody>
+                        <tfoot>
+                        </tfoot>
                     </table>
                     <!-- USERS TABLE -->
                 </div>
@@ -53,13 +55,16 @@
         <div class="modal fade" id="AddUserModal">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Add User</h4>
-                    </div>
-                    <div class="modal-body">
-                        <!-- ADD USER FORM -->
-                        <form id="AddUserForm" method="POST">
-                            @csrf
+                    <!-- ADD USER FORM -->
+                    <form id="AddUserForm" method="POST">
+                        @csrf
+                        <div class="modal-header" style="background: #E9ECEF;">
+                            <h4 class="modal-title">Add User</h4>
+                            <button type="button" class="close" onClick="hideAddUserModal()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="background: #02681E;">
                             <div class="container-fluid">
                                 <div class="card card-default">
                                     <div class="row">
@@ -67,20 +72,17 @@
                                             <div class="card-body">
                                                 <div class="form-group">
                                                     <label for="name">Username</label>
-                                                    <input type="text" class="form-control" name="name"
-                                                        placeholder="Enter Username" required>
+                                                    <input type="text" class="form-control" name="name" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="email">Email</label>
-                                                    <input type="email" class="form-control" name="email"
-                                                        placeholder="Enter Email" required>
+                                                    <input type="email" class="form-control" name="email" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="account_type">Account Type</label>
                                                     <select class="select2 form-control" name="account_type"
-                                                        data-placeholder="Select Account Type" style="width: 100%;"
-                                                        required>
-                                                        <option value="" disabled selected>Select Account Type</option>
+                                                        style="width: 100%;" required>
+                                                        <option value="" disabled selected></option>
                                                         <option>Admin</option>
                                                         <option>Employee</option>
                                                     </select>
@@ -89,16 +91,19 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="text-right">
-                                    <button type="button" class="btn btn-danger" onClick="hideAddUserModal()"
-                                        href="javascript:void(0)">Cancel</button>
-                                    <button type="submit" class="btn btn-primary"
-                                        style="background-color: #00491E; border-color: #00491E;">Add User</button>
-                                </div>
                             </div>
-                        </form>
-                        <!-- ADD USER FORM -->
-                    </div>
+                        </div>
+                        <div class="modal-footer" style="background: #E9ECEF;">
+                            <div class="text-right">
+                                <button type="button" class="btn btn-danger" onClick="hideAddUserModal()"
+                                    href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
+                                <button type="submit" class="btn btn-primary"
+                                    style="background-color: #00491E; border-color: #00491E;"><i
+                                        class="fas fa-plus"></i>&nbsp;&nbsp;Add User</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- ADD USER FORM -->
                 </div>
             </div>
         </div>
@@ -107,14 +112,17 @@
         <div class="modal fade" id="EditUserModal">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Edit User</h4>
-                    </div>
-                    <div class="modal-body">
-                        <!-- EDIT USER FORM -->
-                        <form id="EditUserForm" method="POST">
-                            @csrf
-                            @method('PUT')
+                    <!-- EDIT USER FORM -->
+                    <form id="EditUserForm" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-header" style="background: #E9ECEF;">
+                            <h4 class="modal-title">Edit User</h4>
+                            <button type="button" class="close" onClick="hideEditUserModal()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="background: #02681E;">
                             <input type="hidden" id="UserId" name="user_id">
                             <div class="container-fluid">
                                 <div class="card card-default">
@@ -124,19 +132,18 @@
                                                 <div class="form-group">
                                                     <label for="name">Username</label>
                                                     <input type="text" class="form-control" id="EditName" name="name"
-                                                        placeholder="Enter Username" required>
+                                                        required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="email">Email</label>
                                                     <input type="email" class="form-control" id="EditEmail" name="email"
-                                                        placeholder="Enter Email" required>
+                                                        required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="account_type">Account Type</label>
                                                     <select class="select2 form-control" id="EditAccountType"
-                                                        name="account_type" data-placeholder="Select Account Type"
-                                                        style="width: 100%;" required>
-                                                        <option value="" disabled selected>Select Account Type</option>
+                                                        name="account_type" style="width: 100%;" required>
+                                                        <option value="" disabled selected></option>
                                                         <option>Admin</option>
                                                         <option>Employee</option>
                                                     </select>
@@ -145,16 +152,19 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="text-right">
-                                    <button type="button" class="btn btn-danger" onClick="hideEditUserModal()"
-                                        href="javascript:void(0)">Cancel</button>
-                                    <button type="submit" class="btn btn-primary"
-                                        style="background-color: #00491E; border-color: #00491E;">Update User</button>
-                                </div>
                             </div>
-                        </form>
-                        <!-- EDIT USER FORM -->
-                    </div>
+                        </div>
+                        <div class="modal-footer" style="background: #E9ECEF;">
+                            <div class="text-right">
+                                <button type="button" class="btn btn-danger" onClick="hideEditUserModal()"
+                                    href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
+                                <button type="submit" class="btn btn-primary"
+                                    style="background-color: #00491E; border-color: #00491E;"><i
+                                        class="fas fa-check"></i>&nbsp;&nbsp;Update User</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- EDIT USER FORM -->
                 </div>
             </div>
         </div>
@@ -163,17 +173,21 @@
         <div class="modal fade" id="DeleteUserModal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header" style="background: #E9ECEF;">
                         <h4 class="modal-title">Delete User</h4>
+                        <button type="button" class="close" onClick="hideDeleteUserModal()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style="background: #E9ECEF;">
                         Are you sure you want to delete this user?
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer" style="background: #E9ECEF;">
                         <button type="button" class="btn btn-primary" onClick="hideDeleteUserModal()"
-                            href="javascript:void(0)"
-                            style="background-color: #00491E; border-color: #00491E;">Cancel</button>
-                        <button type="button" class="btn btn-danger" id="DeleteUser">Delete User</button>
+                            href="javascript:void(0)" style="background-color: #00491E; border-color: #00491E;"><i
+                                class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
+                        <button type="button" class="btn btn-danger" id="DeleteUser"><i
+                                class="fas fa-trash"></i>&nbsp;&nbsp;Delete User</button>
                     </div>
                 </div>
             </div>

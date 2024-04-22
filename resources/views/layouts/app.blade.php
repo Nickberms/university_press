@@ -99,7 +99,7 @@
         </nav>
         <aside class="main-sidebar sidebar-light-primary elevation-4">
             <a class="brand-link">
-                <span class="brand-text font-weight-light" style="text-align:center;color:white;">University
+                <span class="brand-text font-weight-light" style="text-align: center; color: white;">University
                     Press</span>
             </a>
             @if(Auth::check())
