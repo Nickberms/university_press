@@ -6,18 +6,18 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('quantity_deductions', function (Blueprint $table) {
+        Schema::create('adjustment_logs', function (Blueprint $table) {
             $table->id();
             $table->integer('quantity_deducted');
-            $table->string('deduction_cause');
+            $table->string('adjustment_cause');
             $table->foreignId('im_id')->constrained('ims');
             $table->foreignId('batch_id')->constrained('batches');
-            $table->date('date_deducted');
+            $table->date('date_adjusted');
             $table->timestamps();
         });
     }
     public function down(): void
     {
-        Schema::dropIfExists('quantity_deductions');
+        Schema::dropIfExists('adjustment_logs');
     }
 };
