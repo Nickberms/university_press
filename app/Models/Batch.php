@@ -24,4 +24,8 @@ class Batch extends Model
     {
         return $this->hasMany(Purchase::class);
     }
+    public function adjustment_logs()
+    {
+        return $this->hasMany(AdjustmentLog::class);
+    }
 }

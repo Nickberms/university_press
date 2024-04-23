@@ -34,4 +34,8 @@ class IM extends Model
     {
         return $this->hasManyThrough(Purchase::class, Batch::class);
     }
+    public function adjustment_logs()
+    {
+        return $this->hasManyThrough(AdjustmentLog::class, Batch::class);
+    }
 }

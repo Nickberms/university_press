@@ -8,11 +8,11 @@ return new class extends Migration {
     {
         Schema::create('adjustment_logs', function (Blueprint $table) {
             $table->id();
-            $table->integer('quantity_deducted');
             $table->string('adjustment_cause');
             $table->foreignId('im_id')->constrained('ims');
             $table->foreignId('batch_id')->constrained('batches');
             $table->date('date_adjusted');
+            $table->integer('quantity_deducted');
             $table->timestamps();
         });
     }
