@@ -9,6 +9,7 @@ use App\Http\Controllers\BatchController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\MonitoringController;
+use App\Http\Controllers\TopSaleController;
 
 Auth::routes([
     'verify' => true
@@ -30,6 +31,4 @@ Route::resource('monitoring', MonitoringController::class)->middleware(['auth', 
 Route::get('/', function () {
     return view('landing_page');
 })->name('landing-page');
-Route::get('/purchase_history', function () {
-    return view('sales_management.purchase_history');
-})->middleware(['auth', 'verified']);
+Route::resource('top', TopSaleController::class)->middleware(['auth', 'verified']);
