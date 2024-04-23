@@ -17,9 +17,9 @@
 </head>
 
 <body class="hold-transition sidebar-mini" style="font-family: Roboto, sans-serif;">
+    <br>
     <div class="wrapper">
         <div class="container-fluid">
-            <br><br>
             <div class="card">
                 <!-- TOP SALES FILTERS FORM -->
                 <form id="TopSalesFiltersForm" method="GET">
@@ -27,24 +27,35 @@
                     <div class="card-header" style="background: #E9ECEF;">
                         <h3 class="card-title">Top Sales Filters</h3>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" style="font-size: 14px;">
                         <div class="row">
-                            <div class="form-group col-6">
+                            <div class="form-group col-sm-6">
+                                <label>Specify Date Range</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="far fa-calendar-alt"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control float-right" id="ChooseDateRange"
+                                        name="date_range">
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
                                 <label>Select Author</label>
                                 <select class="select2 form-control" id="SelectAuthor" name="select_author"
                                     style="width: 100%;">
                                 </select>
                             </div>
-                            <div class="form-group col-6">
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-4">
                                 <label>Select Category</label>
                                 <select class="select2 form-control" id="SelectCategory" name="select_category"
                                     style="width: 100%;">
                                 </select>
                             </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="form-group col-6">
+                            <div class="form-group col-sm-4">
                                 <label>Select College</label>
                                 <select class="select2 form-control" id="SelectCollege" name="select_college"
                                     style="width: 100%;">
@@ -63,7 +74,7 @@
                                     <option>College of Veterinary Medicine</option>
                                 </select>
                             </div>
-                            <div class="form-group col-6">
+                            <div class="form-group col-sm-4">
                                 <label>Select Publisher</label>
                                 <select class="select2 form-control" id="SelectPublisher" name="select_publisher"
                                     style="width: 100%;">
@@ -84,12 +95,45 @@
                 </form>
                 <!-- TOP SALES FILTERS FORM -->
             </div>
+            <div class="card">
+                <div class="card-header" style="background: #E9ECEF;">
+                    <h3 class="card-title">Top Sales</h3>
+                </div>
+                <div class="card-body">
+                    <!-- TOP SALES TABLE -->
+                    <table class="table table-bordered table-striped" id="TopSalesTable" style="font-size: 14px;">
+                        <thead class="text-center">
+                            <tr>
+                                <th>Code</th>
+                                <th>Title</th>
+                                <th>Authors</th>
+                                <th>Category</th>
+                                <th>College</th>
+                                <th>Publisher</th>
+                                <th>Unit Sold</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot>
+                        </tfoot>
+                    </table>
+                    <!-- TOP SALES TABLE -->
+                </div>
+            </div>
         </div>
     </div>
+    <br>
     <script>
+    $('#TopSalesFiltersForm').submit(function(event) {
+        event.preventDefault();
+        populateTopSalesFiltersForm();
+        $('#SelectCollege').val(null).trigger('change');
+        $('#SelectPublisher').val(null).trigger('change');
+    });
     function populateTopSalesFiltersForm() {
         $.ajax({
-            url: "{{ route('top.index') }}",
+            url: "{{ route('top_sales.create') }}",
             type: 'GET',
             dataType: 'json',
             success: function(response) {
@@ -117,14 +161,122 @@
             }
         });
     }
-    $('#TopSalesFiltersForm').submit(function(event) {
-        event.preventDefault();
-        populateTopSalesFiltersForm();
-        $('#SelectCollege').val(null).trigger('change');
-        $('#SelectPublisher').val(null).trigger('change');
-    });
+    function refreshTopSalesTable(startDate, endDate) {
+        var selectAuthor = $('#SelectAuthor').val();
+        var selectCategory = $('#SelectCategory').val();
+        var selectCollege = $('#SelectCollege').val();
+        var selectPublisher = $('#SelectPublisher').val();
+        $.ajax({
+            url: "{{ route('top_sales.index') }}",
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                date_range: startDate + ' - ' + endDate,
+                select_author: selectAuthor,
+                select_category: selectCategory,
+                select_college: selectCollege,
+                select_publisher: selectPublisher
+            },
+            success: function(data) {
+                var table = $('#TopSalesTable').DataTable();
+                var existingRows = table.rows().remove().draw(false);
+                data.forEach(function(im) {
+                    var authors = '';
+                    if (im.authors.length > 0) {
+                        im.authors.forEach(function(author, index) {
+                            authors += author.first_name;
+                            if (author.middle_name) {
+                                authors += ' ' + author.middle_name;
+                            }
+                            authors += ' ' + author.last_name;
+                            if (index < im.authors.length - 1) {
+                                authors += ', ';
+                            }
+                        });
+                        authors += '<br>';
+                    }
+                    table.row.add([
+                        im.code,
+                        im.title,
+                        authors,
+                        im.category.name,
+                        im.college,
+                        im.publisher,
+                        '<span style="float: right;">' + im.quantity_sold + '</span>'
+                    ]);
+                });
+                table.draw();
+            },
+            error: function(xhr, status, error) {
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
+            }
+        });
+    }
     $(document).ready(function() {
+        var startDate = new Date();
+        startDate.setDate(1);
+        startDate.setHours(0, 0, 0, 0);
+        var endDate = new Date();
+        endDate.setHours(0, 0, 0, 0);
+        $('#ChooseDateRange').daterangepicker({
+            startDate: startDate,
+            endDate: endDate,
+            locale: {
+                format: 'MM/DD/YYYY'
+            }
+        });
+        var formattedStartDate = startDate.toLocaleDateString('en-US', {
+            month: '2-digit',
+            day: '2-digit',
+            year: 'numeric'
+        });
+        var formattedEndDate = endDate.toLocaleDateString('en-US', {
+            month: '2-digit',
+            day: '2-digit',
+            year: 'numeric'
+        });
         populateTopSalesFiltersForm();
+        refreshTopSalesTable(formattedStartDate, formattedEndDate);
+        $('#TopSalesTable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "responsive": false,
+            "scrollX": true,
+            "scrollY": true,
+            "scrollCollapse": false,
+            "buttons": ["copy", "excel", "pdf", "print"],
+            "pageLength": 8
+        }).buttons().container().appendTo('#TopSalesTable_wrapper .col-md-6:eq(0)');
+        $('#ChooseDateRange').on('apply.daterangepicker', function(ev, picker) {
+            var startDate = picker.startDate.format('MM/DD/YYYY');
+            var endDate = picker.endDate.format('MM/DD/YYYY');
+            refreshTopSalesTable(startDate, endDate);
+        });
+        $('.select2').change(function() {
+            var startDate = $('#ChooseDateRange').data('daterangepicker').startDate.format(
+                'MM/DD/YYYY');
+            var endDate = $('#ChooseDateRange').data('daterangepicker').endDate.format(
+                'MM/DD/YYYY');
+            refreshTopSalesTable(startDate, endDate);
+        });
+        var previousWidth = $(window).width();
+        $(window).on('resize', function() {
+            var currentWidth = $(window).width();
+            if (currentWidth !== previousWidth) {
+                var startDate = $('#ChooseDateRange').data('daterangepicker').startDate.format(
+                    'MM/DD/YYYY');
+                var endDate = $('#ChooseDateRange').data('daterangepicker').endDate.format(
+                    'MM/DD/YYYY');
+                refreshTopSalesTable(startDate, endDate);
+                previousWidth = currentWidth;
+            }
+        });
     });
     </script>
 </body>

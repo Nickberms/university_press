@@ -80,7 +80,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('top.index') }}" class="nav-link">
+                        <a href="{{ route('top_sales.index') }}" class="nav-link">
                             <i class="fas fa-chart-bar"></i>
                             <p>&nbsp;Top Sales</p>
                         </a>

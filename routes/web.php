@@ -1,6 +1,6 @@
 <?php
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 use App\http\Controllers\DashboardController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
@@ -10,25 +10,30 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\TopSaleController;
+use App\Http\Controllers\UserController;
 
 Auth::routes([
     'verify' => true
 ]);
-Route::resource('dashboard', DashboardController::class)->middleware(['auth', 'verified']);
-Route::middleware('auth')->group(function () {
-    Route::view('about', 'about')->name('about');
-    Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
-    Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
-});
-Route::resource('users', UserController::class)->middleware(['auth', 'verified', 'admin']);
-Route::resource('authors', AuthorController::class)->middleware(['auth', 'verified']);
-Route::resource('categories', CategoryController::class)->middleware(['auth', 'verified']);
-Route::resource('masterlist', IMController::class)->middleware(['auth', 'verified']);
-Route::resource('batches', BatchController::class)->middleware(['auth', 'verified']);
-Route::resource('purchases', PurchaseController::class)->middleware(['auth', 'verified']);
-Route::resource('reports', ReportController::class)->middleware(['auth', 'verified']);
-Route::resource('monitoring', MonitoringController::class)->middleware(['auth', 'verified']);
 Route::get('/', function () {
     return view('landing_page');
 })->name('landing-page');
-Route::resource('top', TopSaleController::class)->middleware(['auth', 'verified']);
+Route::middleware('auth')->group(function () {
+    Route::view('about', 'about')->name('about');
+    Route::get('profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
+});
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::resource('dashboard', DashboardController::class);
+    Route::resource('authors', AuthorController::class);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('masterlist', IMController::class);
+    Route::resource('batches', BatchController::class);
+    Route::resource('purchases', PurchaseController::class);
+    Route::resource('reports', ReportController::class);
+    Route::resource('monitoring', MonitoringController::class);
+    Route::resource('top_sales', TopSaleController::class);
+});
+Route::middleware(['auth', 'verified', 'admin'])->group(function () {
+    Route::resource('users', UserController::class);
+});
