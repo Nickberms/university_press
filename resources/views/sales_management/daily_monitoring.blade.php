@@ -76,6 +76,7 @@
                                 <th>30</th>
                                 <th>31</th>
                                 <th>Unit Sold</th>
+                                <th>Unit Deducted</th>
                                 <th>Sales</th>
                                 <th>Available Stocks</th>
                                 <th>Inventory Value</th>
@@ -105,10 +106,13 @@
                 var table = $('#MonitoringTable').DataTable();
                 var existingRows = table.rows().remove().draw(false);
                 data.forEach(function(batch) {
-                    var quantityAvailable = batch.quantity_produced - batch.sold_quantity_before;
+                    var quantityAvailable = batch.quantity_produced - (parseInt(batch
+                        .sold_quantity_before) + parseInt(batch.deducted_quantity_before));
                     var unitSold = batch.sold_quantity_within;
+                    var unitDeducted = batch.deducted_quantity_within;
                     var sales = batch.price.toFixed(2) * batch.sold_quantity_within;
-                    var availableStocks = quantityAvailable - batch.sold_quantity_within;
+                    var availableStocks = quantityAvailable - (parseInt(batch
+                        .sold_quantity_within) + parseInt(batch.deducted_quantity_within));
                     var inventoryValue = batch.price.toFixed(2) * availableStocks;
                     function monetaryValue(x) {
                         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -130,10 +134,11 @@
                         }
                     }
                     row[36] = '<span style="float: right;">' + unitSold + '</span>';
-                    row[37] = '<span style="float: right;">' + monetaryValue(sales.toFixed(2)) +
+                    row[37] = '<span style="float: right;">' + unitDeducted + '</span>';
+                    row[38] = '<span style="float: right;">' + monetaryValue(sales.toFixed(2)) +
                         '</span>';
-                    row[38] = '<span style="float: right;">' + availableStocks + '</span>';
-                    row[39] = '<span style="float: right;">' + monetaryValue(inventoryValue.toFixed(
+                    row[39] = '<span style="float: right;">' + availableStocks + '</span>';
+                    row[40] = '<span style="float: right;">' + monetaryValue(inventoryValue.toFixed(
                         2)) + '</span>';
                     table.row.add(row);
                 });

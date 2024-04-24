@@ -23,7 +23,7 @@
             <div class="card card-primary col-md-6">
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="date_range">Specify Date Range:</label>
+                        <label for="date_range">Specify Date Range</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">

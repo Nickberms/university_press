@@ -11,13 +11,14 @@ class MonitoringController extends Controller
     public function index(Request $request)
     {
         $month = $request->input('month');
-        if (!empty ($month)) {
+        if (!empty($month)) {
             $startDate = Carbon::createFromFormat('Y-m', $month)->startOfMonth();
             $endDate = $startDate->copy()->endOfMonth();
             $previousDay = clone $startDate;
             $previousDay->subDay();
-            $batches = Batch::with('im', 'purchases')
+            $batches = Batch::with('im', 'purchases', 'adjustment_logs')
                 ->join('purchases', 'batches.id', '=', 'purchases.batch_id')
+                ->join('adjustment_logs', 'batches.id', '=', 'adjustment_logs.batch_id')
                 ->select(
                     'batches.id',
                     'batches.im_id',
@@ -26,8 +27,10 @@ class MonitoringController extends Controller
                     'batches.production_cost',
                     'batches.price',
                     'batches.quantity_produced',
-                    DB::raw('SUM(CASE WHEN purchases.date_sold < "' . $startDate . '" THEN purchases.quantity ELSE 0 END) as sold_quantity_before'),
-                    DB::raw('SUM(CASE WHEN purchases.date_sold BETWEEN "' . $startDate . '" AND "' . $endDate . '" THEN purchases.quantity ELSE 0 END) as sold_quantity_within')
+                    DB::raw('(SELECT COALESCE(SUM(quantity), 0) FROM purchases WHERE batch_id = batches.id AND date_sold < "' . $startDate . '") as sold_quantity_before'),
+                    DB::raw('(SELECT COALESCE(SUM(quantity), 0) FROM purchases WHERE batch_id = batches.id AND date_sold BETWEEN "' . $startDate . '" AND "' . $endDate . '") as sold_quantity_within'),
+                    DB::raw('(SELECT COALESCE(SUM(quantity_deducted), 0) FROM adjustment_logs WHERE batch_id = batches.id AND date_adjusted < "' . $startDate . '") as deducted_quantity_before'),
+                    DB::raw('(SELECT COALESCE(SUM(quantity_deducted), 0) FROM adjustment_logs WHERE batch_id = batches.id AND date_adjusted BETWEEN "' . $startDate . '" AND "' . $endDate . '") as deducted_quantity_within')
                 )
                 ->groupBy('batches.id', 'batches.im_id', 'batches.name', 'batches.production_date', 'batches.production_cost', 'batches.price', 'batches.quantity_produced')
                 ->orderByDesc('batches.updated_at')
