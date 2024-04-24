@@ -23,7 +23,7 @@
             <div class="card card-primary col-md-4">
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="month">Select Month:</label>
+                        <label for="month">Select Month</label>
                         <div class="input-group">
                             <input type="month" class="form-control" id="ChooseMonth" name="month">
                         </div>

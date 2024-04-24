@@ -18,7 +18,7 @@ class TopSaleController extends Controller
         $selectedCollege = $request->input('select_college');
         $selectedPublisher = $request->input('select_publisher');
         $query = IM::with('authors', 'category')
-            ->join('purchases', 'ims.id', '=', 'purchases.im_id');
+            ->leftJoin('purchases', 'ims.id', '=', 'purchases.im_id');
         if (!empty($dateRange)) {
             [$startDate, $endDate] = explode(' - ', $dateRange);
             $startDate = Carbon::createFromFormat('m/d/Y', $startDate)->startOfDay();

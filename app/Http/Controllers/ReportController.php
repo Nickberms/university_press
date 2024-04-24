@@ -18,8 +18,8 @@ class ReportController extends Controller
             $previousDay = clone $startDate;
             $previousDay->subDay();
             $batches = Batch::with('im', 'purchases', 'adjustment_logs')
-                ->join('purchases', 'batches.id', '=', 'purchases.batch_id')
-                ->join('adjustment_logs', 'batches.id', '=', 'adjustment_logs.batch_id')
+                ->leftJoin('purchases', 'batches.id', '=', 'purchases.batch_id')
+                ->leftJoin('adjustment_logs', 'batches.id', '=', 'adjustment_logs.batch_id')
                 ->select(
                     'batches.id',
                     'batches.im_id',
