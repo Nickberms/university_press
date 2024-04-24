@@ -52,6 +52,8 @@
                                 <th>Beginning Amount</th>
                                 <th>Sold Quantity</th>
                                 <th>Sold Amount</th>
+                                <th>Deducted Quantity</th>
+                                <th>Deducted Amount</th>
                                 <th>Ending Quantity</th>
                                 <th>Ending Amount</th>
                             </tr>
@@ -80,10 +82,13 @@
                 var table = $('#ReportsTable').DataTable();
                 var existingRows = table.rows().remove().draw(false);
                 data.forEach(function(batch) {
-                    var beginningQuantity = batch.quantity_produced - batch.sold_quantity_before;
+                    var beginningQuantity = batch.quantity_produced - (parseInt(batch
+                        .sold_quantity_before) + parseInt(batch.deducted_quantity_before));
                     var beginningAmount = batch.price.toFixed(2) * beginningQuantity;
                     var soldAmount = batch.price.toFixed(2) * batch.sold_quantity_within;
-                    var endingQuantity = beginningQuantity - batch.sold_quantity_within;
+                    var deductedAmount = batch.price.toFixed(2) * batch.deducted_quantity_within;
+                    var endingQuantity = beginningQuantity - (parseInt(batch.sold_quantity_within) +
+                        parseInt(batch.deducted_quantity_within));
                     var endingAmount = batch.price.toFixed(2) * endingQuantity;
                     function monetaryValue(x) {
                         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -100,7 +105,11 @@
                         '<span style="float: right;">' + batch.sold_quantity_within +
                         '</span>',
                         '<span style="float: right;">' + monetaryValue(soldAmount.toFixed(
-                        2)) + '</span>',
+                            2)) + '</span>',
+                        '<span style="float: right;">' + batch.deducted_quantity_within +
+                        '</span>',
+                        '<span style="float: right;">' + monetaryValue(deductedAmount
+                            .toFixed(2)) + '</span>',
                         '<span style="float: right;">' + endingQuantity + '</span>',
                         '<span style="float: right;">' + monetaryValue(endingAmount.toFixed(
                             2)) + '</span>'

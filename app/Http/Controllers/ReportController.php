@@ -11,14 +11,15 @@ class ReportController extends Controller
     public function index(Request $request)
     {
         $dateRange = $request->input('date_range');
-        if (!empty ($dateRange)) {
+        if (!empty($dateRange)) {
             [$startDate, $endDate] = explode(' - ', $dateRange);
             $startDate = Carbon::createFromFormat('m/d/Y', $startDate)->startOfDay();
             $endDate = Carbon::createFromFormat('m/d/Y', $endDate)->endOfDay();
             $previousDay = clone $startDate;
             $previousDay->subDay();
-            $batches = Batch::with('im', 'purchases')
-                ->join('purchases', 'batches.id', '=', 'purchases.batch_id')
+            $batches = Batch::with('im', 'purchases', 'adjustment_logs')
+                ->leftJoin('purchases', 'batches.id', '=', 'purchases.batch_id')
+                ->leftJoin('adjustment_logs', 'batches.id', '=', 'adjustment_logs.batch_id')
                 ->select(
                     'batches.id',
                     'batches.im_id',
@@ -27,8 +28,10 @@ class ReportController extends Controller
                     'batches.production_cost',
                     'batches.price',
                     'batches.quantity_produced',
-                    DB::raw('SUM(CASE WHEN purchases.date_sold < "' . $startDate . '" THEN purchases.quantity ELSE 0 END) as sold_quantity_before'),
-                    DB::raw('SUM(CASE WHEN purchases.date_sold BETWEEN "' . $startDate . '" AND "' . $endDate . '" THEN purchases.quantity ELSE 0 END) as sold_quantity_within')
+                    DB::raw('(SELECT COALESCE(SUM(quantity), 0) FROM purchases WHERE batch_id = batches.id AND date_sold < "' . $startDate . '") as sold_quantity_before'),
+                    DB::raw('(SELECT COALESCE(SUM(quantity), 0) FROM purchases WHERE batch_id = batches.id AND date_sold BETWEEN "' . $startDate . '" AND "' . $endDate . '") as sold_quantity_within'),
+                    DB::raw('(SELECT COALESCE(SUM(quantity_deducted), 0) FROM adjustment_logs WHERE batch_id = batches.id AND date_adjusted < "' . $startDate . '") as deducted_quantity_before'),
+                    DB::raw('(SELECT COALESCE(SUM(quantity_deducted), 0) FROM adjustment_logs WHERE batch_id = batches.id AND date_adjusted BETWEEN "' . $startDate . '" AND "' . $endDate . '") as deducted_quantity_within')
                 )
                 ->groupBy('batches.id', 'batches.im_id', 'batches.name', 'batches.production_date', 'batches.production_cost', 'batches.price', 'batches.quantity_produced')
                 ->orderByDesc('batches.updated_at')
