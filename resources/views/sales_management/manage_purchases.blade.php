@@ -348,7 +348,7 @@
                         var selectQuantity = $('#SelectQuantity');
                         selectQuantity.empty();
                         var availableStocks = selectedBatch.quantity_produced - selectedBatch
-                            .quantity_sold;
+                            .total_quantity_deducted;
                         for (var i = 1; i <= availableStocks; i++) {
                             selectQuantity.append('<option value="' + i + '">' + i + '</option>');
                         }

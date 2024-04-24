@@ -29,6 +29,8 @@ class PurchaseController extends Controller
         $ims->transform(function ($im) {
             $im->batches->each(function ($batch) {
                 $batch->quantity_sold = $batch->purchases->sum('quantity');
+                $batch->quantity_deducted = $batch->adjustment_logs->sum('quantity_deducted');
+                $batch->total_quantity_deducted = $batch->quantity_sold + $batch->quantity_deducted;
                 unset ($batch->purchases);
             });
             return $im;
@@ -52,8 +54,11 @@ class PurchaseController extends Controller
                     return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);
                 } else {
                     $batch->load('purchases');
+                    $batch->load('adjustment_logs');
                     $batch->quantity_sold = $batch->purchases->sum('quantity');
-                    $availableStocks = $batch->quantity_produced - $batch->quantity_sold;
+                    $batch->quantity_deducted = $batch->adjustment_logs->sum('quantity_deducted');
+                    $batch->total_quantity_deducted = $batch->quantity_sold + $batch->quantity_deducted;
+                    $availableStocks = $batch->quantity_produced - $batch->total_quantity_deducted;
                     if ($purchasedItem['quantity'] > $availableStocks) {
                         return response()->json(['error' => 'The quantity being purchased is greater than the available stocks of at least one of the items!'], 422);
                     } else {

@@ -45,6 +45,12 @@
                             <p>&nbsp;&nbsp;Manage Categories</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('adjustment_logs.index') }}" class="nav-link">
+                            <i class="fas fa-minus-circle"></i>
+                            <p>&nbsp;&nbsp;Adjustment Logs</p>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li class="nav-item">
