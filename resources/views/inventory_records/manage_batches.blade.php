@@ -42,6 +42,7 @@
                                 <th>Price</th>
                                 <th>Quantity Produced</th>
                                 <th>Quantity Sold</th>
+                                <th>Quantity Deducted</th>
                                 <th>Available Stocks</th>
                                 <th>Total Revenue</th>
                             </tr>
@@ -411,7 +412,8 @@
                     };
                     var formattedProductionDateString = formattedProductionDate.toLocaleDateString(
                         'en-US', options);
-                    var availableStocks = batch.quantity_produced - batch.quantity_sold;
+                    var totalQuantityDeducted = parseInt(batch.quantity_sold) + parseInt(batch.quantity_deducted);
+                    var availableStocks = batch.quantity_produced - totalQuantityDeducted;
                     var totalRevenue = (batch.price.toFixed(2) * batch.quantity_sold) - batch
                         .production_cost.toFixed(2);
                     function monetaryValue(x) {
@@ -434,6 +436,7 @@
                             .toFixed(2)) + '</span>',
                         '<span style="float: right;">' + batch.quantity_produced + '</span>',
                         '<span style="float: right;">' + batch.quantity_sold + '</span>',
+                        '<span style="float: right;">' + batch.quantity_deducted + '</span>',
                         '<span style="float: right;">' + availableStocks + '</span>',
                         '<span style="float: right;">' + monetaryValue(totalRevenue
                             .toFixed(2)) + '</span>'

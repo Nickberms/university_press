@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Batch;
 use App\Models\IM;
 use App\Models\Purchase;
+use App\Models\AdjustmentLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -11,8 +12,7 @@ class BatchController extends Controller
 {
     public function index()
     {
-        $batches = Batch::with('im', 'purchases')
-            ->leftJoin('purchases', 'batches.id', '=', 'purchases.batch_id')
+        $batches = Batch::with('im', 'purchases', 'adjustment_logs')
             ->select(
                 'batches.id',
                 'batches.im_id',
@@ -21,7 +21,8 @@ class BatchController extends Controller
                 'batches.production_cost',
                 'batches.price',
                 'batches.quantity_produced',
-                DB::raw('COALESCE(SUM(purchases.quantity), 0) as quantity_sold')
+                DB::raw('(SELECT COALESCE(SUM(quantity), 0) FROM purchases WHERE batch_id = batches.id) as quantity_sold'),
+                DB::raw('(SELECT COALESCE(SUM(quantity_deducted), 0) FROM adjustment_logs WHERE batch_id = batches.id) as quantity_deducted')
             )
             ->groupBy('batches.id', 'batches.im_id', 'batches.name', 'batches.production_date', 'batches.production_cost', 'batches.price', 'batches.quantity_produced')
             ->orderByDesc('batches.updated_at')
@@ -87,6 +88,10 @@ class BatchController extends Controller
             $request['name'] = formatInput($request['name']);
             $quantitySold = Purchase::where('batch_id', $batch->id)->sum('quantity');
             if ($quantitySold > 0) {
+                return response()->json(['error' => 'This batch holds other records and cannot be updated!'], 422);
+            }
+            $quantityDeducted = AdjustmentLog::where('batch_id', $batch->id)->sum('quantity_deducted');
+            if ($quantityDeducted > 0) {
                 return response()->json(['error' => 'This batch holds other records and cannot be updated!'], 422);
             }
             $batch->update([
