@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdjustmentLog;
-use App\Models\IM;
+use App\Models\Im;
 use App\Models\Batch;
 use Illuminate\Http\Request;
 
@@ -22,7 +22,7 @@ class AdjustmentLogController extends Controller
     }
     public function create()
     {
-        $ims = IM::with('batches')
+        $ims = Im::with('batches')
             ->orderByDesc('updated_at')
             ->orderByDesc('created_at')
             ->get();

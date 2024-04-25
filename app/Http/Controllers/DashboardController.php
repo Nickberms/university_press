@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Batch;
-use App\Models\IM;
+use App\Models\Im;
 use App\Models\Author;
 use App\Models\Category;
 use Carbon\Carbon;
@@ -35,7 +35,7 @@ class DashboardController extends Controller
                 ->orderByDesc('batches.created_at')
                 ->get();
             $countBatches = Batch::count();
-            $countIms = IM::count();
+            $countIms = Im::count();
             $countAuthors = Author::count();
             $countCategories = Category::count();
             $accountType = Auth()->user()->account_type;

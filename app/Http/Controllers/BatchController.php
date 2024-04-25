@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Batch;
-use App\Models\IM;
+use App\Models\Im;
 use App\Models\Purchase;
 use App\Models\AdjustmentLog;
 use Illuminate\Http\Request;
@@ -36,7 +36,7 @@ class BatchController extends Controller
     }
     public function create()
     {
-        $ims = IM::orderBy(DB::raw('COALESCE(updated_at, created_at)'), 'desc')->get();
+        $ims = Im::orderBy(DB::raw('COALESCE(updated_at, created_at)'), 'desc')->get();
         if (request()->ajax()) {
             return response()->json($ims);
         }

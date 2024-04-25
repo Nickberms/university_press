@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\IM;
+use App\Models\Im;
 use App\Models\Author;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -11,7 +11,7 @@ class ImController extends Controller
 {
     public function index()
     {
-        $ims = IM::with('authors', 'category')
+        $ims = Im::with('authors', 'category')
             ->orderByDesc('updated_at')
             ->orderByDesc('created_at')
             ->get();
@@ -48,7 +48,7 @@ class ImController extends Controller
             $request['edition'] = $request->input('edition') ? formatInput($request->input('edition')) : null;
             $request['isbn'] = $request->input('isbn') ? formatInput($request->input('isbn')) : null;
             $request['description'] = $request->input('description') ? formatInput($request->input('description')) : null;
-            $im = new IM([
+            $im = new Im([
                 'code' => $request->input('code'),
                 'title' => $request->input('title'),
                 'category_id' => $request->input('category_id'),
@@ -76,13 +76,13 @@ class ImController extends Controller
             return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);
         }
     }
-    public function show(IM $im)
+    public function show(Im $im)
     {
     }
     public function edit($id)
     {
         try {
-            $im = IM::findOrFail($id);
+            $im = Im::findOrFail($id);
             $im->load('authors');
             return response()->json($im);
         } catch (\Exception $e) {
@@ -92,7 +92,7 @@ class ImController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $im = IM::findOrFail($id);
+            $im = Im::findOrFail($id);
             function formatInput(string $input): string
             {
                 $input = preg_replace('/\s+/', ' ', trim($input));
@@ -136,7 +136,7 @@ class ImController extends Controller
     public function destroy($id)
     {
         try {
-            $im = IM::findOrFail($id);
+            $im = Im::findOrFail($id);
             if ($im->batches()->exists()) {
                 return response()->json(['error' => 'This instructional material holds other records and cannot be deleted!'], 422);
             }

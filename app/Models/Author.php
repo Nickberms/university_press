@@ -15,6 +15,6 @@ class Author extends Model
     ];
     public function ims()
     {
-        return $this->belongsToMany(IM::class, 'im_authors');
+        return $this->belongsToMany(Im::class, 'im_authors');
     }
 }

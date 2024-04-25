@@ -18,7 +18,7 @@ class Batch extends Model
     ];
     public function im()
     {
-        return $this->belongsTo(IM::class);
+        return $this->belongsTo(Im::class);
     }
     public function purchases()
     {

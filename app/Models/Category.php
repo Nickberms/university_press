@@ -14,6 +14,6 @@ class Category extends Model
     ];
     public function ims()
     {
-        return $this->hasMany(IM::class);
+        return $this->hasMany(Im::class);
     }
 }

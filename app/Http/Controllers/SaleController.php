@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\IM;
+use App\Models\Im;
 use App\Models\Author;
 use App\Models\Category;
 use Carbon\Carbon;
@@ -17,7 +17,7 @@ class SaleController extends Controller
         $selectedCategory = $request->input('select_category');
         $selectedCollege = $request->input('select_college');
         $selectedPublisher = $request->input('select_publisher');
-        $query = IM::with('authors', 'category')
+        $query = Im::with('authors', 'category')
             ->leftJoin('purchases', 'ims.id', '=', 'purchases.im_id');
         if (!empty($dateRange)) {
             [$startDate, $endDate] = explode(' - ', $dateRange);
