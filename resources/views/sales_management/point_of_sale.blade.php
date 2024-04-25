@@ -31,94 +31,106 @@
                 <i class="fas fa-history"></i>&nbsp;&nbsp;Purchase History
             </a>
             <br><br>
-            <div class="card">
-                <!-- ADD ITEM FORM -->
-                <form id="AddItemForm" method="GET">
-                    @csrf
-                    <div class="card-header" style="background: #E9ECEF;">
-                        <h3 class="card-title">Add Item</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="form-group col-6">
-                                <label>Select IM</label>
-                                <select class="select2 form-control" id="SelectIm" name="select_im" style="width: 100%;"
-                                    required>
-                                </select>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <!-- ADD ITEM FORM -->
+                        <form id="AddItemForm" method="GET">
+                            @csrf
+                            <div class="card-header" style="background: #E9ECEF;">
+                                <h3 class="card-title">Add Item</h3>
                             </div>
-                            <div class="form-group col-6">
-                                <label>Select Batch</label>
-                                <select class="select2 form-control" id="SelectBatch" name="select_batch"
-                                    style="width: 100%;" required>
-                                </select>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="form-group col-12">
+                                        <label>Select IM</label>
+                                        <select class="select2 form-control" id="SelectIm" name="select_im"
+                                            style="width: 100%;" required>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-12">
+                                        <label>Select Batch</label>
+                                        <select class="select2 form-control" id="SelectBatch" name="select_batch"
+                                            style="width: 100%;" required>
+                                        </select>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="form-group col-12">
+                                        <label>Available Stocks</label>
+                                        <input type="text" readonly class="form-control" id="AvailableStocks"
+                                            name="available_stocks">
+                                    </div>
+                                    <div class="form-group col-12">
+                                        <label>Quantity</label>
+                                        <select class="select2 form-control" id="SelectQuantity" name="select_quantity"
+                                            style="width: 100%;" required>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-12">
+                                        <label>Price</label>
+                                        <input type="text" readonly class="form-control" id="Price" name="price">
+                                    </div>
+                                    <input type="hidden" readonly class="form-control" id="TotalPrice"
+                                        name="total_price">
+                                </div>
+                            </div>
+                            <div class="card-footer" style="background: #E9ECEF;">
+                                <div class="text-right">
+                                    <button type="submit" class="btn btn-primary"
+                                        style="background-color: #00491E; border-color: #00491E;"><i
+                                            class="fas fa-plus"></i>&nbsp;&nbsp;Add Item</button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- ADD ITEM FORM -->
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header" style="background: #E9ECEF;">
+                            <h3 class="card-title">Added Items</h3>
+                        </div>
+                        <div class="card-body">
+                            <!-- ADDED ITEMS TABLE -->
+                            <table class="table" id="AddedItemsTable" style="font-size: 14px;">
+                                <thead class="text-center">
+                                    <tr style="display: none;">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                                <tfoot>
+                                </tfoot>
+                            </table>
+                            <!-- ADDED ITEMS TABLE -->
+                        </div>
+                        <div class="card-footer" style="background: #E9ECEF;">
+                            <div class="text-right">
+                                <button type="button" class="btn btn-primary" id="ConfirmPurchaseButton"
+                                    onClick="showConfirmPurchaseModal()"
+                                    style="background-color: #00491E; border-color: #00491E;"><i
+                                        class="fas fa-shopping-cart"></i>&nbsp;&nbsp;Confirm Purchase</button>
                             </div>
                         </div>
-                        <br>
-                        <div class="row">
-                            <div class="form-group col-4">
-                                <label>Quantity</label>
-                                <select class="select2 form-control" id="SelectQuantity" name="select_quantity"
-                                    style="width: 100%;" required>
-                                </select>
-                            </div>
-                            <div class="form-group col-4">
-                                <label>Price</label>
-                                <input type="text" readonly class="form-control" id="Price" name="price">
-                            </div>
-                            <div class="form-group col-4">
-                                <label>Total Price</label>
-                                <input type="text" readonly class="form-control" id="TotalPrice" name="total_price">
-                            </div>
-                        </div>
                     </div>
-                    <div class="card-footer" style="background: #E9ECEF;">
-                        <div class="text-right">
-                            <button type="submit" class="btn btn-primary"
-                                style="background-color: #00491E; border-color: #00491E;"><i
-                                    class="fas fa-plus"></i>&nbsp;&nbsp;Add Item</button>
-                        </div>
-                    </div>
-                </form>
-                <!-- ADD ITEM FORM -->
+                </div>
             </div>
-            <div class="card">
-                <div class="card-header" style="background: #E9ECEF;">
-                    <h3 class="card-title">Added Items</h3>
-                </div>
-                <div class="card-body">
-                    <!-- ADDED ITEMS TABLE -->
-                    <table class="table" id="AddedItemsTable" style="font-size: 14px;">
-                        <thead class="text-center">
-                            <tr style="display: none;">
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                        <tfoot>
-                        </tfoot>
-                    </table>
-                    <!-- ADDED ITEMS TABLE -->
-                </div>
-                <div class="card-footer" style="background: #E9ECEF;">
-                    <div class="text-right">
-                        <button type="button" class="btn btn-primary" id="ConfirmPurchaseButton"
-                            onClick="showConfirmPurchaseModal()"
-                            style="background-color: #00491E; border-color: #00491E;"><i
-                                class="fas fa-shopping-cart"></i>&nbsp;&nbsp;Confirm Purchase</button>
-                    </div>
-                </div>
-            </div>
+            <br>
         </div>
         <!-- PURCHASE HISTORY MODAL -->
         <div class="modal fade" id="PurchaseHistoryModal">
@@ -182,7 +194,8 @@
                                             <div class="card-body">
                                                 <div class="form-group">
                                                     <label>Customer Name</label>
-                                                    <input type="text" class="form-control" name="customer_name" required>
+                                                    <input type="text" class="form-control" name="customer_name"
+                                                        required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>OR Number</label>
@@ -250,13 +263,13 @@
                 batchId + '"');
         });
         if (existingRow) {
-            var existingQuantity = parseInt(existingRow[6]);
-            var existingTotalPrice = parseFloat(existingRow[10]);
+            var existingQuantity = parseInt(existingRow[7]);
+            var existingTotalPrice = parseFloat(existingRow[12]);
             var newQuantity = existingQuantity + quantity;
             var newTotalPrice = existingTotalPrice + totalPrice;
             var quantityInput = '<input type="hidden" name="quantity[]" value="' + newQuantity + '">';
-            existingRow[6] = newQuantity + quantityInput;
-            existingRow[10] = newTotalPrice.toFixed(2);
+            existingRow[7] = newQuantity + quantityInput;
+            existingRow[12] = newTotalPrice.toFixed(2);
             var rowIndex = table.rows().data().toArray().findIndex(function(row) {
                 return row[2].includes('value="' + imId + '"') && row[4].includes(
                     'value="' +
@@ -278,7 +291,13 @@
                 '<p class="text-right" style="font-weight: bold;"> Batch: </p>',
                 $('#SelectBatch option:selected').text() + batchIdInput,
                 '<p class="text-right" style="font-weight: bold;"> Quantity: </p>',
+                '<div class="text-right">' +
+                '<a href="#" class="minus-icon"><i class="fas fa-minus" style="color: #00491E;"></i></a>' +
+                '</div>',
                 $('#SelectQuantity option:selected').text() + quantityInput,
+                '<div class="text-left">' +
+                '<a href="#" class="plus-icon"><i class="fas fa-plus" style="color: #00491E;"></i></a>' +
+                '</div>',
                 '<p class="text-right" style="font-weight: bold;"> Price: </p>',
                 price.toFixed(2),
                 '<p class="text-right" style="font-weight: bold;"> Total Price: </p>',
@@ -291,7 +310,7 @@
         var totalAmount = 0;
         table.rows().every(function() {
             var rowData = this.data();
-            var rowTotalPrice = parseFloat(rowData[10]);
+            var rowTotalPrice = parseFloat(rowData[12]);
             totalAmount += rowTotalPrice;
         });
         $('#TotalAmount').val(totalAmount.toFixed(2));
@@ -300,6 +319,57 @@
         var table = $('#AddedItemsTable').DataTable();
         var row = $(this).closest('tr');
         table.row(row).remove().draw(false);
+    });
+    $('#AddedItemsTable tbody').on('click', '.minus-icon', function() {
+        var table = $('#AddedItemsTable').DataTable();
+        var row = $(this).closest('tr');
+        var rowData = table.row(row).data();
+        var quantityCell = table.cell(row, 7);
+        var unitPriceCell = table.cell(row, 10);
+        var currentQuantity = parseInt(quantityCell.data());
+        if (currentQuantity > 0) {
+            quantityCell.data(currentQuantity - 1).draw(false);
+            var newQuantity = currentQuantity - 1;
+            var quantityInput = '<input type="hidden" name="quantity[]" value="' + newQuantity + '">';
+            var unitPrice = parseFloat(unitPriceCell.data());
+            var newTotalPrice = newQuantity * unitPrice;
+            var totalPriceCell = table.cell(row, 12);
+            totalPriceCell.data(newTotalPrice.toFixed(2)).draw(false);
+            var existingRow = table.row(row).data();
+            if (existingRow) {
+                existingRow[7] = newQuantity + quantityInput;
+                existingRow[12] = newTotalPrice.toFixed(2);
+                table.row(row).data(existingRow).draw(false);
+            }
+        }
+        if (currentQuantity === 1) {
+            table.row(row).remove().draw(false);
+        }
+        $('#AddedItemsTable tbody tr').removeClass('recent-row');
+        row.addClass('recent-row');
+    });
+    $('#AddedItemsTable tbody').on('click', '.plus-icon', function() {
+        var table = $('#AddedItemsTable').DataTable();
+        var row = $(this).closest('tr');
+        var rowData = table.row(row).data();
+        var quantityCell = table.cell(row, 7);
+        var unitPriceCell = table.cell(row, 10);
+        var currentQuantity = parseInt(quantityCell.data());
+        quantityCell.data(currentQuantity + 1).draw(false);
+        var newQuantity = currentQuantity + 1;
+        var quantityInput = '<input type="hidden" name="quantity[]" value="' + newQuantity + '">';
+        var unitPrice = parseFloat(unitPriceCell.data());
+        var newTotalPrice = newQuantity * unitPrice;
+        var totalPriceCell = table.cell(row, 12);
+        totalPriceCell.data(newTotalPrice.toFixed(2)).draw(false);
+        var existingRow = table.row(row).data();
+        if (existingRow) {
+            existingRow[7] = newQuantity + quantityInput;
+            existingRow[12] = newTotalPrice.toFixed(2);
+            table.row(row).data(existingRow).draw(false);
+        }
+        $('#AddedItemsTable tbody tr').removeClass('recent-row');
+        row.addClass('recent-row');
     });
     function populateAddItemForm() {
         $.ajax({
@@ -344,17 +414,19 @@
                             batch) {
                             return batch.id == batchId;
                         });
+                        var availableStocks = selectedBatch.quantity_produced - selectedBatch
+                            .total_quantity_deducted;
+                        $('#AvailableStocks').val(availableStocks);
                         $('#Price').val(selectedBatch.price.toFixed(2));
                         var selectQuantity = $('#SelectQuantity');
                         selectQuantity.empty();
-                        var availableStocks = selectedBatch.quantity_produced - selectedBatch
-                            .total_quantity_deducted;
                         for (var i = 1; i <= availableStocks; i++) {
                             selectQuantity.append('<option value="' + i + '">' + i + '</option>');
                         }
                         selectQuantity.val(null).trigger('change');
                         selectQuantity.select2();
                     } else {
+                        $('#AvailableStocks').val(null);
                         $('#Price').val(null);
                         $('#SelectQuantity').empty();
                     }
