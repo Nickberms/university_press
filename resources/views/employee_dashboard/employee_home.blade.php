@@ -52,7 +52,7 @@
                         <div class="icon">
                             <i class="fas fa-book"></i>
                         </div>
-                        <a href="{{ route('masterlist.index') }}" class="small-box-footer">More info <i
+                        <a href="{{ route('ims.index') }}" class="small-box-footer">More info <i
                                 class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
@@ -118,7 +118,7 @@
     <script>
     function refreshSalesTodayTable() {
         $.ajax({
-            url: "{{ route('dashboard.index') }}",
+            url: "{{ route('dashboards.index') }}",
             type: 'GET',
             dataType: 'json',
             success: function(data) {

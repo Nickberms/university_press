@@ -8,7 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class TopSaleController extends Controller
+class SaleController extends Controller
 {
     public function index(Request $request)
     {

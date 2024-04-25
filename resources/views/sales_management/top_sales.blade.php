@@ -133,7 +133,7 @@
     });
     function populateTopSalesFiltersForm() {
         $.ajax({
-            url: "{{ route('top_sales.create') }}",
+            url: "{{ route('sales.create') }}",
             type: 'GET',
             dataType: 'json',
             success: function(response) {
@@ -167,7 +167,7 @@
         var selectCollege = $('#SelectCollege').val();
         var selectPublisher = $('#SelectPublisher').val();
         $.ajax({
-            url: "{{ route('top_sales.index') }}",
+            url: "{{ route('sales.index') }}",
             type: 'GET',
             dataType: 'json',
             data: {

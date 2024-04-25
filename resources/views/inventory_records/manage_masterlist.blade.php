@@ -311,7 +311,7 @@
     <script>
     function showAddInstructionalMaterialModal() {
         $.ajax({
-            url: "{{ route('masterlist.create') }}",
+            url: "{{ route('ims.create') }}",
             type: 'GET',
             dataType: 'json',
             success: function(response) {
@@ -345,7 +345,7 @@
     }
     function showEditInstructionalMaterialModal(instructionalMaterialId) {
         $.ajax({
-            url: "{{ route('masterlist.create') }}",
+            url: "{{ route('ims.create') }}",
             type: 'GET',
             dataType: 'json',
             success: function(response) {
@@ -364,7 +364,7 @@
                 });
                 selectCategory.select2();
                 $.ajax({
-                    url: "{{ route('masterlist.edit', ':id') }}".replace(':id',
+                    url: "{{ route('ims.edit', ':id') }}".replace(':id',
                         instructionalMaterialId),
                     type: 'GET',
                     dataType: 'json',
@@ -428,7 +428,7 @@
         event.preventDefault();
         var formData = $(this).serialize();
         $.ajax({
-            url: "{{ route('masterlist.store') }}",
+            url: "{{ route('ims.store') }}",
             type: 'POST',
             data: formData,
             success: function(response) {
@@ -450,7 +450,7 @@
         var formData = $(this).serialize();
         var instructionalMaterialId = $('#InstructionalMaterialId').val();
         $.ajax({
-            url: "{{ route('masterlist.update', ':id') }}".replace(':id',
+            url: "{{ route('ims.update', ':id') }}".replace(':id',
                 instructionalMaterialId),
             type: 'POST',
             data: formData,
@@ -474,7 +474,7 @@
         showDeleteInstructionalMaterialModal();
         $('#DeleteInstructionalMaterial').off().on('click', function() {
             $.ajax({
-                url: "{{ route('masterlist.destroy', ':id') }}".replace(':id',
+                url: "{{ route('ims.destroy', ':id') }}".replace(':id',
                     instructionalMaterialId),
                 type: 'DELETE',
                 data: {
@@ -497,7 +497,7 @@
     });
     function refreshMasterlistTable() {
         $.ajax({
-            url: "{{ route('masterlist.index') }}",
+            url: "{{ route('ims.index') }}",
             type: 'GET',
             dataType: 'json',
             success: function(data) {
