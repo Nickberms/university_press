@@ -85,9 +85,100 @@
             </div>
             <!-- DASHBOARD CARDS -->
             <br>
+            <div class="card">
+                <div class="card-header" style="background: #E9ECEF;">
+                    <h3 class="card-title">Sales Today</h3>
+                </div>
+                <div class="card-body">
+                    <!-- SALES TODAY TABLE -->
+                    <table class="table table-bordered table-striped" id="SalesTodayTable">
+                        <thead class="text-center">
+                            <tr>
+                                <th>Code</th>
+                                <th>Title</th>
+                                <th>Batch</th>
+                                <th>Price</th>
+                                <th>Quantity Sold</th>
+                                <th>Quantity Deducted</th>
+                                <th>Sales</th>
+                                <th>Available Stocks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot>
+                        </tfoot>
+                    </table>
+                    <!-- SALES TODAY TABLE -->
+                </div>
+            </div>
+            <br>
         </div>
     </section>
     <script>
+    function refreshSalesTodayTable() {
+        $.ajax({
+            url: "{{ route('dashboard.index') }}",
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                var table = $('#SalesTodayTable').DataTable();
+                var existingRows = table.rows().remove().draw(false);
+                data.forEach(function(batch) {
+                    var sales = batch.price.toFixed(2) * batch.quantity_sold_today;
+                    var totalQuantityDeducted = parseInt(batch.quantity_sold) + parseInt(batch
+                        .quantity_deducted);
+                    var availableStocks = batch.quantity_produced - totalQuantityDeducted;
+                    function monetaryValue(x) {
+                        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    }
+                    table.row.add([
+                        batch.im.code,
+                        batch.im.title,
+                        batch.name,
+                        '<span style="float: right;">' + monetaryValue(batch.price.toFixed(
+                            2)) + '</span>',
+                        '<span style="float: right;">' + batch.quantity_sold_today +
+                        '</span>',
+                        '<span style="float: right;">' + batch.quantity_deducted_today +
+                        '</span>',
+                        '<span style="float: right;">' + monetaryValue(sales.toFixed(2)) +
+                        '</span>',
+                        '<span style="float: right;">' + availableStocks + '</span>'
+                    ]);
+                });
+                table.draw();
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+    $(document).ready(function() {
+        $('#SalesTodayTable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "responsive": false,
+            "scrollX": true,
+            "scrollY": true,
+            "scrollCollapse": false,
+            "buttons": ["copy", "excel", "pdf", "print"],
+            "pageLength": 8
+        }).buttons().container().appendTo('#SalesTodayTable_wrapper .col-md-6:eq(0)');
+        refreshSalesTodayTable();
+        var previousWidth = $(window).width();
+        $(window).on('resize', function() {
+            var currentWidth = $(window).width();
+            if (currentWidth !== previousWidth) {
+                refreshSalesTodayTable();
+                previousWidth = currentWidth;
+            }
+        });
+    });
     </script>
 </body>
 
