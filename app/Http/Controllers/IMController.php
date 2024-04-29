@@ -1,21 +1,53 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\Im;
 use App\Models\Author;
 use App\Models\Category;
+use App\Models\Im;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ImController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $ims = Im::with('authors', 'category')
-            ->orderByDesc('updated_at')
-            ->orderByDesc('created_at')
+        $selectedAuthor = $request->input('select_author');
+        $selectedCategory = $request->input('select_category');
+        $selectedCollege = $request->input('select_college');
+        $selectedPublisher = $request->input('select_publisher');
+        $query = Im::with('authors', 'category');
+        if (!empty($selectedAuthor)) {
+            $query->whereHas('authors', function ($q) use ($selectedAuthor) {
+                $q->where('author_id', $selectedAuthor);
+            });
+        }
+        if (!empty($selectedCategory)) {
+            $query->where('category_id', $selectedCategory);
+        }
+        if (!empty($selectedCollege)) {
+            $query->where('college', $selectedCollege);
+        }
+        if (!empty($selectedPublisher)) {
+            $query->where('publisher', $selectedPublisher);
+        }
+        $ims = $query->select(
+            'ims.id',
+            'ims.code',
+            'ims.title',
+            'ims.category_id',
+            'ims.college',
+            'ims.publisher',
+            'ims.edition',
+            'ims.isbn',
+            'ims.description',
+            DB::raw('COALESCE(SUM(purchases.quantity), 0) as unit_sold')
+        )
+            ->leftJoin('purchases', 'ims.id', '=', 'purchases.im_id')
+            ->groupBy('ims.id', 'ims.code', 'ims.title', 'ims.category_id', 'ims.college', 'ims.publisher', 'ims.edition', 'ims.isbn', 'ims.description')
+            ->orderByDesc('ims.updated_at')
+            ->orderByDesc('ims.created_at')
             ->get();
-        if (request()->ajax()) {
+        if ($request->ajax()) {
             return response()->json($ims);
         } else {
             return view('inventory_records.manage_masterlist', compact('ims'));

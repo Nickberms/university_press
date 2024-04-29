@@ -10,7 +10,7 @@ use App\Http\Controllers\AdjustmentLogController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\ReportController;
-use App\Http\Controllers\SaleController;
+use App\Http\Controllers\FilterController;
 use App\Http\Controllers\UserController;
 
 Auth::routes([
@@ -34,7 +34,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('purchases', PurchaseController::class);
     Route::resource('monitorings', MonitoringController::class);
     Route::resource('reports', ReportController::class);
-    Route::resource('sales', SaleController::class);
+    Route::resource('filters', FilterController::class);
 });
 Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::resource('users', UserController::class);

@@ -28,11 +28,60 @@
             <br><br>
             <div class="card">
                 <div class="card-header" style="background: #E9ECEF;">
+                    <h3 class="card-title">Masterlist Filters</h3>
+                </div>
+                <div class="card-body" style="font-size: 14px;">
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            <label>Select Author</label>
+                            <select class="select2 form-control" id="SelectAuthor" name="select_author"
+                                style="width: 100%;">
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label>Select Category</label>
+                            <select class="select2 form-control" id="SelectCategory1" name="select_category"
+                                style="width: 100%;">
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label>Select College</label>
+                            <select class="select2 form-control" id="SelectCollege" name="select_college"
+                                style="width: 100%;">
+                                <option value="">&nbsp;</option>
+                                <option>College of Agriculture</option>
+                                <option>College of Arts and Sciences</option>
+                                <option>College of Business and Management</option>
+                                <option>College of Education</option>
+                                <option>College of Engineering</option>
+                                <option>College of Forestry and Environmental Sciences
+                                </option>
+                                <option>College of Human Ecology</option>
+                                <option>College of Information Sciences and Computing
+                                </option>
+                                <option>College of Nursing</option>
+                                <option>College of Veterinary Medicine</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label>Select Publisher</label>
+                            <select class="select2 form-control" id="SelectPublisher" name="select_publisher"
+                                style="width: 100%;">
+                                <option value="">&nbsp;</option>
+                                <option>University Press</option>
+                                <option>Consigned Material</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" style="background: #E9ECEF;">
                     <h3 class="card-title">Manage Masterlist</h3>
                 </div>
                 <div class="card-body">
                     <!-- MASTERLIST TABLE -->
-                    <table class="table table-bordered table-striped" id="MasterlistTable">
+                    <table class="table table-bordered table-striped" id="MasterlistTable" style="font-size: 14px;">
                         <thead class="text-center">
                             <tr>
                                 <th>Actions</th>
@@ -45,6 +94,7 @@
                                 <th>Edition</th>
                                 <th>ISBN</th>
                                 <th>Description</th>
+                                <th>Unit Sold</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -94,7 +144,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Category</label>
-                                                    <select class="select2 form-control" id="SelectCategory"
+                                                    <select class="select2 form-control" id="SelectCategory2"
                                                         name="category_id" style="width: 100%;" required>
                                                     </select>
                                                 </div>
@@ -102,7 +152,7 @@
                                                     <label>College</label>
                                                     <select class="select2 form-control" name="college"
                                                         style="width: 100%;">
-                                                        <option value=" "></option>
+                                                        <option value="">&nbsp;</option>
                                                         <option>College of Agriculture</option>
                                                         <option>College of Arts and Sciences</option>
                                                         <option>College of Business and Management</option>
@@ -127,7 +177,7 @@
                                                     <label>Publisher</label>
                                                     <select class="select2 form-control" name="publisher"
                                                         style="width: 100%;">
-                                                        <option value=" "></option>
+                                                        <option value="">&nbsp;</option>
                                                         <option>University Press</option>
                                                         <option>Consigned Material</option>
                                                     </select>
@@ -216,7 +266,7 @@
                                                     <label>College</label>
                                                     <select class="select2 form-control" id="EditCollege" name="college"
                                                         style="width: 100%;">
-                                                        <option value=" "></option>
+                                                        <option value="">&nbsp;</option>
                                                         <option>College of Agriculture</option>
                                                         <option>College of Arts and Sciences</option>
                                                         <option>College of Business and Management</option>
@@ -241,7 +291,7 @@
                                                     <label>Publisher</label>
                                                     <select class="select2 form-control" id="EditPublisher"
                                                         name="publisher" style="width: 100%;">
-                                                        <option value=" "></option>
+                                                        <option value="">&nbsp;</option>
                                                         <option>University Press</option>
                                                         <option>Consigned Material</option>
                                                     </select>
@@ -323,7 +373,7 @@
                 });
                 selectAuthors.val(null).trigger('change');
                 selectAuthors.select2();
-                var selectCategory = $('#SelectCategory');
+                var selectCategory = $('#SelectCategory2');
                 selectCategory.empty();
                 response.categories.forEach(function(category) {
                     selectCategory.append('<option value="' + category.id + '">' + category
@@ -424,6 +474,92 @@
     function hideDeleteInstructionalMaterialModal() {
         $('#DeleteInstructionalMaterialModal').modal('hide');
     }
+    function populateMasterlistFilters() {
+        $.ajax({
+            url: "{{ route('filters.create') }}",
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                var selectAuthor = $('#SelectAuthor');
+                selectAuthor.empty();
+                selectAuthor.empty().append('<option value="">&nbsp;</option>');
+                response.authors.forEach(function(author) {
+                    selectAuthor.append('<option value="' + author.id + '">' + author
+                        .first_name + ' ' + author.last_name + '</option>');
+                });
+                selectAuthor.val(null).trigger('change');
+                selectAuthor.select2();
+                var selectCategory = $('#SelectCategory1');
+                selectCategory.empty();
+                selectCategory.empty().append('<option value="">&nbsp;</option>');
+                response.categories.forEach(function(category) {
+                    selectCategory.append('<option value="' + category.id + '">' + category
+                        .name + '</option>');
+                });
+                selectCategory.val(null).trigger('change');
+                selectCategory.select2();
+            },
+            error: function(xhr, status, error) {
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
+            }
+        });
+    }
+    function refreshMasterlistTable() {
+        var selectAuthor = $('#SelectAuthor').val();
+        var selectCategory = $('#SelectCategory1').val();
+        var selectCollege = $('#SelectCollege').val();
+        var selectPublisher = $('#SelectPublisher').val();
+        $.ajax({
+            url: "{{ route('ims.index') }}",
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                select_author: selectAuthor,
+                select_category: selectCategory,
+                select_college: selectCollege,
+                select_publisher: selectPublisher
+            },
+            success: function(data) {
+                var table = $('#MasterlistTable').DataTable();
+                var existingRows = table.rows().remove().draw(false);
+                data.forEach(function(im) {
+                    var authors = '';
+                    if (im.authors.length > 1) {
+                        authors += im.authors[0].last_name + ' et al.<br>';
+                    } else {
+                        authors += im.authors[0].last_name + '<br>';
+                    }
+                    table.row.add([
+                        '<div class="text-center">' +
+                        '<a href="#" class="edit" title="Edit" data-toggle="tooltip" data-id="' +
+                        im.id + '" onclick="showEditInstructionalMaterialModal(' + im.id +
+                        ')"><i class="material-icons">&#xE254;</i></a>' +
+                        '<a href="#" class="delete" title="Delete" data-toggle="tooltip" data-id="' +
+                        im.id + '"><i class="material-icons">&#xE872;</i></a>' +
+                        '</div>',
+                        im.code,
+                        im.title,
+                        authors,
+                        im.category.name,
+                        im.college,
+                        im.publisher,
+                        im.edition,
+                        im.isbn,
+                        im.description,
+                        '<span style="float: right;">' + im.unit_sold + '</span>'
+                    ]);
+                });
+                table.draw();
+            },
+            error: function(xhr, status, error) {
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
+            }
+        });
+    }
     $('#AddInstructionalMaterialForm').submit(function(event) {
         event.preventDefault();
         var formData = $(this).serialize();
@@ -495,50 +631,15 @@
             });
         });
     });
-    function refreshMasterlistTable() {
-        $.ajax({
-            url: "{{ route('ims.index') }}",
-            type: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                var table = $('#MasterlistTable').DataTable();
-                var existingRows = table.rows().remove().draw(false);
-                data.forEach(function(im) {
-                    var authors = '';
-                    if (im.authors.length > 1) {
-                        authors += im.authors[0].last_name + ' et al.<br>';
-                    } else {
-                        authors += im.authors[0].last_name + '<br>';
-                    }
-                    table.row.add([
-                        '<div class="text-center">' +
-                        '<a href="#" class="edit" title="Edit" data-toggle="tooltip" data-id="' +
-                        im.id + '" onclick="showEditInstructionalMaterialModal(' + im.id +
-                        ')"><i class="material-icons">&#xE254;</i></a>' +
-                        '<a href="#" class="delete" title="Delete" data-toggle="tooltip" data-id="' +
-                        im.id + '"><i class="material-icons">&#xE872;</i></a>' +
-                        '</div>',
-                        im.code,
-                        im.title,
-                        authors,
-                        im.category.name,
-                        im.college,
-                        im.publisher,
-                        im.edition,
-                        im.isbn,
-                        im.description
-                    ]);
-                });
-                table.draw();
-            },
-            error: function(xhr, status, error) {
-                var errorMessage = JSON.parse(xhr.responseText).error;
-                console.error(errorMessage);
-                toastr.error(errorMessage);
-            }
-        });
-    }
     $(document).ready(function() {
+        $('#AddInstructionalMaterialModal').on('hidden.bs.modal', function(e) {
+            $('#AddInstructionalMaterialForm')[0].reset();
+            $('#AddInstructionalMaterialModal select').val(null).trigger('change');
+        });
+        populateMasterlistFilters();
+        $('.select2').change(function() {
+            refreshMasterlistTable();
+        });
         $('#MasterlistTable').DataTable({
             "paging": true,
             "lengthChange": false,
@@ -555,10 +656,6 @@
         }).buttons().container().appendTo('#MasterlistTable_wrapper .col-md-6:eq(0)');
         refreshMasterlistTable();
         setInterval(refreshMasterlistTable, 60000);
-        $('#AddInstructionalMaterialModal').on('hidden.bs.modal', function(e) {
-            $('#AddInstructionalMaterialForm')[0].reset();
-            $('#AddInstructionalMaterialModal select').val(null).trigger('change');
-        });
         var previousWidth = $(window).width();
         $(window).on('resize', function() {
             var currentWidth = $(window).width();

@@ -304,7 +304,6 @@
             success: function(response) {
                 var selectInstructionalMaterial = $('#SelectInstructionalMaterial');
                 selectInstructionalMaterial.empty();
-                selectInstructionalMaterial.empty().append('<option value="">&nbsp;</option>');
                 response.forEach(function(im) {
                     selectInstructionalMaterial.append('<option value="' + im.id + '">' + im.title +
                         '</option>');
@@ -331,7 +330,6 @@
             success: function(response) {
                 var selectInstructionalMaterial = $('#EditInstructionalMaterial');
                 selectInstructionalMaterial.empty();
-                selectInstructionalMaterial.empty().append('<option value="">&nbsp;</option>');
                 response.forEach(function(im) {
                     selectInstructionalMaterial.append('<option value="' + im.id + '">' + im.title +
                         '</option>');
@@ -379,7 +377,7 @@
     }
     function populateBatchesFilters() {
         $.ajax({
-            url: "{{ route('sales.create') }}",
+            url: "{{ route('filters.create') }}",
             type: 'GET',
             dataType: 'json',
             success: function(response) {

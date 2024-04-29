@@ -79,12 +79,6 @@
                             <p>&nbsp;&nbsp;Generate Reports</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ route('sales.index') }}" class="nav-link">
-                            <i class="fas fa-chart-bar"></i>
-                            <p>&nbsp;&nbsp;Top Sales</p>
-                        </a>
-                    </li>
                 </ul>
             </li>
         </ul>
