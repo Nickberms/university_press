@@ -43,8 +43,8 @@
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary"
-                                    style="background-color: #00491E; border-color: #00491E;">Resend Verification
-                                    Link</button>
+                                    style="background-color: #00491E; border-color: #00491E;"><i
+                                        class="fas fa-envelope"></i>&nbsp;&nbsp;Resend Verification Link</button>
                             </div>
                         </form>
                     </div>

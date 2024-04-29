@@ -94,7 +94,8 @@
                             </div>
                             <div class="card-footer" style="background: #E9ECEF;">
                                 <button type="submit" class="btn btn-primary"
-                                    style="background-color: #00491E; border-color: #00491E;">{{ __('Update Profile') }}</button>
+                                    style="background-color: #00491E; border-color: #00491E;"><i
+                                        class="fas fa-check"></i>&nbsp;&nbsp;{{ __('Update Profile') }}</button>
                             </div>
                         </form>
                     </div>

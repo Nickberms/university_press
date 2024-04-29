@@ -11,8 +11,8 @@ return new class extends Migration {
             $table->foreignId('im_id')->constrained('ims');
             $table->string('name');
             $table->date('production_date');
-            $table->float('production_cost');
-            $table->float('price');
+            $table->float('production_cost', 10, 2);
+            $table->float('price', 10, 2);
             $table->integer('quantity_produced');
             $table->timestamps();
         });

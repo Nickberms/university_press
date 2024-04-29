@@ -1,34 +1,58 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\AdjustmentLog;
 use App\Models\Batch;
 use App\Models\Im;
 use App\Models\Purchase;
-use App\Models\AdjustmentLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class BatchController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $batches = Batch::with('im', 'purchases', 'adjustment_logs')
-            ->select(
-                'batches.id',
-                'batches.im_id',
-                'batches.name',
-                'batches.production_date',
-                'batches.production_cost',
-                'batches.price',
-                'batches.quantity_produced',
-                DB::raw('(SELECT COALESCE(SUM(quantity), 0) FROM purchases WHERE batch_id = batches.id) as quantity_sold'),
-                DB::raw('(SELECT COALESCE(SUM(quantity_deducted), 0) FROM adjustment_logs WHERE batch_id = batches.id) as quantity_deducted')
-            )
+        $selectedAuthor = $request->input('select_author');
+        $selectedCategory = $request->input('select_category');
+        $selectedCollege = $request->input('select_college');
+        $selectedPublisher = $request->input('select_publisher');
+        $query = Batch::with('im', 'purchases', 'adjustment_logs');
+        if (!empty($selectedAuthor)) {
+            $query->whereHas('im.authors', function ($q) use ($selectedAuthor) {
+                $q->where('author_id', $selectedAuthor);
+            });
+        }
+        if (!empty($selectedCategory)) {
+            $query->whereHas('im.category', function ($q) use ($selectedCategory) {
+                $q->where('category_id', $selectedCategory);
+            });
+        }
+        if (!empty($selectedCollege)) {
+            $query->whereHas('im', function ($q) use ($selectedCollege) {
+                $q->where('college', $selectedCollege);
+            });
+        }
+        if (!empty($selectedPublisher)) {
+            $query->whereHas('im', function ($q) use ($selectedPublisher) {
+                $q->where('publisher', $selectedPublisher);
+            });
+        }
+        $batches = $query->select(
+            'batches.id',
+            'batches.im_id',
+            'batches.name',
+            'batches.production_date',
+            'batches.production_cost',
+            'batches.price',
+            'batches.quantity_produced',
+            DB::raw('(SELECT COALESCE(SUM(quantity), 0) FROM purchases WHERE batch_id = batches.id) as quantity_sold'),
+            DB::raw('(SELECT COALESCE(SUM(quantity_deducted), 0) FROM adjustment_logs WHERE batch_id = batches.id) as quantity_deducted')
+        )
             ->groupBy('batches.id', 'batches.im_id', 'batches.name', 'batches.production_date', 'batches.production_cost', 'batches.price', 'batches.quantity_produced')
             ->orderByDesc('batches.updated_at')
             ->orderByDesc('batches.created_at')
             ->get();
-        if (request()->ajax()) {
+        if ($request->ajax()) {
             return response()->json($batches);
         } else {
             return view('inventory_records.manage_batches', compact('batches'));

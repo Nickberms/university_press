@@ -27,11 +27,60 @@
             <br><br>
             <div class="card">
                 <div class="card-header" style="background: #E9ECEF;">
+                    <h3 class="card-title">Batches Filters</h3>
+                </div>
+                <div class="card-body" style="font-size: 14px;">
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            <label>Select Author</label>
+                            <select class="select2 form-control" id="SelectAuthor" name="select_author"
+                                style="width: 100%;">
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label>Select Category</label>
+                            <select class="select2 form-control" id="SelectCategory" name="select_category"
+                                style="width: 100%;">
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label>Select College</label>
+                            <select class="select2 form-control" id="SelectCollege" name="select_college"
+                                style="width: 100%;">
+                                <option value="">&nbsp;</option>
+                                <option>College of Agriculture</option>
+                                <option>College of Arts and Sciences</option>
+                                <option>College of Business and Management</option>
+                                <option>College of Education</option>
+                                <option>College of Engineering</option>
+                                <option>College of Forestry and Environmental Sciences
+                                </option>
+                                <option>College of Human Ecology</option>
+                                <option>College of Information Sciences and Computing
+                                </option>
+                                <option>College of Nursing</option>
+                                <option>College of Veterinary Medicine</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label>Select Publisher</label>
+                            <select class="select2 form-control" id="SelectPublisher" name="select_publisher"
+                                style="width: 100%;">
+                                <option value="">&nbsp;</option>
+                                <option>University Press</option>
+                                <option>Consigned Material</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" style="background: #E9ECEF;">
                     <h3 class="card-title">Manage Batches</h3>
                 </div>
                 <div class="card-body">
                     <!-- BATCHES TABLE -->
-                    <table class="table table-bordered table-striped" id="BatchesTable">
+                    <table class="table table-bordered table-striped" id="BatchesTable" style="font-size: 14px;">
                         <thead class="text-center">
                             <tr>
                                 <th>Actions</th>
@@ -101,19 +150,19 @@
                                             <div class="card-body">
                                                 <div class="form-group">
                                                     <label>Production Cost</label>
-                                                    <input type="text" oninput="AmountOnly(this)"
+                                                    <input type="text" oninput="amountOnly(this)"
                                                         onpaste="return false;" class="form-control"
                                                         name="production_cost" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Price</label>
-                                                    <input type="text" oninput="AmountOnly(this)"
+                                                    <input type="text" oninput="amountOnly(this)"
                                                         onpaste="return false;" class="form-control" name="price"
                                                         required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Quantity Produced</label>
-                                                    <input type="text" oninput="NumbersOnly(this)" class="form-control"
+                                                    <input type="text" oninput="numbersOnly(this)" class="form-control"
                                                         name="quantity_produced" required>
                                                 </div>
                                             </div>
@@ -168,8 +217,8 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Batch Name</label>
-                                                    <input type="text" class="form-control" id="EditBatchName" name="name"
-                                                        required>
+                                                    <input type="text" class="form-control" id="EditBatchName"
+                                                        name="name" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Production Date</label>
@@ -184,19 +233,19 @@
                                             <div class="card-body">
                                                 <div class="form-group">
                                                     <label>Production Cost</label>
-                                                    <input type="text" oninput="AmountOnly(this)"
+                                                    <input type="text" oninput="amountOnly(this)"
                                                         onpaste="return false;" class="form-control"
                                                         id="EditProductionCost" name="production_cost" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Price</label>
-                                                    <input type="text" oninput="AmountOnly(this)"
+                                                    <input type="text" oninput="amountOnly(this)"
                                                         onpaste="return false;" class="form-control" id="EditPrice"
                                                         name="price" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Quantity Produced</label>
-                                                    <input type="text" oninput="NumbersOnly(this)" class="form-control"
+                                                    <input type="text" oninput="numbersOnly(this)" class="form-control"
                                                         id="EditQuantityProduced" name="quantity_produced" required>
                                                 </div>
                                             </div>
@@ -255,6 +304,7 @@
             success: function(response) {
                 var selectInstructionalMaterial = $('#SelectInstructionalMaterial');
                 selectInstructionalMaterial.empty();
+                selectInstructionalMaterial.empty().append('<option value="">&nbsp;</option>');
                 response.forEach(function(im) {
                     selectInstructionalMaterial.append('<option value="' + im.id + '">' + im.title +
                         '</option>');
@@ -281,6 +331,7 @@
             success: function(response) {
                 var selectInstructionalMaterial = $('#EditInstructionalMaterial');
                 selectInstructionalMaterial.empty();
+                selectInstructionalMaterial.empty().append('<option value="">&nbsp;</option>');
                 response.forEach(function(im) {
                     selectInstructionalMaterial.append('<option value="' + im.id + '">' + im.title +
                         '</option>');
@@ -325,6 +376,123 @@
     }
     function hideDeleteBatchModal() {
         $('#DeleteBatchModal').modal('hide');
+    }
+    function populateBatchesFilters() {
+        $.ajax({
+            url: "{{ route('sales.create') }}",
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                var selectAuthor = $('#SelectAuthor');
+                selectAuthor.empty();
+                selectAuthor.empty().append('<option value="">&nbsp;</option>');
+                response.authors.forEach(function(author) {
+                    selectAuthor.append('<option value="' + author.id + '">' + author
+                        .first_name + ' ' + author.last_name + '</option>');
+                });
+                selectAuthor.val(null).trigger('change');
+                selectAuthor.select2();
+                var selectCategory = $('#SelectCategory');
+                selectCategory.empty();
+                selectCategory.empty().append('<option value="">&nbsp;</option>');
+                response.categories.forEach(function(category) {
+                    selectCategory.append('<option value="' + category.id + '">' + category
+                        .name + '</option>');
+                });
+                selectCategory.val(null).trigger('change');
+                selectCategory.select2();
+            },
+            error: function(xhr, status, error) {
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
+            }
+        });
+    }
+    function refreshBatchesTable() {
+        var selectAuthor = $('#SelectAuthor').val();
+        var selectCategory = $('#SelectCategory').val();
+        var selectCollege = $('#SelectCollege').val();
+        var selectPublisher = $('#SelectPublisher').val();
+        $.ajax({
+            url: "{{ route('batches.index') }}",
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                select_author: selectAuthor,
+                select_category: selectCategory,
+                select_college: selectCollege,
+                select_publisher: selectPublisher
+            },
+            success: function(data) {
+                var table = $('#BatchesTable').DataTable();
+                var existingRows = table.rows().remove().draw(false);
+                data.forEach(function(batch) {
+                    var formattedProductionDate = new Date(batch.production_date);
+                    var options = {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    };
+                    var formattedProductionDateString = formattedProductionDate.toLocaleDateString(
+                        'en-US', options);
+                    var totalQuantityDeducted = parseInt(batch.quantity_sold) + parseInt(batch
+                        .quantity_deducted);
+                    var availableStocks = batch.quantity_produced - totalQuantityDeducted;
+                    var totalRevenue = (batch.price.toFixed(2) * batch.quantity_sold) - batch
+                        .production_cost.toFixed(2);
+                    function monetaryValue(x) {
+                        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    }
+                    table.row.add([
+                        '<div class="text-center">' +
+                        '<a href="#" class="edit" title="Edit" data-toggle="tooltip" data-id="' +
+                        batch.id + '" onclick="showEditBatchModal(' + batch.id +
+                        ')"><i class="material-icons">&#xE254;</i></a>' +
+                        '<a href="#" class="delete" title="Delete" data-toggle="tooltip" data-id="' +
+                        batch.id + '"><i class="material-icons">&#xE872;</i></a>' +
+                        '</div>',
+                        batch.im.title,
+                        batch.name,
+                        formattedProductionDateString,
+                        '<span style="float: right;">' + monetaryValue(batch
+                            .production_cost.toFixed(2)) + '</span>',
+                        '<span style="float: right;">' + monetaryValue(batch.price
+                            .toFixed(2)) + '</span>',
+                        '<span style="float: right;">' + batch.quantity_produced +
+                        '</span>',
+                        '<span style="float: right;">' + batch.quantity_sold + '</span>',
+                        '<span style="float: right;">' + batch.quantity_deducted +
+                        '</span>',
+                        '<span style="float: right;">' + availableStocks + '</span>',
+                        '<span style="float: right;">' + monetaryValue(totalRevenue
+                            .toFixed(2)) + '</span>'
+                    ]);
+                });
+                table.draw();
+            },
+            error: function(xhr, status, error) {
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
+            }
+        });
+    }
+    function amountOnly(inputField) {
+        var inputValue = inputField.value;
+        var cleanedValue = inputValue.replace(/(\.\d*)\./, '$1');
+        var pattern = /^\d*\.?\d*$/;
+        if (!pattern.test(cleanedValue)) {
+            cleanedValue = cleanedValue.replace(/[^0-9.]/g, '');
+        }
+        inputField.value = cleanedValue;
+    }
+    function numbersOnly(inputField) {
+        var pattern = /^[0-9]+$/;
+        var inputValue = inputField.value;
+        if (!pattern.test(inputValue)) {
+            inputField.value = inputValue.replace(/[^0-9]/g, '');
+        }
     }
     $('#AddBatchForm').submit(function(event) {
         event.preventDefault();
@@ -395,79 +563,15 @@
             });
         });
     });
-    function refreshBatchesTable() {
-        $.ajax({
-            url: "{{ route('batches.index') }}",
-            type: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                var table = $('#BatchesTable').DataTable();
-                var existingRows = table.rows().remove().draw(false);
-                data.forEach(function(batch) {
-                    var formattedProductionDate = new Date(batch.production_date);
-                    var options = {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                    };
-                    var formattedProductionDateString = formattedProductionDate.toLocaleDateString(
-                        'en-US', options);
-                    var totalQuantityDeducted = parseInt(batch.quantity_sold) + parseInt(batch.quantity_deducted);
-                    var availableStocks = batch.quantity_produced - totalQuantityDeducted;
-                    var totalRevenue = (batch.price.toFixed(2) * batch.quantity_sold) - batch
-                        .production_cost.toFixed(2);
-                    function monetaryValue(x) {
-                        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                    }
-                    table.row.add([
-                        '<div class="text-center">' +
-                        '<a href="#" class="edit" title="Edit" data-toggle="tooltip" data-id="' +
-                        batch.id + '" onclick="showEditBatchModal(' + batch.id +
-                        ')"><i class="material-icons">&#xE254;</i></a>' +
-                        '<a href="#" class="delete" title="Delete" data-toggle="tooltip" data-id="' +
-                        batch.id + '"><i class="material-icons">&#xE872;</i></a>' +
-                        '</div>',
-                        batch.im.title,
-                        batch.name,
-                        formattedProductionDateString,
-                        '<span style="float: right;">' + monetaryValue(batch
-                            .production_cost.toFixed(2)) + '</span>',
-                        '<span style="float: right;">' + monetaryValue(batch.price
-                            .toFixed(2)) + '</span>',
-                        '<span style="float: right;">' + batch.quantity_produced + '</span>',
-                        '<span style="float: right;">' + batch.quantity_sold + '</span>',
-                        '<span style="float: right;">' + batch.quantity_deducted + '</span>',
-                        '<span style="float: right;">' + availableStocks + '</span>',
-                        '<span style="float: right;">' + monetaryValue(totalRevenue
-                            .toFixed(2)) + '</span>'
-                    ]);
-                });
-                table.draw();
-            },
-            error: function(xhr, status, error) {
-                var errorMessage = JSON.parse(xhr.responseText).error;
-                console.error(errorMessage);
-                toastr.error(errorMessage);
-            }
-        });
-    }
-    function NumbersOnly(inputField) {
-        var pattern = /^[0-9]+$/;
-        var inputValue = inputField.value;
-        if (!pattern.test(inputValue)) {
-            inputField.value = inputValue.replace(/[^0-9]/g, '');
-        }
-    }
-    function AmountOnly(inputField) {
-        var inputValue = inputField.value;
-        var cleanedValue = inputValue.replace(/(\.\d*)\./, '$1');
-        var pattern = /^\d*\.?\d*$/;
-        if (!pattern.test(cleanedValue)) {
-            cleanedValue = cleanedValue.replace(/[^0-9.]/g, '');
-        }
-        inputField.value = cleanedValue;
-    }
     $(document).ready(function() {
+        $('#AddBatchModal').on('hidden.bs.modal', function(e) {
+            $('#AddBatchForm')[0].reset();
+            $('#AddBatchModal select').val(null).trigger('change');
+        });
+        populateBatchesFilters();
+        $('.select2').change(function() {
+            refreshBatchesTable();
+        });
         $('#BatchesTable').DataTable({
             "paging": true,
             "lengthChange": false,
@@ -484,10 +588,6 @@
         }).buttons().container().appendTo('#BatchesTable_wrapper .col-md-6:eq(0)');
         refreshBatchesTable();
         setInterval(refreshBatchesTable, 60000);
-        $('#AddBatchModal').on('hidden.bs.modal', function(e) {
-            $('#AddBatchForm')[0].reset();
-            $('#AddBatchModal select').val(null).trigger('change');
-        });
         var previousWidth = $(window).width();
         $(window).on('resize', function() {
             var currentWidth = $(window).width();
