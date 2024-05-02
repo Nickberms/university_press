@@ -37,7 +37,7 @@
                                 <div class="input-group mb-3">
                                     <input type="text" name="name"
                                         class="form-control @error('name') is-invalid @enderror"
-                                        placeholder="{{ __('New Username') }}"
+                                        placeholder="{{ __('Username') }}"
                                         value="{{ old('name', auth()->user()->name) }}" required>
                                     <div class="input-group-append">
                                         <div class="input-group-text">
@@ -53,7 +53,7 @@
                                 <div class="input-group mb-3">
                                     <input type="email" name="email"
                                         class="form-control @error('email') is-invalid @enderror"
-                                        placeholder="{{ __('New Email') }}"
+                                        placeholder="{{ __('Email') }}"
                                         value="{{ old('email', auth()->user()->email) }}" required>
                                     <div class="input-group-append">
                                         <div class="input-group-text">
@@ -69,7 +69,7 @@
                                 <div class="input-group mb-3">
                                     <input type="password" name="password"
                                         class="form-control @error('password') is-invalid @enderror"
-                                        placeholder="{{ __('New Password') }}">
+                                        placeholder="{{ __('Password') }}">
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-lock"></span>
@@ -84,7 +84,7 @@
                                 <div class="input-group mb-3">
                                     <input type="password" name="password_confirmation"
                                         class="form-control @error('password_confirmation') is-invalid @enderror"
-                                        placeholder="{{ __('New Password Confirmation') }}" autocomplete="new-password">
+                                        placeholder="{{ __('Confirm Password') }}" autocomplete="new-password">
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-lock"></span>

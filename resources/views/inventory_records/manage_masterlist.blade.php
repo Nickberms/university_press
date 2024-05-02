@@ -30,7 +30,7 @@
                 <div class="card-header" style="background: #E9ECEF;">
                     <h3 class="card-title">Masterlist Filters</h3>
                 </div>
-                <div class="card-body" style="font-size: 14px;">
+                <div class="card-body">
                     <div class="row">
                         <div class="form-group col-sm-3">
                             <label>Select Author</label>
@@ -91,10 +91,10 @@
                                 <th>Category</th>
                                 <th>College</th>
                                 <th>Publisher</th>
+                                <th>Unit Sold</th>
                                 <th>Edition</th>
                                 <th>ISBN</th>
                                 <th>Description</th>
-                                <th>Unit Sold</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -545,10 +545,10 @@
                         im.category.name,
                         im.college,
                         im.publisher,
+                        '<span style="float: right;">' + im.unit_sold + '</span>',
                         im.edition,
                         im.isbn,
-                        im.description,
-                        '<span style="float: right;">' + im.unit_sold + '</span>'
+                        im.description
                     ]);
                 });
                 table.draw();

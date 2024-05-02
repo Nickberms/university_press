@@ -29,7 +29,7 @@
                 <div class="card-header" style="background: #E9ECEF;">
                     <h3 class="card-title">Batches Filters</h3>
                 </div>
-                <div class="card-body" style="font-size: 14px;">
+                <div class="card-body">
                     <div class="row">
                         <div class="form-group col-sm-3">
                             <label>Select Author</label>

@@ -3,7 +3,6 @@ namespace App\Http\Controllers;
 
 use App\Models\AdjustmentLog;
 use App\Models\Im;
-use App\Models\Batch;
 use Illuminate\Http\Request;
 
 class AdjustmentLogController extends Controller
@@ -68,9 +67,6 @@ class AdjustmentLogController extends Controller
                 }
             }
             $adjustment_log->save();
-            $batchId = $adjustment_log->batch_id;
-            $batch = Batch::findOrFail($batchId);
-            $batch->touch();
             return response()->json(['success' => 'The adjustment log has been successfully recorded!'], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);

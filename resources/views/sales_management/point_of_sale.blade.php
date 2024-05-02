@@ -63,13 +63,13 @@
                                             name="available_stocks">
                                     </div>
                                     <div class="form-group col-12">
-                                        <label>Quantity</label>
+                                        <label>Select Quantity</label>
                                         <select class="select2 form-control" id="SelectQuantity" name="select_quantity"
                                             style="width: 100%;" required>
                                         </select>
                                     </div>
                                     <div class="form-group col-12">
-                                        <label>Price</label>
+                                        <label>Unit Price</label>
                                         <input type="text" readonly class="form-control" id="Price" name="price">
                                     </div>
                                     <input type="hidden" readonly class="form-control" id="TotalPrice"
@@ -504,16 +504,14 @@
     }
     function showConfirmPurchaseModal() {
         $('#ConfirmPurchaseModal').modal('show');
-        $('#ConfirmPurchaseModal').on('show.bs.modal', function(e) {
-            var totalAmount = 0;
-            var table = $('#AddedItemsTable').DataTable();
-            table.rows().every(function() {
-                var rowData = this.data();
-                var rowTotalPrice = parseFloat(rowData[10]);
-                totalAmount += rowTotalPrice;
-            });
-            $('#TotalAmount').val(totalAmount.toFixed(2));
+        var totalAmount = 0;
+        var table = $('#AddedItemsTable').DataTable();
+        table.rows().every(function() {
+            var rowData = this.data();
+            var rowTotalPrice = parseFloat(rowData[12]);
+            totalAmount += rowTotalPrice;
         });
+        $('#TotalAmount').val(totalAmount.toFixed(2));
     }
     function hideConfirmPurchaseModal() {
         $('#ConfirmPurchaseModal').modal('hide');
