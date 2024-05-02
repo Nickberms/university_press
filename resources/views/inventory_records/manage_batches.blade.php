@@ -479,17 +479,15 @@
         });
     }
     function amountOnly(inputField) {
-        var cleanedValue = inputField.value.replace(/[^0-9]/g, '');
-        if (cleanedValue.length > 0) {
-            cleanedValue = cleanedValue.slice(0, -2) + '.' + cleanedValue.slice(-2);
-        } else if (cleanedValue.length === 2) {
-            cleanedValue = '0.' + cleanedValue;
-        }
+        var cleanedValue = inputField.value.replace(/[^\d.]/g, '').replace(/\.(?=.*\.)/g, '');
         var parts = cleanedValue.split('.');
-        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        var formattedValue = parts.join('.');
+        if (parts.length > 2) {
+            cleanedValue = parts.slice(0, -1).join('') + '.' + parts.pop();
+        }
+        var integerPart = cleanedValue.split('.')[0];
+        var formattedIntegerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        var formattedValue = formattedIntegerPart + (parts.length > 1 ? '.' + parts[1] : '');
         inputField.value = formattedValue;
-        inputField.setSelectionRange(formattedValue.length, formattedValue.length);
     }
     function numbersOnly(inputField) {
         var pattern = /^[0-9]+$/;
