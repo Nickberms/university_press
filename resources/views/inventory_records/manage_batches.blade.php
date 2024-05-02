@@ -151,18 +151,18 @@
                                                 <div class="form-group">
                                                     <label>Production Cost</label>
                                                     <input type="text" oninput="amountOnly(this)"
-                                                        onpaste="return false;" class="form-control"
+                                                        onpaste="return false;" class="form-control text-right"
                                                         name="production_cost" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Price</label>
                                                     <input type="text" oninput="amountOnly(this)"
-                                                        onpaste="return false;" class="form-control" name="price"
+                                                        onpaste="return false;" class="form-control text-right" name="price"
                                                         required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Quantity Produced</label>
-                                                    <input type="text" oninput="numbersOnly(this)" class="form-control"
+                                                    <input type="text" oninput="numbersOnly(this)" class="form-control text-right"
                                                         name="quantity_produced" required>
                                                 </div>
                                             </div>
@@ -234,18 +234,18 @@
                                                 <div class="form-group">
                                                     <label>Production Cost</label>
                                                     <input type="text" oninput="amountOnly(this)"
-                                                        onpaste="return false;" class="form-control"
+                                                        onpaste="return false;" class="form-control text-right"
                                                         id="EditProductionCost" name="production_cost" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Price</label>
                                                     <input type="text" oninput="amountOnly(this)"
-                                                        onpaste="return false;" class="form-control" id="EditPrice"
+                                                        onpaste="return false;" class="form-control text-right" id="EditPrice"
                                                         name="price" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Quantity Produced</label>
-                                                    <input type="text" oninput="numbersOnly(this)" class="form-control"
+                                                    <input type="text" oninput="numbersOnly(this)" class="form-control text-right"
                                                         id="EditQuantityProduced" name="quantity_produced" required>
                                                 </div>
                                             </div>
@@ -347,8 +347,10 @@
                         var formattedProductionDate = productionDate.toISOString().split('T')[
                             0];
                         $('#EditProductionDate').val(formattedProductionDate);
-                        $('#EditProductionCost').val(batch.production_cost.toFixed(2));
-                        $('#EditPrice').val(batch.price.toFixed(2));
+                        var formattedProductionCost = batch.production_cost.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        $('#EditProductionCost').val(formattedProductionCost);
+                        var formattedPrice = batch.price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        $('#EditPrice').val(formattedPrice);
                         $('#EditQuantityProduced').val(batch.quantity_produced);
                         $('#EditBatchModal').modal('show');
                     },
@@ -477,13 +479,17 @@
         });
     }
     function amountOnly(inputField) {
-        var inputValue = inputField.value;
-        var cleanedValue = inputValue.replace(/(\.\d*)\./, '$1');
-        var pattern = /^\d*\.?\d*$/;
-        if (!pattern.test(cleanedValue)) {
-            cleanedValue = cleanedValue.replace(/[^0-9.]/g, '');
+        var cleanedValue = inputField.value.replace(/[^0-9]/g, '');
+        if (cleanedValue.length > 0) {
+            cleanedValue = cleanedValue.slice(0, -2) + '.' + cleanedValue.slice(-2);
+        } else if (cleanedValue.length === 2) {
+            cleanedValue = '0.' + cleanedValue;
         }
-        inputField.value = cleanedValue;
+        var parts = cleanedValue.split('.');
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        var formattedValue = parts.join('.');
+        inputField.value = formattedValue;
+        inputField.setSelectionRange(formattedValue.length, formattedValue.length);
     }
     function numbersOnly(inputField) {
         var pattern = /^[0-9]+$/;

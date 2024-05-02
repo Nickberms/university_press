@@ -74,12 +74,14 @@ class BatchController extends Controller
                 return $input;
             }
             $request['name'] = formatInput($request['name']);
+            $production_cost = str_replace(',', '', $request->input('production_cost'));
+            $price = str_replace(',', '', $request->input('price'));
             $batch = new Batch([
                 'im_id' => $request->input('im_id'),
                 'name' => $request->input('name'),
                 'production_date' => $request->input('production_date'),
-                'production_cost' => $request->input('production_cost'),
-                'price' => $request->input('price'),
+                'production_cost' => $production_cost,
+                'price' => $price,
                 'quantity_produced' => $request->input('quantity_produced'),
             ]);
             $batch->save();
@@ -110,6 +112,8 @@ class BatchController extends Controller
                 return $input;
             }
             $request['name'] = formatInput($request['name']);
+            $production_cost = str_replace(',', '', $request->input('production_cost'));
+            $price = str_replace(',', '', $request->input('price'));
             $quantitySold = Purchase::where('batch_id', $batch->id)->sum('quantity');
             if ($quantitySold > 0) {
                 return response()->json(['error' => 'This batch holds other records and cannot be updated!'], 422);
@@ -122,8 +126,8 @@ class BatchController extends Controller
                 'im_id' => $request->input('im_id'),
                 'name' => $request->input('name'),
                 'production_date' => $request->input('production_date'),
-                'production_cost' => $request->input('production_cost'),
-                'price' => $request->input('price'),
+                'production_cost' => $production_cost,
+                'price' => $price,
                 'quantity_produced' => $request->input('quantity_produced'),
             ]);
             return response()->json(['success' => 'The batch has been successfully updated!'], 200);
