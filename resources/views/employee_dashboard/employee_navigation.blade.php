@@ -10,7 +10,7 @@
             <li class="nav-item">
                 <a href="{{ route('dashboards.index') }}" class="nav-link">
                     <i class="nav-icon fas fa-th"></i>
-                    <p>&nbsp;&nbsp;Dashboard</p>
+                    <p>&nbsp;&nbsp;Employee Dashboard</p>
                 </a>
             </li>
             <li class="nav-item">

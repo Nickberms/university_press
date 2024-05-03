@@ -15,6 +15,12 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/fixedcolumns/3.3.2/js/dataTables.fixedColumns.min.js"></script>
+    <style>
+    #MasterlistTable th,
+    #MasterlistTable td {
+        white-space: nowrap;
+    }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini" style="font-family: Roboto, sans-serif;">
@@ -23,24 +29,24 @@
             <br>
             <div class="card">
                 <div class="card-header" style="background: #E9ECEF;">
-                    <h3 class="card-title">Masterlist Filters</h3>
+                    <h3 class="card-title">Filter by</h3>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="form-group col-sm-3">
-                            <label>Select Author</label>
+                            <label>Author</label>
                             <select class="select2 form-control" id="SelectAuthor" name="select_author"
                                 style="width: 100%;">
                             </select>
                         </div>
                         <div class="form-group col-sm-3">
-                            <label>Select Category</label>
+                            <label>Category</label>
                             <select class="select2 form-control" id="SelectCategory1" name="select_category"
                                 style="width: 100%;">
                             </select>
                         </div>
                         <div class="form-group col-sm-3">
-                            <label>Select College</label>
+                            <label>College</label>
                             <select class="select2 form-control" id="SelectCollege" name="select_college"
                                 style="width: 100%;">
                                 <option value="">&nbsp;</option>
@@ -59,7 +65,7 @@
                             </select>
                         </div>
                         <div class="form-group col-sm-3">
-                            <label>Select Publisher</label>
+                            <label>Publisher</label>
                             <select class="select2 form-control" id="SelectPublisher" name="select_publisher"
                                 style="width: 100%;">
                                 <option value="">&nbsp;</option>
@@ -76,13 +82,13 @@
                     <div class="text-right">
                         <a class="btn btn-primary" onClick="showAddInstructionalMaterialModal()" href="javascript:void(0)"
                             style="background-color: #00491E; border-color: #00491E;">
-                            <i class="fas fa-plus"></i>&nbsp;&nbsp;Add IM
+                            <i class="fas fa-plus"></i>&nbsp;&nbsp;Add Instructional Material
                         </a>
                     </div>
                 </div>
                 <div class="card-body">
                     <!-- MASTERLIST TABLE -->
-                    <table class="table table-bordered table-hover" id="MasterlistTable" style="font-size: 14px;">
+                    <table class="table table-bordered table-striped" id="MasterlistTable" style="font-size: 14px;">
                         <thead class="text-center">
                             <tr>
                                 <th>Actions</th>
@@ -204,14 +210,12 @@
                             </div>
                         </div>
                         <div class="modal-footer" style="background: #E9ECEF;">
-                            <div class="text-right">
-                                <button type="button" class="btn btn-danger"
-                                    onClick="hideAddInstructionalMaterialModal()" href="javascript:void(0)"><i
-                                        class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
-                                <button type="submit" class="btn btn-primary"
-                                    style="background-color: #00491E; border-color: #00491E;"><i
-                                        class="fas fa-plus"></i>&nbsp;&nbsp;Add Instructional Material</button>
-                            </div>
+                            <button type="button" class="btn btn-danger"
+                                onClick="hideAddInstructionalMaterialModal()" href="javascript:void(0)"><i
+                                    class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
+                            <button type="submit" class="btn btn-primary"
+                                style="background-color: #00491E; border-color: #00491E;"><i
+                                    class="fas fa-plus"></i>&nbsp;&nbsp;Add Instructional Material</button>
                         </div>
                     </form>
                     <!-- ADD INSTRUCTIONAL MATERIAL FORM -->
@@ -319,14 +323,12 @@
                             </div>
                         </div>
                         <div class="modal-footer" style="background: #E9ECEF;">
-                            <div class="text-right">
-                                <button type="button" class="btn btn-danger"
-                                    onClick="hideEditInstructionalMaterialModal()" href="javascript:void(0)"><i
-                                        class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
-                                <button type="submit" class="btn btn-primary"
-                                    style="background-color: #00491E; border-color: #00491E;"><i
-                                        class="fas fa-check"></i>&nbsp;&nbsp;Update Instructional Material</button>
-                            </div>
+                            <button type="button" class="btn btn-danger"
+                                onClick="hideEditInstructionalMaterialModal()" href="javascript:void(0)"><i
+                                    class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
+                            <button type="submit" class="btn btn-primary"
+                                style="background-color: #00491E; border-color: #00491E;"><i
+                                    class="fas fa-check"></i>&nbsp;&nbsp;Update Instructional Material</button>
                         </div>
                     </form>
                     <!-- EDIT INSTRUCTIONAL MATERIAL FORM -->

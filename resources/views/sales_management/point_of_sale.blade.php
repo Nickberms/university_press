@@ -23,6 +23,10 @@
     #AddedItemsTable td {
         white-space: nowrap;
     }
+    #PurchaseHistoryTable th,
+    #PurchaseHistoryTable td {
+        white-space: nowrap;
+    }
     </style>
 </head>
 
@@ -42,13 +46,13 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="form-group col-12">
-                                        <label>Select IM</label>
+                                        <label>Instructional Material</label>
                                         <select class="select2 form-control" id="SelectIm" name="select_im"
                                             style="width: 100%;" required>
                                         </select>
                                     </div>
                                     <div class="form-group col-12">
-                                        <label>Select Batch</label>
+                                        <label>Batch</label>
                                         <select class="select2 form-control" id="SelectBatch" name="select_batch"
                                             style="width: 100%;" required>
                                         </select>
@@ -59,7 +63,7 @@
                                             name="available_stocks">
                                     </div>
                                     <div class="form-group col-12">
-                                        <label>Select Quantity</label>
+                                        <label>Quantity</label>
                                         <select class="select2 form-control" id="SelectQuantity" name="select_quantity"
                                             style="width: 100%;" required>
                                         </select>
@@ -145,7 +149,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <!-- PURCHASE HISTORY TABLE -->
-                                <table class="table table-bordered table-hover" id="PurchaseHistoryTable">
+                                <table class="table table-bordered table-striped" id="PurchaseHistoryTable">
                                     <thead class="text-center">
                                         <tr>
                                             <th>Customer Name</th>
@@ -154,7 +158,7 @@
                                             <th>Batch</th>
                                             <th>Date Sold</th>
                                             <th>Quantity</th>
-                                            <th>Price</th>
+                                            <th>Unit Price</th>
                                             <th>Total Price</th>
                                         </tr>
                                     </thead>
@@ -298,7 +302,7 @@
                 '<div class="text-left">' +
                 '<a href="#" class="plus-icon"><i class="fas fa-plus" style="color: #00491E;"></i></a>' +
                 '</div>',
-                '<p class="text-right" style="font-weight: bold;"> Price: </p>',
+                '<p class="text-right" style="font-weight: bold;"> Unit Price: </p>',
                 price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","),
                 '<p class="text-right" style="font-weight: bold;"> Total Price: </p>',
                 totalPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")

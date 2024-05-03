@@ -14,6 +14,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <style>
+    #BatchesTable th,
+    #BatchesTable td {
+        white-space: nowrap;
+    }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini" style="font-family: Roboto, sans-serif;">
@@ -22,24 +28,24 @@
             <br>
             <div class="card">
                 <div class="card-header" style="background: #E9ECEF;">
-                    <h3 class="card-title">Batches Filters</h3>
+                    <h3 class="card-title">Filter by</h3>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="form-group col-sm-3">
-                            <label>Select Author</label>
+                            <label>Author</label>
                             <select class="select2 form-control" id="SelectAuthor" name="select_author"
                                 style="width: 100%;">
                             </select>
                         </div>
                         <div class="form-group col-sm-3">
-                            <label>Select Category</label>
+                            <label>Category</label>
                             <select class="select2 form-control" id="SelectCategory" name="select_category"
                                 style="width: 100%;">
                             </select>
                         </div>
                         <div class="form-group col-sm-3">
-                            <label>Select College</label>
+                            <label>College</label>
                             <select class="select2 form-control" id="SelectCollege" name="select_college"
                                 style="width: 100%;">
                                 <option value="">&nbsp;</option>
@@ -58,7 +64,7 @@
                             </select>
                         </div>
                         <div class="form-group col-sm-3">
-                            <label>Select Publisher</label>
+                            <label>Publisher</label>
                             <select class="select2 form-control" id="SelectPublisher" name="select_publisher"
                                 style="width: 100%;">
                                 <option value="">&nbsp;</option>
@@ -81,7 +87,7 @@
                 </div>
                 <div class="card-body">
                     <!-- BATCHES TABLE -->
-                    <table class="table table-bordered table-hover" id="BatchesTable" style="font-size: 14px;">
+                    <table class="table table-bordered table-striped" id="BatchesTable" style="font-size: 14px;">
                         <thead class="text-center">
                             <tr>
                                 <th>Actions</th>
@@ -89,7 +95,7 @@
                                 <th>Batch Name</th>
                                 <th>Production Date</th>
                                 <th>Production Cost</th>
-                                <th>Price</th>
+                                <th>Unit Price</th>
                                 <th>Quantity Produced</th>
                                 <th>Quantity Sold</th>
                                 <th>Quantity Deducted</th>
@@ -156,7 +162,7 @@
                                                         name="production_cost" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Price</label>
+                                                    <label>Unit Price</label>
                                                     <input type="text" oninput="amountOnly(this)"
                                                         onpaste="return false;" class="form-control text-right" name="price"
                                                         required>
@@ -174,13 +180,11 @@
                             </div>
                         </div>
                         <div class="modal-footer" style="background: #E9ECEF;">
-                            <div class="text-right">
-                                <button type="button" class="btn btn-danger" onClick="hideAddBatchModal()"
-                                    href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
-                                <button type="submit" class="btn btn-primary"
-                                    style="background-color: #00491E; border-color: #00491E;"><i
-                                        class="fas fa-plus"></i>&nbsp;&nbsp;Add Batch</button>
-                            </div>
+                            <button type="button" class="btn btn-danger" onClick="hideAddBatchModal()"
+                                href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
+                            <button type="submit" class="btn btn-primary"
+                                style="background-color: #00491E; border-color: #00491E;"><i
+                                    class="fas fa-plus"></i>&nbsp;&nbsp;Add Batch</button>
                         </div>
                     </form>
                     <!-- ADD BATCH FORM -->
@@ -239,7 +243,7 @@
                                                         id="EditProductionCost" name="production_cost" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Price</label>
+                                                    <label>Unit Price</label>
                                                     <input type="text" oninput="amountOnly(this)"
                                                         onpaste="return false;" class="form-control text-right" id="EditPrice"
                                                         name="price" required>
@@ -257,13 +261,11 @@
                             </div>
                         </div>
                         <div class="modal-footer" style="background: #E9ECEF;">
-                            <div class="text-right">
-                                <button type="button" class="btn btn-danger" onClick="hideEditBatchModal()"
-                                    href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
-                                <button type="submit" class="btn btn-primary"
-                                    style="background-color: #00491E; border-color: #00491E;"><i
-                                        class="fas fa-check"></i>&nbsp;&nbsp;Update Batch</button>
-                            </div>
+                            <button type="button" class="btn btn-danger" onClick="hideEditBatchModal()"
+                                href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
+                            <button type="submit" class="btn btn-primary"
+                                style="background-color: #00491E; border-color: #00491E;"><i
+                                    class="fas fa-check"></i>&nbsp;&nbsp;Update Batch</button>
                         </div>
                     </form>
                     <!-- EDIT BATCH FORM -->

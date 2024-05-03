@@ -14,6 +14,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <style>
+    #AuthorsTable th,
+    #AuthorsTable td {
+        white-space: nowrap;
+    }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini" style="font-family: Roboto, sans-serif;">
@@ -32,7 +38,7 @@
                 </div>
                 <div class="card-body">
                     <!-- AUTHORS TABLE -->
-                    <table class="table table-bordered table-hover" id="AuthorsTable">
+                    <table class="table table-bordered table-striped" id="AuthorsTable" style="font-size: 14px;">
                         <thead class="text-center">
                             <tr>
                                 <th>Actions</th>
@@ -87,13 +93,11 @@
                             </div>
                         </div>
                         <div class="modal-footer" style="background: #E9ECEF;">
-                            <div class="text-right">
-                                <button type="button" class="btn btn-danger" onClick="hideAddAuthorModal()"
-                                    href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
-                                <button type="submit" class="btn btn-primary"
-                                    style="background-color: #00491E; border-color: #00491E;"><i
-                                        class="fas fa-plus"></i>&nbsp;&nbsp;Add Author</button>
-                            </div>
+                            <button type="button" class="btn btn-danger" onClick="hideAddAuthorModal()"
+                                href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
+                            <button type="submit" class="btn btn-primary"
+                                style="background-color: #00491E; border-color: #00491E;"><i
+                                    class="fas fa-plus"></i>&nbsp;&nbsp;Add Author</button>
                         </div>
                     </form>
                     <!-- ADD AUTHOR FORM -->
@@ -144,13 +148,11 @@
                             </div>
                         </div>
                         <div class="modal-footer" style="background: #E9ECEF;">
-                            <div class="text-right">
-                                <button type="button" class="btn btn-danger" onClick="hideEditAuthorModal()"
-                                    href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
-                                <button type="submit" class="btn btn-primary"
-                                    style="background-color: #00491E; border-color: #00491E;"><i
-                                        class="fas fa-check"></i>&nbsp;&nbsp;Update Author</button>
-                            </div>
+                            <button type="button" class="btn btn-danger" onClick="hideEditAuthorModal()"
+                                href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
+                            <button type="submit" class="btn btn-primary"
+                                style="background-color: #00491E; border-color: #00491E;"><i
+                                    class="fas fa-check"></i>&nbsp;&nbsp;Update Author</button>
                         </div>
                     </form>
                     <!-- EDIT AUTHOR FORM -->

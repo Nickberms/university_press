@@ -14,24 +14,31 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <style>
+    #UsersTable th,
+    #UsersTable td {
+        white-space: nowrap;
+    }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini" style="font-family: Roboto, sans-serif;">
     <div class="wrapper">
         <div class="container-fluid">
             <br>
-            <a class="btn btn-primary" onClick="showAddUserModal()" href="javascript:void(0)"
-                style="background-color: #00491E; border-color: #00491E;">
-                <i class="fas fa-plus"></i>&nbsp;&nbsp;Add User
-            </a>
-            <br><br>
             <div class="card">
                 <div class="card-header" style="background: #E9ECEF;">
                     <h3 class="card-title">Manage Users</h3>
+                    <div class="text-right">
+                        <a class="btn btn-primary" onClick="showAddUserModal()" href="javascript:void(0)"
+                            style="background-color: #00491E; border-color: #00491E;">
+                            <i class="fas fa-plus"></i>&nbsp;&nbsp;Add User
+                        </a>
+                    </div>
                 </div>
                 <div class="card-body">
                     <!-- USERS TABLE -->
-                    <table class="table table-bordered table-hover" id="UsersTable">
+                    <table class="table table-bordered table-striped" id="UsersTable" style="font-size: 14px;">
                         <thead class="text-center">
                             <tr>
                                 <th class="text-center">Actions</th>
@@ -94,13 +101,11 @@
                             </div>
                         </div>
                         <div class="modal-footer" style="background: #E9ECEF;">
-                            <div class="text-right">
-                                <button type="button" class="btn btn-danger" onClick="hideAddUserModal()"
-                                    href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
-                                <button type="submit" class="btn btn-primary"
-                                    style="background-color: #00491E; border-color: #00491E;"><i
-                                        class="fas fa-plus"></i>&nbsp;&nbsp;Add User</button>
-                            </div>
+                            <button type="button" class="btn btn-danger" onClick="hideAddUserModal()"
+                                href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
+                            <button type="submit" class="btn btn-primary"
+                                style="background-color: #00491E; border-color: #00491E;"><i
+                                    class="fas fa-plus"></i>&nbsp;&nbsp;Add User</button>
                         </div>
                     </form>
                     <!-- ADD USER FORM -->
@@ -155,13 +160,11 @@
                             </div>
                         </div>
                         <div class="modal-footer" style="background: #E9ECEF;">
-                            <div class="text-right">
-                                <button type="button" class="btn btn-danger" onClick="hideEditUserModal()"
-                                    href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
-                                <button type="submit" class="btn btn-primary"
-                                    style="background-color: #00491E; border-color: #00491E;"><i
-                                        class="fas fa-check"></i>&nbsp;&nbsp;Update User</button>
-                            </div>
+                            <button type="button" class="btn btn-danger" onClick="hideEditUserModal()"
+                                href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
+                            <button type="submit" class="btn btn-primary"
+                                style="background-color: #00491E; border-color: #00491E;"><i
+                                    class="fas fa-check"></i>&nbsp;&nbsp;Update User</button>
                         </div>
                     </form>
                     <!-- EDIT USER FORM -->

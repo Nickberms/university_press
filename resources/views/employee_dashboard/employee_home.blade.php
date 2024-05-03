@@ -14,6 +14,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <style>
+    #SalesTodayTable th,
+    #SalesTodayTable td {
+        white-space: nowrap;
+    }
+    </style>
 </head>
 
 <body style="font-family: Roboto, sans-serif;">
@@ -91,13 +97,13 @@
                 </div>
                 <div class="card-body">
                     <!-- SALES TODAY TABLE -->
-                    <table class="table table-bordered table-hover" id="SalesTodayTable">
+                    <table class="table table-bordered table-striped" id="SalesTodayTable" style="font-size: 14px;">
                         <thead class="text-center">
                             <tr>
                                 <th>Code</th>
                                 <th>Title</th>
                                 <th>Batch</th>
-                                <th>Price</th>
+                                <th>Unit Price</th>
                                 <th>Quantity Sold</th>
                                 <th>Quantity Deducted</th>
                                 <th>Sales</th>

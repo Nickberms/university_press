@@ -14,6 +14,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <style>
+    #MonitoringTable th,
+    #MonitoringTable td {
+        white-space: nowrap;
+    }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini" style="font-family: Roboto, sans-serif;">
@@ -36,7 +42,7 @@
                 </div>
                 <div class="card-body">
                     <!-- MONITORING TABLE -->
-                    <table class="table table-bordered table-hover" id="MonitoringTable" style="font-size: 14px;">
+                    <table class="table table-bordered table-striped" id="MonitoringTable" style="font-size: 14px;">
                         <thead class="text-center">
                             <tr>
                                 <th>Code</th>
