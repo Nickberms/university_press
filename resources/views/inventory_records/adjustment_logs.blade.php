@@ -109,12 +109,12 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Price</label>
-                                                    <input type="text" readonly class="form-control" id="Price"
+                                                    <input type="text" readonly class="form-control text-right" id="Price"
                                                         name="price">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Total Loss</label>
-                                                    <input type="text" readonly class="form-control" id="TotalLoss"
+                                                    <input type="text" readonly class="form-control text-right" id="TotalLoss"
                                                         name="total_loss">
                                                 </div>
                                             </div>
@@ -185,7 +185,7 @@
                             batch) {
                             return batch.id == batchId;
                         });
-                        $('#Price').val(selectedBatch.price.toFixed(2));
+                        $('#Price').val(selectedBatch.price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                         var selectQuantityDeducted = $('#SelectQuantityDeducted');
                         selectQuantityDeducted.empty();
                         var availableStocks = selectedBatch.quantity_produced - selectedBatch
@@ -201,10 +201,10 @@
                     }
                 });
                 $('#Price, #SelectQuantityDeducted').on('input', function() {
-                    var price = parseFloat($('#Price').val()) || 0;
+                    var price = parseFloat($('#Price').val().replace(/,/g, '')) || 0;
                     var quantityDeducted = parseInt($('#SelectQuantityDeducted').val()) || 0;
                     var totalLoss = price * quantityDeducted;
-                    $('#TotalLoss').val(totalLoss.toFixed(2));
+                    $('#TotalLoss').val(totalLoss.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                 });
             },
             error: function(xhr, status, error) {

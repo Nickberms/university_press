@@ -55,7 +55,7 @@
                                     </div>
                                     <div class="form-group col-12">
                                         <label>Available Stocks</label>
-                                        <input type="text" readonly class="form-control" id="AvailableStocks"
+                                        <input type="text" readonly class="form-control text-right" id="AvailableStocks"
                                             name="available_stocks">
                                     </div>
                                     <div class="form-group col-12">
