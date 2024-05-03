@@ -145,7 +145,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <!-- PURCHASE HISTORY TABLE -->
-                                <table class="table table-bordered table-striped" id="PurchaseHistoryTable">
+                                <table class="table table-bordered table-hover" id="PurchaseHistoryTable">
                                     <thead class="text-center">
                                         <tr>
                                             <th>Customer Name</th>

@@ -31,7 +31,7 @@
                 </div>
                 <div class="card-body">
                     <!-- USERS TABLE -->
-                    <table class="table table-bordered table-striped" id="UsersTable">
+                    <table class="table table-bordered table-hover" id="UsersTable">
                         <thead class="text-center">
                             <tr>
                                 <th class="text-center">Actions</th>

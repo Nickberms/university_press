@@ -36,7 +36,7 @@
                 </div>
                 <div class="card-body">
                     <!-- MONITORING TABLE -->
-                    <table class="table table-bordered table-striped" id="MonitoringTable" style="font-size: 14px;">
+                    <table class="table table-bordered table-hover" id="MonitoringTable" style="font-size: 14px;">
                         <thead class="text-center">
                             <tr>
                                 <th>Code</th>

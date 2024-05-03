@@ -91,7 +91,7 @@
                 </div>
                 <div class="card-body">
                     <!-- SALES TODAY TABLE -->
-                    <table class="table table-bordered table-striped" id="SalesTodayTable">
+                    <table class="table table-bordered table-hover" id="SalesTodayTable">
                         <thead class="text-center">
                             <tr>
                                 <th>Code</th>

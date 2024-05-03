@@ -21,11 +21,6 @@
     <div class="wrapper">
         <div class="container-fluid">
             <br>
-            <a class="btn btn-primary" onClick="showAddInstructionalMaterialModal()" href="javascript:void(0)"
-                style="background-color: #00491E; border-color: #00491E;">
-                <i class="fas fa-plus"></i>&nbsp;&nbsp;Add Instructional Material
-            </a>
-            <br><br>
             <div class="card">
                 <div class="card-header" style="background: #E9ECEF;">
                     <h3 class="card-title">Masterlist Filters</h3>
@@ -78,10 +73,16 @@
             <div class="card">
                 <div class="card-header" style="background: #E9ECEF;">
                     <h3 class="card-title">Manage Masterlist</h3>
+                    <div class="text-right">
+                        <a class="btn btn-primary" onClick="showAddInstructionalMaterialModal()" href="javascript:void(0)"
+                            style="background-color: #00491E; border-color: #00491E;">
+                            <i class="fas fa-plus"></i>&nbsp;&nbsp;Add IM
+                        </a>
+                    </div>
                 </div>
                 <div class="card-body">
                     <!-- MASTERLIST TABLE -->
-                    <table class="table table-bordered table-striped" id="MasterlistTable" style="font-size: 14px;">
+                    <table class="table table-bordered table-hover" id="MasterlistTable" style="font-size: 14px;">
                         <thead class="text-center">
                             <tr>
                                 <th>Actions</th>

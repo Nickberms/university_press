@@ -20,18 +20,19 @@
     <div class="wrapper">
         <div class="container-fluid">
             <br>
-            <a class="btn btn-primary" onClick="showAddAuthorModal()" href="javascript:void(0)"
-                style="background-color: #00491E; border-color: #00491E;">
-                <i class="fas fa-plus"></i>&nbsp;&nbsp;Add Author
-            </a>
-            <br><br>
             <div class="card">
                 <div class="card-header" style="background: #E9ECEF;">
                     <h3 class="card-title">Manage Authors</h3>
+                    <div class="text-right">
+                        <a class="btn btn-primary" onClick="showAddAuthorModal()" href="javascript:void(0)"
+                            style="background-color: #00491E; border-color: #00491E;">
+                            <i class="fas fa-plus"></i>&nbsp;&nbsp;Add Author
+                        </a>
+                    </div>
                 </div>
                 <div class="card-body">
                     <!-- AUTHORS TABLE -->
-                    <table class="table table-bordered table-striped" id="AuthorsTable">
+                    <table class="table table-bordered table-hover" id="AuthorsTable">
                         <thead class="text-center">
                             <tr>
                                 <th>Actions</th>
@@ -332,7 +333,7 @@
             "scrollY": true,
             "scrollCollapse": false,
             "buttons": ["copy", "excel", "pdf", "print"],
-            "pageLength": 8
+            "pageLength": 10
         }).buttons().container().appendTo('#AuthorsTable_wrapper .col-md-6:eq(0)');
         refreshAuthorsTable();
         setInterval(refreshAuthorsTable, 60000);

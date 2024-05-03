@@ -20,11 +20,6 @@
     <div class="wrapper">
         <div class="container-fluid">
             <br>
-            <a class="btn btn-primary" onClick="showAddBatchModal()" href="javascript:void(0)"
-                style="background-color: #00491E; border-color: #00491E;">
-                <i class="fas fa-plus"></i>&nbsp;&nbsp;Add Batch
-            </a>
-            <br><br>
             <div class="card">
                 <div class="card-header" style="background: #E9ECEF;">
                     <h3 class="card-title">Batches Filters</h3>
@@ -77,10 +72,16 @@
             <div class="card">
                 <div class="card-header" style="background: #E9ECEF;">
                     <h3 class="card-title">Manage Batches</h3>
+                    <div class="text-right">
+                        <a class="btn btn-primary" onClick="showAddBatchModal()" href="javascript:void(0)"
+                            style="background-color: #00491E; border-color: #00491E;">
+                            <i class="fas fa-plus"></i>&nbsp;&nbsp;Add Batch
+                        </a>
+                    </div>
                 </div>
                 <div class="card-body">
                     <!-- BATCHES TABLE -->
-                    <table class="table table-bordered table-striped" id="BatchesTable" style="font-size: 14px;">
+                    <table class="table table-bordered table-hover" id="BatchesTable" style="font-size: 14px;">
                         <thead class="text-center">
                             <tr>
                                 <th>Actions</th>

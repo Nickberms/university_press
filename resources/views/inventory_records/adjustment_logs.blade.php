@@ -20,18 +20,19 @@
     <div class="wrapper">
         <div class="container-fluid">
             <br>
-            <a class="btn btn-primary" onClick="showAddAdjustmentLogModal()" href="javascript:void(0)"
-                style="background-color: #00491E; border-color: #00491E;">
-                <i class="fas fa-plus"></i>&nbsp;&nbsp;Add Adjustment Log
-            </a>
-            <br><br>
             <div class="card">
                 <div class="card-header" style="background: #E9ECEF;">
                     <h3 class="card-title">Adjustment Logs</h3>
+                    <div class="text-right">
+                        <a class="btn btn-primary" onClick="showAddAdjustmentLogModal()" href="javascript:void(0)"
+                            style="background-color: #00491E; border-color: #00491E;">
+                            <i class="fas fa-plus"></i>&nbsp;&nbsp;Add Adjustment Log
+                        </a>
+                    </div>
                 </div>
                 <div class="card-body">
                     <!-- ADJUSTMENT LOGS TABLE -->
-                    <table class="table table-bordered table-striped" id="AdjustmentLogsTable">
+                    <table class="table table-bordered table-hover" id="AdjustmentLogsTable">
                         <thead class="text-center">
                             <tr>
                                 <th>Adjustment Cause</th>
@@ -294,7 +295,7 @@
             "scrollY": true,
             "scrollCollapse": false,
             "buttons": ["copy", "excel", "pdf", "print"],
-            "pageLength": 8
+            "pageLength": 10
         }).buttons().container().appendTo('#AdjustmentLogsTable_wrapper .col-md-6:eq(0)');
         refreshAdjustmentLogsTable();
         setInterval(refreshAdjustmentLogsTable, 60000);

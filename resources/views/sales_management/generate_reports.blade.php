@@ -41,7 +41,7 @@
                 </div>
                 <div class="card-body">
                     <!-- REPORTS TABLE -->
-                    <table class="table table-bordered table-striped" id="ReportsTable" style="font-size: 14px;">
+                    <table class="table table-bordered table-hover" id="ReportsTable" style="font-size: 14px;">
                         <thead class="text-center">
                             <tr>
                                 <th>Code</th>
