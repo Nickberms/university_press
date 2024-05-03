@@ -19,6 +19,10 @@
     .recent-row {
         background-color: #FFC600;
     }
+    #AddedItemsTable th,
+    #AddedItemsTable td {
+        white-space: nowrap;
+    }
     </style>
 </head>
 
@@ -26,13 +30,8 @@
     <div class="wrapper">
         <div class="container-fluid">
             <br>
-            <a class="btn btn-primary" onClick="showPurchaseHistoryModal()" href="javascript:void(0)"
-                style="background-color: #00491E; border-color: #00491E;">
-                <i class="fas fa-history"></i>&nbsp;&nbsp;Purchase History
-            </a>
-            <br><br>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-sm-4">
                     <div class="card">
                         <!-- ADD ITEM FORM -->
                         <form id="AddItemForm" method="GET">
@@ -54,9 +53,6 @@
                                             style="width: 100%;" required>
                                         </select>
                                     </div>
-                                </div>
-                                <br>
-                                <div class="row">
                                     <div class="form-group col-12">
                                         <label>Available Stocks</label>
                                         <input type="text" readonly class="form-control" id="AvailableStocks"
@@ -68,10 +64,7 @@
                                             style="width: 100%;" required>
                                         </select>
                                     </div>
-                                    <div class="form-group col-12">
-                                        <label>Unit Price</label>
-                                        <input type="text" readonly class="form-control" id="Price" name="price">
-                                    </div>
+                                    <input type="hidden" readonly class="form-control" id="Price" name="price">
                                     <input type="hidden" readonly class="form-control" id="TotalPrice"
                                         name="total_price">
                                 </div>
@@ -87,10 +80,16 @@
                         <!-- ADD ITEM FORM -->
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-sm-8">
                     <div class="card">
                         <div class="card-header" style="background: #E9ECEF;">
                             <h3 class="card-title">Added Items</h3>
+                            <div class="text-right">
+                                <a class="btn btn-primary" onClick="showPurchaseHistoryModal()"
+                                    href="javascript:void(0)" style="background-color: #00491E; border-color: #00491E;">
+                                    <i class="fas fa-history"></i>&nbsp;&nbsp;Purchase History
+                                </a>
+                            </div>
                         </div>
                         <div class="card-body">
                             <!-- ADDED ITEMS TABLE -->
@@ -214,17 +213,18 @@
                                                 <div class="form-group">
                                                     <label>Cash</label>
                                                     <input type="text" oninput="calculateTotalChange(this)"
-                                                        onpaste="return false;" class="form-control" name="cash">
+                                                        onpaste="return false;" class="form-control text-right"
+                                                        name="cash">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Total Amount</label>
-                                                    <input type="text" readonly class="form-control" id="TotalAmount"
-                                                        name="total_amount">
+                                                    <input type="text" readonly class="form-control text-right"
+                                                        id="TotalAmount" name="total_amount">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Total Change</label>
-                                                    <input type="text" readonly class="form-control" id="TotalChange"
-                                                        name="total_change">
+                                                    <input type="text" readonly class="form-control text-right"
+                                                        id="TotalChange" name="total_change">
                                                 </div>
                                             </div>
                                         </div>
@@ -264,12 +264,12 @@
         });
         if (existingRow) {
             var existingQuantity = parseInt(existingRow[7]);
-            var existingTotalPrice = parseFloat(existingRow[12]);
+            var existingTotalPrice = parseFloat(existingRow[12].replace(/,/g, ''));
             var newQuantity = existingQuantity + quantity;
             var newTotalPrice = existingTotalPrice + totalPrice;
             var quantityInput = '<input type="hidden" name="quantity[]" value="' + newQuantity + '">';
             existingRow[7] = newQuantity + quantityInput;
-            existingRow[12] = newTotalPrice.toFixed(2);
+            existingRow[12] = newTotalPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             var rowIndex = table.rows().data().toArray().findIndex(function(row) {
                 return row[2].includes('value="' + imId + '"') && row[4].includes(
                     'value="' +
@@ -299,9 +299,9 @@
                 '<a href="#" class="plus-icon"><i class="fas fa-plus" style="color: #00491E;"></i></a>' +
                 '</div>',
                 '<p class="text-right" style="font-weight: bold;"> Price: </p>',
-                price.toFixed(2),
+                price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","),
                 '<p class="text-right" style="font-weight: bold;"> Total Price: </p>',
-                totalPrice.toFixed(2)
+                totalPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")
             ];
             var rowNode = table.row.add(newRow).draw(false).node();
             $('#AddedItemsTable tbody tr').removeClass('recent-row');
@@ -310,7 +310,7 @@
         var totalAmount = 0;
         table.rows().every(function() {
             var rowData = this.data();
-            var rowTotalPrice = parseFloat(rowData[12]);
+            var rowTotalPrice = parseFloat(rowData[12].replace(/,/g, ''));
             totalAmount += rowTotalPrice;
         });
         $('#TotalAmount').val(totalAmount.toFixed(2));
@@ -331,14 +331,14 @@
             quantityCell.data(currentQuantity - 1).draw(false);
             var newQuantity = currentQuantity - 1;
             var quantityInput = '<input type="hidden" name="quantity[]" value="' + newQuantity + '">';
-            var unitPrice = parseFloat(unitPriceCell.data());
+            var unitPrice = parseFloat(unitPriceCell.data().replace(/,/g, ''));
             var newTotalPrice = newQuantity * unitPrice;
             var totalPriceCell = table.cell(row, 12);
-            totalPriceCell.data(newTotalPrice.toFixed(2)).draw(false);
+            totalPriceCell.data(newTotalPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")).draw(false);
             var existingRow = table.row(row).data();
             if (existingRow) {
                 existingRow[7] = newQuantity + quantityInput;
-                existingRow[12] = newTotalPrice.toFixed(2);
+                existingRow[12] = newTotalPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 table.row(row).data(existingRow).draw(false);
             }
         }
@@ -358,14 +358,14 @@
         quantityCell.data(currentQuantity + 1).draw(false);
         var newQuantity = currentQuantity + 1;
         var quantityInput = '<input type="hidden" name="quantity[]" value="' + newQuantity + '">';
-        var unitPrice = parseFloat(unitPriceCell.data());
+        var unitPrice = parseFloat(unitPriceCell.data().replace(/,/g, ''));
         var newTotalPrice = newQuantity * unitPrice;
         var totalPriceCell = table.cell(row, 12);
-        totalPriceCell.data(newTotalPrice.toFixed(2)).draw(false);
+        totalPriceCell.data(newTotalPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")).draw(false);
         var existingRow = table.row(row).data();
         if (existingRow) {
             existingRow[7] = newQuantity + quantityInput;
-            existingRow[12] = newTotalPrice.toFixed(2);
+            existingRow[12] = newTotalPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             table.row(row).data(existingRow).draw(false);
         }
         $('#AddedItemsTable tbody tr').removeClass('recent-row');
@@ -508,10 +508,10 @@
         var table = $('#AddedItemsTable').DataTable();
         table.rows().every(function() {
             var rowData = this.data();
-            var rowTotalPrice = parseFloat(rowData[12]);
+            var rowTotalPrice = parseFloat(rowData[12].replace(/,/g, ''));
             totalAmount += rowTotalPrice;
         });
-        $('#TotalAmount').val(totalAmount.toFixed(2));
+        $('#TotalAmount').val(totalAmount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
     }
     function hideConfirmPurchaseModal() {
         $('#ConfirmPurchaseModal').modal('hide');
@@ -561,17 +561,23 @@
         });
     });
     function calculateTotalChange(cashInput) {
-        var inputValue = cashInput.value;
-        var cleanedValue = inputValue.replace(/(\.\d*)\./, '$1');
-        var pattern = /^\d*\.?\d*$/;
-        if (!pattern.test(cleanedValue)) {
-            cleanedValue = cleanedValue.replace(/[^0-9.]/g, '');
+        function cleanAndFormatValue(inputValue) {
+            var cleanedValue = inputValue.replace(/[^\d.]/g, '').replace(/\.(?=.*\.)/g, '');
+            var parts = cleanedValue.split('.');
+            if (parts.length > 2) {
+                cleanedValue = parts.slice(0, -1).join('') + '.' + parts.pop();
+            }
+            var integerPart = cleanedValue.split('.')[0];
+            var formattedIntegerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            return formattedIntegerPart + (parts.length > 1 ? '.' + parts[1] : '');
         }
+        var inputValue = cashInput.value;
+        var cleanedValue = cleanAndFormatValue(inputValue);
         cashInput.value = cleanedValue;
-        var cash = parseFloat(cashInput.value);
-        var totalAmount = parseFloat($('#TotalAmount').val());
+        var cash = parseFloat(cleanedValue.replace(/,/g, ''));
+        var totalAmount = parseFloat($('#TotalAmount').val().replace(/,/g, ''));
         var totalChange = cash - totalAmount;
-        $('#TotalChange').val(totalChange.toFixed(2));
+        $('#TotalChange').val(totalChange.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
     }
     $(document).ready(function() {
         populateAddItemForm();
