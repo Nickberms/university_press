@@ -83,7 +83,7 @@
                                 <div class="text-right">
                                     <button type="submit" class="btn btn-primary"
                                         style="background-color: #00491E; border-color: #00491E;"><i
-                                            class="fas fa-plus"></i>&nbsp;&nbsp;Add Item</button>
+                                            class="fas fa-plus"></i>&nbsp;&nbsp;Add</button>
                                 </div>
                             </div>
                         </form>
@@ -222,7 +222,7 @@
                                             <div class="card-body">
                                                 <div class="form-group">
                                                     <label>Cash</label>
-                                                    <input type="text" oninput="calculateTotalChange(this)"
+                                                    <input type="text" oninput="calculateChange(this)"
                                                         onpaste="return false;" class="form-control text-right"
                                                         name="cash">
                                                 </div>
@@ -232,9 +232,9 @@
                                                         id="TotalAmount" name="total_amount">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Total Change</label>
+                                                    <label>Change</label>
                                                     <input type="text" readonly class="form-control text-right"
-                                                        id="TotalChange" name="total_change">
+                                                        id="Change">
                                                 </div>
                                             </div>
                                         </div>
@@ -249,7 +249,7 @@
                                     href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
                                 <button type="submit" class="btn btn-primary"
                                     style="background-color: #00491E; border-color: #00491E;"><i
-                                        class="fas fa-check"></i>&nbsp;&nbsp;Confirm Purchase</button>
+                                        class="fas fa-check"></i>&nbsp;&nbsp;Confirm</button>
                             </div>
                         </div>
                     </form>
@@ -602,7 +602,7 @@
             inputField.value = inputValue.replace(/[^0-9]/g, '');
         }
     }
-    function calculateTotalChange(cashInput) {
+    function calculateChange(cashInput) {
         function cleanAndFormatValue(inputValue) {
             var cleanedValue = inputValue.replace(/[^\d.]/g, '').replace(/\.(?=.*\.)/g, '');
             var parts = cleanedValue.split('.');
@@ -618,8 +618,8 @@
         cashInput.value = cleanedValue;
         var cash = parseFloat(cleanedValue.replace(/,/g, ''));
         var totalAmount = parseFloat($('#TotalAmount').val().replace(/,/g, ''));
-        var totalChange = cash - totalAmount;
-        $('#TotalChange').val(totalChange.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        var change = cash - totalAmount;
+        $('#Change').val(change.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
     }
     $(document).ready(function() {
         populateAddItemForm();

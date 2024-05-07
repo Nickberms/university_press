@@ -47,6 +47,7 @@ class AdjustmentLogController extends Controller
                 return $input;
             }
             $request['adjustment_cause'] = formatInput($request['adjustment_cause']);
+            $quantityDeducted = $request->input('quantity_deducted');
             $adjustment_log = new AdjustmentLog([
                 'adjustment_cause' => $request->input('adjustment_cause'),
                 'im_id' => $request->input('im_id'),
@@ -62,12 +63,13 @@ class AdjustmentLogController extends Controller
                 $batch->quantity_deducted = $batch->adjustment_logs->sum('quantity_deducted');
                 $batch->total_quantity_deducted = $batch->quantity_sold + $batch->quantity_deducted;
                 $availableStocks = $batch->quantity_produced - $batch->total_quantity_deducted;
-                if ($availableStocks <= 0) {
+                if ($quantityDeducted > $availableStocks) {
                     return response()->json(['error' => 'The quantity being deducted is greater than the available stocks of the selected item!'], 422);
+                } else {
+                    $adjustment_log->save();
+                    return response()->json(['success' => 'The adjustment log has been successfully recorded!'], 200);
                 }
             }
-            $adjustment_log->save();
-            return response()->json(['success' => 'The adjustment log has been successfully recorded!'], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);
         }
