@@ -53,6 +53,7 @@
                                 <th>Code</th>
                                 <th>Title</th>
                                 <th>Batch</th>
+                                <th>Publisher</th>
                                 <th>Unit Price</th>
                                 <th>Beginning Quantity</th>
                                 <th>Beginning Amount</th>
@@ -103,6 +104,7 @@
                         batch.im.code,
                         batch.im.title,
                         batch.name,
+                        batch.im.publisher,
                         '<span style="float: right;">' + monetaryValue(batch.price.toFixed(
                             2)) + '</span>',
                         '<span style="float: right;">' + beginningQuantity + '</span>',

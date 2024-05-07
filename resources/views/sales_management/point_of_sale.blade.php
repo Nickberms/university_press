@@ -155,7 +155,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <!-- PURCHASE HISTORY TABLE -->
-                                <table class="table table-bordered table-striped" id="PurchaseHistoryTable">
+                                <table class="table table-bordered table-striped" id="PurchaseHistoryTable" style="font-size: 14px;">
                                     <thead class="text-center">
                                         <tr>
                                             <th>Customer Name</th>
@@ -163,7 +163,7 @@
                                             <th>Instructional Material</th>
                                             <th>Batch</th>
                                             <th>Date Sold</th>
-                                            <th>Quantity</th>
+                                            <th>Quantity Sold</th>
                                             <th>Unit Price</th>
                                             <th>Total Price</th>
                                         </tr>

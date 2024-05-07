@@ -43,7 +43,7 @@
                             <tr>
                                 <th>Adjustment Cause</th>
                                 <th>Instructional Material</th>
-                                <th>IM Batch</th>
+                                <th>Batch</th>
                                 <th>Date Adjusted</th>
                                 <th>Quantity Deducted</th>
                                 <th>Unit Price</th>
@@ -83,7 +83,7 @@
                                                 <div class="form-group">
                                                     <label>Adjustment Cause</label>
                                                     <textarea type="text" class="form-control" name="adjustment_cause"
-                                                        style="height: 125px;"></textarea>
+                                                        style="height: 125px;" required></textarea>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Select IM</label>
@@ -110,19 +110,19 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Quantity Deducted</label>
-                                                    <select class="select2 form-control" id="SelectQuantityDeducted"
-                                                        name="quantity_deducted" style="width: 100%;" required>
-                                                    </select>
+                                                    <input type="number" oninput="numbersOnly(this)"
+                                                        class="form-control text-right" id="QuantityDeducted"
+                                                        name="quantity_deducted" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Unit Price</label>
-                                                    <input type="text" readonly class="form-control text-right" id="Price"
-                                                        name="price">
+                                                    <input type="text" readonly class="form-control text-right"
+                                                        id="Price" name="price">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Total Loss</label>
-                                                    <input type="text" readonly class="form-control text-right" id="TotalLoss"
-                                                        name="total_loss">
+                                                    <input type="text" readonly class="form-control text-right"
+                                                        id="TotalLoss" name="total_loss">
                                                 </div>
                                             </div>
                                         </div>
@@ -180,6 +180,7 @@
                     }
                 });
                 $('#SelectBatch').on('change', function() {
+                    $('#QuantityDeducted').val(null);
                     $('#TotalLoss').val(null);
                     var batchId = $(this).val();
                     if (batchId) {
@@ -190,25 +191,17 @@
                             batch) {
                             return batch.id == batchId;
                         });
-                        $('#Price').val(selectedBatch.price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-                        var selectQuantityDeducted = $('#SelectQuantityDeducted');
-                        selectQuantityDeducted.empty();
-                        var availableStocks = selectedBatch.quantity_produced - selectedBatch
-                            .total_quantity_deducted;
-                        for (var i = 1; i <= availableStocks; i++) {
-                            selectQuantityDeducted.append('<option value="' + i + '">' + i + '</option>');
-                        }
-                        selectQuantityDeducted.val(null).trigger('change');
-                        selectQuantityDeducted.select2();
+                        $('#Price').val(selectedBatch.price.toFixed(2).replace(
+                            /\B(?=(\d{3})+(?!\d))/g, ","));
                     } else {
+                        $('#QuantityDeducted').val(null);
                         $('#Price').val(null);
-                        $('#SelectQuantityDeducted').empty();
                     }
                 });
-                $('#Price, #SelectQuantityDeducted').on('input', function() {
+                $('#QuantityDeducted, #Price').on('input', function() {
+                    var quantityDeducted = parseInt($('#QuantityDeducted').val()) || 0;
                     var price = parseFloat($('#Price').val().replace(/,/g, '')) || 0;
-                    var quantityDeducted = parseInt($('#SelectQuantityDeducted').val()) || 0;
-                    var totalLoss = price * quantityDeducted;
+                    var totalLoss = quantityDeducted * price;
                     $('#TotalLoss').val(totalLoss.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                 });
             },
@@ -222,24 +215,29 @@
     }
     $('#AddAdjustmentLogForm').submit(function(event) {
         event.preventDefault();
-        var formData = $(this).serialize();
-        $.ajax({
-            url: "{{ route('adjustment_logs.store') }}",
-            type: 'POST',
-            data: formData,
-            success: function(response) {
-                var successMessage = response.success;
-                console.log(successMessage);
-                hideAddAdjustmentLogModal();
-                toastr.success(successMessage);
-                refreshAdjustmentLogsTable();
-            },
-            error: function(xhr, status, error) {
-                var errorMessage = JSON.parse(xhr.responseText).error;
-                console.error(errorMessage);
-                toastr.error(errorMessage);
-            }
-        });
+        var quantityDeducted = parseInt($('#QuantityDeducted').val());
+        if (quantityDeducted <= 0) {
+            return;
+        } else {
+            var formData = $(this).serialize();
+            $.ajax({
+                url: "{{ route('adjustment_logs.store') }}",
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    var successMessage = response.success;
+                    console.log(successMessage);
+                    hideAddAdjustmentLogModal();
+                    toastr.success(successMessage);
+                    refreshAdjustmentLogsTable();
+                },
+                error: function(xhr, status, error) {
+                    var errorMessage = JSON.parse(xhr.responseText).error;
+                    console.error(errorMessage);
+                    toastr.error(errorMessage);
+                }
+            });
+        }
     });
     function refreshAdjustmentLogsTable() {
         $.ajax({
@@ -256,9 +254,11 @@
                         month: 'long',
                         day: 'numeric'
                     };
-                    var formattedDateAdjustedString = formattedDateAdjusted.toLocaleDateString('en-US',
+                    var formattedDateAdjustedString = formattedDateAdjusted.toLocaleDateString(
+                        'en-US',
                         options);
-                    var totalLoss = adjustment_log.batch.price.toFixed(2) * adjustment_log.quantity_deducted;
+                    var totalLoss = adjustment_log.batch.price.toFixed(2) * adjustment_log
+                        .quantity_deducted;
                     function monetaryValue(x) {
                         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                     }
@@ -267,9 +267,12 @@
                         adjustment_log.im.title,
                         adjustment_log.batch.name,
                         formattedDateAdjustedString,
-                        '<span style="float:right;">' + adjustment_log.quantity_deducted + '</span>',
-                        '<span style="float:right;">' + monetaryValue(adjustment_log.batch.price.toFixed(2)) + '</span>',
-                        '<span style="float:right;">' + monetaryValue(totalLoss.toFixed(2)) + '</span>'
+                        '<span style="float:right;">' + adjustment_log.quantity_deducted +
+                        '</span>',
+                        '<span style="float:right;">' + monetaryValue(adjustment_log.batch
+                            .price.toFixed(2)) + '</span>',
+                        '<span style="float:right;">' + monetaryValue(totalLoss.toFixed(
+                            2)) + '</span>'
                     ]);
                 });
                 table.draw();
@@ -279,7 +282,7 @@
             }
         });
     }
-    function NumbersOnly(inputField) {
+    function numbersOnly(inputField) {
         var pattern = /^[0-9]+$/;
         var inputValue = inputField.value;
         if (!pattern.test(inputValue)) {

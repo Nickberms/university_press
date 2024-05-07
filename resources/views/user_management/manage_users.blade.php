@@ -356,7 +356,7 @@
             "scrollY": true,
             "scrollCollapse": false,
             "buttons": ["copy", "excel", "pdf", "print"],
-            "pageLength": 8
+            "pageLength": 10
         }).buttons().container().appendTo('#UsersTable_wrapper .col-md-6:eq(0)');
         refreshUsersTable();
         setInterval(refreshUsersTable, 60000);
