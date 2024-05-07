@@ -32,7 +32,7 @@
                     <div class="text-right">
                         <a class="btn btn-primary" onClick="showAddCategoryModal()" href="javascript:void(0)"
                             style="background-color: #00491E; border-color: #00491E;">
-                            <i class="fas fa-plus"></i>&nbsp;&nbsp;Add Category
+                            <i class="fas fa-plus"></i>&nbsp;&nbsp;Add
                         </a>
                     </div>
                 </div>
@@ -95,7 +95,7 @@
                                 href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
                             <button type="submit" class="btn btn-primary"
                                 style="background-color: #00491E; border-color: #00491E;"><i
-                                    class="fas fa-plus"></i>&nbsp;&nbsp;Add Category</button>
+                                    class="fas fa-plus"></i>&nbsp;&nbsp;Add</button>
                         </div>
                     </form>
                     <!-- ADD CATEGORY FORM -->
@@ -145,7 +145,7 @@
                                 href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
                             <button type="submit" class="btn btn-primary"
                                 style="background-color: #00491E; border-color: #00491E;"><i
-                                    class="fas fa-check"></i>&nbsp;&nbsp;Update Category</button>
+                                    class="fas fa-check"></i>&nbsp;&nbsp;Update</button>
                         </div>
                     </form>
                     <!-- EDIT CATEGORY FORM -->
@@ -172,7 +172,7 @@
                                 href="javascript:void(0)" style="background-color: #00491E; border-color: #00491E;"><i
                                     class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
                             <button type="button" class="btn btn-danger" id="DeleteCategory"><i
-                                    class="fas fa-trash"></i>&nbsp;&nbsp;Delete Category</button>
+                                    class="fas fa-trash"></i>&nbsp;&nbsp;Delete</button>
                         </div>
                     </div>
                 </div>

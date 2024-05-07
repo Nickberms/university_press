@@ -32,7 +32,7 @@
                     <div class="text-right">
                         <a class="btn btn-primary" onClick="showAddAdjustmentLogModal()" href="javascript:void(0)"
                             style="background-color: #00491E; border-color: #00491E;">
-                            <i class="fas fa-plus"></i>&nbsp;&nbsp;Add Log
+                            <i class="fas fa-plus"></i>&nbsp;&nbsp;Add
                         </a>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                     <form id="AddAdjustmentLogForm" method="POST">
                         @csrf
                         <div class="modal-header" style="background: #E9ECEF;">
-                            <h4 class="modal-title">Add Log</h4>
+                            <h4 class="modal-title">Add Adjustment Log</h4>
                             <button type="button" class="close" onClick="hideAddAdjustmentLogModal()">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -136,7 +136,7 @@
                                 href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
                             <button type="submit" class="btn btn-primary"
                                 style="background-color: #00491E; border-color: #00491E;"><i
-                                    class="fas fa-plus"></i>&nbsp;&nbsp;Add Log</button>
+                                    class="fas fa-plus"></i>&nbsp;&nbsp;Add</button>
                         </div>
                     </form>
                     <!-- ADD ADJUSTMENT LOG FORM -->

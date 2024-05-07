@@ -32,7 +32,7 @@
                     <div class="text-right">
                         <a class="btn btn-primary" onClick="showAddAuthorModal()" href="javascript:void(0)"
                             style="background-color: #00491E; border-color: #00491E;">
-                            <i class="fas fa-plus"></i>&nbsp;&nbsp;Add Author
+                            <i class="fas fa-plus"></i>&nbsp;&nbsp;Add
                         </a>
                     </div>
                 </div>
@@ -97,7 +97,7 @@
                                 href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
                             <button type="submit" class="btn btn-primary"
                                 style="background-color: #00491E; border-color: #00491E;"><i
-                                    class="fas fa-plus"></i>&nbsp;&nbsp;Add Author</button>
+                                    class="fas fa-plus"></i>&nbsp;&nbsp;Add</button>
                         </div>
                     </form>
                     <!-- ADD AUTHOR FORM -->
@@ -152,7 +152,7 @@
                                 href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
                             <button type="submit" class="btn btn-primary"
                                 style="background-color: #00491E; border-color: #00491E;"><i
-                                    class="fas fa-check"></i>&nbsp;&nbsp;Update Author</button>
+                                    class="fas fa-check"></i>&nbsp;&nbsp;Update</button>
                         </div>
                     </form>
                     <!-- EDIT AUTHOR FORM -->
@@ -179,7 +179,7 @@
                                 href="javascript:void(0)" style="background-color: #00491E; border-color: #00491E;"><i
                                     class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
                             <button type="button" class="btn btn-danger" id="DeleteAuthor"><i
-                                    class="fas fa-trash"></i>&nbsp;&nbsp;Delete Author</button>
+                                    class="fas fa-trash"></i>&nbsp;&nbsp;Delete</button>
                         </div>
                     </div>
                 </div>

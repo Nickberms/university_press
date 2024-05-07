@@ -32,7 +32,7 @@
                     <div class="text-right">
                         <a class="btn btn-primary" onClick="showAddUserModal()" href="javascript:void(0)"
                             style="background-color: #00491E; border-color: #00491E;">
-                            <i class="fas fa-plus"></i>&nbsp;&nbsp;Add User
+                            <i class="fas fa-plus"></i>&nbsp;&nbsp;Add
                         </a>
                     </div>
                 </div>
@@ -105,7 +105,7 @@
                                 href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
                             <button type="submit" class="btn btn-primary"
                                 style="background-color: #00491E; border-color: #00491E;"><i
-                                    class="fas fa-plus"></i>&nbsp;&nbsp;Add User</button>
+                                    class="fas fa-plus"></i>&nbsp;&nbsp;Add</button>
                         </div>
                     </form>
                     <!-- ADD USER FORM -->
@@ -164,7 +164,7 @@
                                 href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
                             <button type="submit" class="btn btn-primary"
                                 style="background-color: #00491E; border-color: #00491E;"><i
-                                    class="fas fa-check"></i>&nbsp;&nbsp;Update User</button>
+                                    class="fas fa-check"></i>&nbsp;&nbsp;Update</button>
                         </div>
                     </form>
                     <!-- EDIT USER FORM -->
@@ -190,7 +190,7 @@
                             href="javascript:void(0)" style="background-color: #00491E; border-color: #00491E;"><i
                                 class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
                         <button type="button" class="btn btn-danger" id="DeleteUser"><i
-                                class="fas fa-trash"></i>&nbsp;&nbsp;Delete User</button>
+                                class="fas fa-trash"></i>&nbsp;&nbsp;Delete</button>
                     </div>
                 </div>
             </div>

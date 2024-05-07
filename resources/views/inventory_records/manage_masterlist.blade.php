@@ -82,7 +82,7 @@
                     <div class="text-right">
                         <a class="btn btn-primary" onClick="showAddInstructionalMaterialModal()" href="javascript:void(0)"
                             style="background-color: #00491E; border-color: #00491E;">
-                            <i class="fas fa-plus"></i>&nbsp;&nbsp;Add Instructional Material
+                            <i class="fas fa-plus"></i>&nbsp;&nbsp;Add
                         </a>
                     </div>
                 </div>
@@ -215,7 +215,7 @@
                                     class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
                             <button type="submit" class="btn btn-primary"
                                 style="background-color: #00491E; border-color: #00491E;"><i
-                                    class="fas fa-plus"></i>&nbsp;&nbsp;Add Instructional Material</button>
+                                    class="fas fa-plus"></i>&nbsp;&nbsp;Add</button>
                         </div>
                     </form>
                     <!-- ADD INSTRUCTIONAL MATERIAL FORM -->
@@ -328,7 +328,7 @@
                                     class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
                             <button type="submit" class="btn btn-primary"
                                 style="background-color: #00491E; border-color: #00491E;"><i
-                                    class="fas fa-check"></i>&nbsp;&nbsp;Update Instructional Material</button>
+                                    class="fas fa-check"></i>&nbsp;&nbsp;Update</button>
                         </div>
                     </form>
                     <!-- EDIT INSTRUCTIONAL MATERIAL FORM -->
@@ -354,7 +354,7 @@
                             href="javascript:void(0)" style="background-color: #00491E; border-color: #00491E;"><i
                                 class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
                         <button type="button" class="btn btn-danger" id="DeleteInstructionalMaterial"><i
-                                class="fas fa-trash"></i>&nbsp;&nbsp;Delete Instructional Material</button>
+                                class="fas fa-trash"></i>&nbsp;&nbsp;Delete</button>
                     </div>
                 </div>
             </div>

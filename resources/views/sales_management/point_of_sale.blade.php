@@ -34,8 +34,13 @@
     <div class="wrapper">
         <div class="container-fluid">
             <br>
+            <a class="btn btn-primary" onClick="showPurchaseHistoryModal()" href="javascript:void(0)"
+                style="background-color: #00491E; border-color: #00491E;">
+                <i class="fas fa-history"></i>&nbsp;&nbsp;Purchase History
+            </a>
+            <br><br>
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-4" id="AddItemFormContainer">
                     <div class="card">
                         <!-- ADD ITEM FORM -->
                         <form id="AddItemForm" method="GET">
@@ -45,32 +50,33 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="form-group col-12">
-                                        <label>Instructional Material</label>
-                                        <select class="select2 form-control" id="SelectIm" name="select_im"
-                                            style="width: 100%;" required>
+                                    <div class="form-group col-12" id="SelectImContainer">
+                                        <label>IM</label>
+                                        <select class="select2 form-control" id="SelectIm" style="width: 100%;"
+                                            required>
                                         </select>
                                     </div>
-                                    <div class="form-group col-12">
+                                    <div class="form-group col-12" id="SelectBatchContainer">
                                         <label>Batch</label>
-                                        <select class="select2 form-control" id="SelectBatch" name="select_batch"
-                                            style="width: 100%;" required>
+                                        <select class="select2 form-control" id="SelectBatch" style="width: 100%;"
+                                            required>
                                         </select>
                                     </div>
-                                    <div class="form-group col-12">
-                                        <label>Available Stocks</label>
-                                        <input type="text" readonly class="form-control text-right" id="AvailableStocks"
-                                            name="available_stocks">
+                                    <div class="form-group col-12" id="AvailableContainer">
+                                        <label>Available</label>
+                                        <input type="text" readonly class="form-control text-right"
+                                            id="Available">
                                     </div>
-                                    <div class="form-group col-12">
+                                    <div class="form-group col-12" id="QuantityContainer">
                                         <label>Quantity</label>
-                                        <select class="select2 form-control" id="SelectQuantity" name="select_quantity"
-                                            style="width: 100%;" required>
-                                        </select>
+                                        <input type="number" oninput="numbersOnly(this)" class="form-control text-right"
+                                            id="Quantity" required>
                                     </div>
-                                    <input type="hidden" readonly class="form-control" id="Price" name="price">
-                                    <input type="hidden" readonly class="form-control" id="TotalPrice"
-                                        name="total_price">
+                                    <div class="form-group col-12" id="PriceContainer">
+                                        <label>Price</label>
+                                        <input type="text" readonly class="form-control text-right" id="Price">
+                                    </div>
+                                    <input type="hidden" readonly class="form-control text-right" id="TotalPrice">
                                 </div>
                             </div>
                             <div class="card-footer" style="background: #E9ECEF;">
@@ -84,14 +90,14 @@
                         <!-- ADD ITEM FORM -->
                     </div>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-8" id="AddedItemsTableContainer">
                     <div class="card">
                         <div class="card-header" style="background: #E9ECEF;">
                             <h3 class="card-title">Added Items</h3>
                             <div class="text-right">
-                                <a class="btn btn-primary" onClick="showPurchaseHistoryModal()"
-                                    href="javascript:void(0)" style="background-color: #00491E; border-color: #00491E;">
-                                    <i class="fas fa-history"></i>&nbsp;&nbsp;Purchase History
+                                <a class="btn btn-warning btn-sm" onClick="toggleDivClasses()"
+                                    href="javascript:void(0)">
+                                    <i class="fas fa-expand"></i>
                                 </a>
                             </div>
                         </div>
@@ -258,66 +264,70 @@
         event.preventDefault();
         var imId = $('#SelectIm').val();
         var batchId = $('#SelectBatch').val();
-        var quantity = parseInt($('#SelectQuantity').val());
-        var price = parseFloat($('#Price').val());
+        var quantity = parseInt($('#Quantity').val());
+        var price = parseFloat($('#Price').val().replace(/,/g, ''));
         var totalPrice = parseFloat($('#TotalPrice').val());
-        var table = $('#AddedItemsTable').DataTable();
-        var existingRow = table.rows().data().toArray().find(function(row) {
-            return row[2].includes('value="' + imId + '"') && row[4].includes('value="' +
-                batchId + '"');
-        });
-        if (existingRow) {
-            var existingQuantity = parseInt(existingRow[7]);
-            var existingTotalPrice = parseFloat(existingRow[12].replace(/,/g, ''));
-            var newQuantity = existingQuantity + quantity;
-            var newTotalPrice = existingTotalPrice + totalPrice;
-            var quantityInput = '<input type="hidden" name="quantity[]" value="' + newQuantity + '">';
-            existingRow[7] = newQuantity + quantityInput;
-            existingRow[12] = newTotalPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            var rowIndex = table.rows().data().toArray().findIndex(function(row) {
-                return row[2].includes('value="' + imId + '"') && row[4].includes(
-                    'value="' +
+        if (quantity <= 0) {
+            return;
+        } else {
+            var table = $('#AddedItemsTable').DataTable();
+            var existingRow = table.rows().data().toArray().find(function(row) {
+                return row[2].includes('value="' + imId + '"') && row[4].includes('value="' +
                     batchId + '"');
             });
-            table.row(rowIndex).data(existingRow).draw(false);
-            $('#AddedItemsTable tbody tr').removeClass('recent-row');
-            table.row(rowIndex).node().classList.add('recent-row');
-        } else {
-            var imIdInput = '<input type="hidden" name="im_id[]" value="' + imId + '">';
-            var batchIdInput = '<input type="hidden" name="batch_id[]" value="' + batchId + '">';
-            var quantityInput = '<input type="hidden" name="quantity[]" value="' + quantity + '">';
-            var newRow = [
-                '<div class="text-right">' +
-                '<a href="#" class="delete"><i class="material-icons">&#xE872;</i></a>' +
-                '</div>',
-                '<p class="text-right" style="font-weight: bold;"> Instructional Material: </p>',
-                $('#SelectIm option:selected').text() + imIdInput,
-                '<p class="text-right" style="font-weight: bold;"> Batch: </p>',
-                $('#SelectBatch option:selected').text() + batchIdInput,
-                '<p class="text-right" style="font-weight: bold;"> Quantity: </p>',
-                '<div class="text-right">' +
-                '<a href="#" class="minus-icon"><i class="fas fa-minus" style="color: #00491E;"></i></a>' +
-                '</div>',
-                $('#SelectQuantity option:selected').text() + quantityInput,
-                '<div class="text-left">' +
-                '<a href="#" class="plus-icon"><i class="fas fa-plus" style="color: #00491E;"></i></a>' +
-                '</div>',
-                '<p class="text-right" style="font-weight: bold;"> Unit Price: </p>',
-                price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","),
-                '<p class="text-right" style="font-weight: bold;"> Total Price: </p>',
-                totalPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-            ];
-            var rowNode = table.row.add(newRow).draw(false).node();
-            $('#AddedItemsTable tbody tr').removeClass('recent-row');
-            $(rowNode).addClass('recent-row');
+            if (existingRow) {
+                var existingQuantity = parseInt(existingRow[7]);
+                var existingTotalPrice = parseFloat(existingRow[12].replace(/,/g, ''));
+                var newQuantity = existingQuantity + quantity;
+                var newTotalPrice = existingTotalPrice + totalPrice;
+                var quantityInput = '<input type="hidden" name="quantity[]" value="' + newQuantity + '">';
+                existingRow[7] = newQuantity + quantityInput;
+                existingRow[12] = newTotalPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                var rowIndex = table.rows().data().toArray().findIndex(function(row) {
+                    return row[2].includes('value="' + imId + '"') && row[4].includes(
+                        'value="' +
+                        batchId + '"');
+                });
+                table.row(rowIndex).data(existingRow).draw(false);
+                $('#AddedItemsTable tbody tr').removeClass('recent-row');
+                table.row(rowIndex).node().classList.add('recent-row');
+            } else {
+                var imIdInput = '<input type="hidden" name="im_id[]" value="' + imId + '">';
+                var batchIdInput = '<input type="hidden" name="batch_id[]" value="' + batchId + '">';
+                var quantityInput = '<input type="hidden" name="quantity[]" value="' + quantity + '">';
+                var newRow = [
+                    '<div class="text-right">' +
+                    '<a href="#" class="delete"><i class="material-icons">&#xE872;</i></a>' +
+                    '</div>',
+                    '<p class="text-right" style="font-weight: bold;"> IM: </p>',
+                    $('#SelectIm option:selected').text() + imIdInput,
+                    '<p class="text-right" style="font-weight: bold;"> Batch: </p>',
+                    $('#SelectBatch option:selected').text() + batchIdInput,
+                    '<p class="text-right" style="font-weight: bold;"> Quantity: </p>',
+                    '<div class="text-right">' +
+                    '<a href="#" class="minus-icon"><i class="fas fa-minus" style="color: #00491E;"></i></a>' +
+                    '</div>',
+                    quantity + quantityInput,
+                    '<div class="text-left">' +
+                    '<a href="#" class="plus-icon"><i class="fas fa-plus" style="color: #00491E;"></i></a>' +
+                    '</div>',
+                    '<p class="text-right" style="font-weight: bold;"> Price: </p>',
+                    price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+                    '<p class="text-right" style="font-weight: bold;"> Total Price: </p>',
+                    totalPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                ];
+                var rowNode = table.row.add(newRow).draw(false).node();
+                $('#AddedItemsTable tbody tr').removeClass('recent-row');
+                $(rowNode).addClass('recent-row');
+            }
+            var totalAmount = 0;
+            table.rows().every(function() {
+                var rowData = this.data();
+                var rowTotalPrice = parseFloat(rowData[12].replace(/,/g, ''));
+                totalAmount += rowTotalPrice;
+            });
+            $('#TotalAmount').val(totalAmount.toFixed(2));
         }
-        var totalAmount = 0;
-        table.rows().every(function() {
-            var rowData = this.data();
-            var rowTotalPrice = parseFloat(rowData[12].replace(/,/g, ''));
-            totalAmount += rowTotalPrice;
-        });
-        $('#TotalAmount').val(totalAmount.toFixed(2));
     });
     $('#AddedItemsTable tbody').on('click', '.delete', function() {
         var table = $('#AddedItemsTable').DataTable();
@@ -408,6 +418,7 @@
                     }
                 });
                 $('#SelectBatch').on('change', function() {
+                    $('#Quantity').val(null);
                     $('#TotalPrice').val(null);
                     var batchId = $(this).val();
                     if (batchId) {
@@ -418,27 +429,21 @@
                             batch) {
                             return batch.id == batchId;
                         });
-                        var availableStocks = selectedBatch.quantity_produced - selectedBatch
+                        var available = selectedBatch.quantity_produced - selectedBatch
                             .total_quantity_deducted;
-                        $('#AvailableStocks').val(availableStocks);
-                        $('#Price').val(selectedBatch.price.toFixed(2));
-                        var selectQuantity = $('#SelectQuantity');
-                        selectQuantity.empty();
-                        for (var i = 1; i <= availableStocks; i++) {
-                            selectQuantity.append('<option value="' + i + '">' + i + '</option>');
-                        }
-                        selectQuantity.val(null).trigger('change');
-                        selectQuantity.select2();
+                        $('#Available').val(available);
+                        $('#Price').val(selectedBatch.price.toFixed(2).replace(
+                            /\B(?=(\d{3})+(?!\d))/g, ","));
                     } else {
-                        $('#AvailableStocks').val(null);
+                        $('#Available').val(null);
+                        $('#Quantity').val(null);
                         $('#Price').val(null);
-                        $('#SelectQuantity').empty();
                     }
                 });
-                $('#Price, #SelectQuantity').on('input', function() {
-                    var price = parseFloat($('#Price').val()) || 0;
-                    var selectedQuantity = parseInt($('#SelectQuantity').val()) || 0;
-                    var totalPrice = price * selectedQuantity;
+                $('#Quantity, #Price').on('input', function() {
+                    var quantity = parseInt($('#Quantity').val()) || 0;
+                    var price = parseFloat($('#Price').val().replace(/,/g, '')) || 0;
+                    var totalPrice = quantity * price;
                     $('#TotalPrice').val(totalPrice.toFixed(2));
                 });
             },
@@ -446,6 +451,32 @@
                 console.error(xhr.responseText);
             }
         });
+    }
+    function toggleDivClasses() {
+        var addItemFormContainer = document.getElementById("AddItemFormContainer");
+        var addedItemsTableContainer = document.getElementById("AddedItemsTableContainer");
+        var selectImContainer = document.getElementById("SelectImContainer");
+        var selectBatchContainer = document.getElementById("SelectBatchContainer");
+        var availableContainer = document.getElementById("AvailableContainer");
+        var quantityContainer = document.getElementById("QuantityContainer");
+        var priceContainer = document.getElementById("PriceContainer");
+        if (addItemFormContainer.className === "col-sm-4") {
+            addItemFormContainer.className = "col-sm-12";
+            addedItemsTableContainer.className = "col-sm-12";
+            selectImContainer.className = "form-group col-6";
+            selectBatchContainer.className = "form-group col-6";
+            availableContainer.className = "form-group col-4";
+            quantityContainer.className = "form-group col-4";
+            priceContainer.className = "form-group col-4";
+        } else {
+            addItemFormContainer.className = "col-sm-4";
+            addedItemsTableContainer.className = "col-sm-8";
+            selectImContainer.className = "form-group col-12";
+            selectBatchContainer.className = "form-group col-12";
+            availableContainer.className = "form-group col-12";
+            quantityContainer.className = "form-group col-12";
+            priceContainer.className = "form-group col-12";
+        }
     }
     function checkAddedItemsTableRows() {
         var table = $('#AddedItemsTable').DataTable();
@@ -564,6 +595,13 @@
             }
         });
     });
+    function numbersOnly(inputField) {
+        var pattern = /^[0-9]+$/;
+        var inputValue = inputField.value;
+        if (!pattern.test(inputValue)) {
+            inputField.value = inputValue.replace(/[^0-9]/g, '');
+        }
+    }
     function calculateTotalChange(cashInput) {
         function cleanAndFormatValue(inputValue) {
             var cleanedValue = inputValue.replace(/[^\d.]/g, '').replace(/\.(?=.*\.)/g, '');
