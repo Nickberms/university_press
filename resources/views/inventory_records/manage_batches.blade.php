@@ -19,6 +19,13 @@
     #BatchesTable td {
         white-space: nowrap;
     }
+    .dataTables_paginate .paginate_button {
+        display: none;
+    }
+    .dataTables_paginate .paginate_button.previous,
+    .dataTables_paginate .paginate_button.next {
+        display: inline-block;
+    }
     </style>
 </head>
 
@@ -100,7 +107,7 @@
                                 <th>Quantity Sold</th>
                                 <th>Quantity Deducted</th>
                                 <th>Available Stocks</th>
-                                <th>Total Revenue</th>
+                                <th>Revenue</th>
                             </tr>
                         </thead>
                         <tbody>

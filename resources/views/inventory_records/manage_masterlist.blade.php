@@ -116,7 +116,6 @@
                                 <th>Unit Sold</th>
                                 <th>Edition</th>
                                 <th>ISBN</th>
-                                <th>Description</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -254,7 +253,7 @@
                                 <div class="card-body">
                                     <div class="card card-primary shadow-none">
                                         <div class="card-header" style="background: #02681E;">
-                                            <h3 class="card-title">Summary</h3>
+                                            <h3 class="card-title">IM Summary</h3>
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool"
                                                     data-card-widget="collapse"><i class="fas fa-plus"></i>
@@ -300,7 +299,7 @@
                                     </div>
                                     <div class="card card-primary collapsed-card">
                                         <div class="card-header" style="background: #02681E;">
-                                            <h3 class="card-title">Batches</h3>
+                                            <h3 class="card-title">All Batches</h3>
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool"
                                                     onClick="triggerRefreshBatchesTable()"
@@ -322,7 +321,7 @@
                                                         <th>Quantity Sold</th>
                                                         <th>Quantity Deducted</th>
                                                         <th>Available Stocks</th>
-                                                        <th>Total Revenue</th>
+                                                        <th>Revenue</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -740,8 +739,7 @@
                         im.publisher,
                         '<span style="float: right;">' + im.unit_sold + '</span>',
                         im.edition,
-                        im.isbn,
-                        im.description
+                        im.isbn
                     ]);
                 });
                 table.draw();
