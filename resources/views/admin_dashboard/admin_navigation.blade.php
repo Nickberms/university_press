@@ -7,7 +7,7 @@
                     <p>&nbsp;&nbsp;My Profile</p>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item dashboard">
                 <a href="{{ route('dashboards.index') }}" class="nav-link">
                     <i class="nav-icon fas fa-th"></i>
                     <p>&nbsp;&nbsp;Admin Dashboard</p>
@@ -90,3 +90,23 @@
         </ul>
     </nav>
 </div>
+<script>
+$(document).ready(function() {
+    var path = window.location.href;
+    $('ul.nav-sidebar a').each(function() {
+        if (this.href === path) {
+            $(this).addClass('active');
+            $(this).parents('li').addClass('menu-open');
+            $(this).closest('ul').css('display', 'block');
+        }
+    });
+    if ($('#dashboard').hasClass('active')) {
+        $('#dashboard').css('background-color', '#ffc001');
+        $('#dashboard').css('color', 'black');
+    }
+    if ($('#projects').hasClass('active')) {
+        $('#projects').css('background-color', '#ffc001');
+        $('#projects').css('color', 'black');
+    }
+});
+</script>

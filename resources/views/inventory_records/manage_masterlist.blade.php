@@ -20,6 +20,21 @@
     #MasterlistTable td {
         white-space: nowrap;
     }
+    #BatchesTable th,
+    #BatchesTable td {
+        white-space: nowrap;
+    }
+    #PurchaseHistoryTable th,
+    #PurchaseHistoryTable td {
+        white-space: nowrap;
+    }
+    .dataTables_paginate .paginate_button {
+        display: none;
+    }
+    .dataTables_paginate .paginate_button.previous,
+    .dataTables_paginate .paginate_button.next {
+        display: inline-block;
+    }
     </style>
 </head>
 
@@ -80,8 +95,8 @@
                 <div class="card-header" style="background: #E9ECEF;">
                     <h3 class="card-title">Manage Masterlist</h3>
                     <div class="text-right">
-                        <a class="btn btn-primary" onClick="showAddInstructionalMaterialModal()" href="javascript:void(0)"
-                            style="background-color: #00491E; border-color: #00491E;">
+                        <a class="btn btn-primary" onClick="showAddInstructionalMaterialModal()"
+                            href="javascript:void(0)" style="background-color: #00491E; border-color: #00491E;">
                             <i class="fas fa-plus"></i>&nbsp;&nbsp;Add
                         </a>
                     </div>
@@ -210,9 +225,8 @@
                             </div>
                         </div>
                         <div class="modal-footer" style="background: #E9ECEF;">
-                            <button type="button" class="btn btn-danger"
-                                onClick="hideAddInstructionalMaterialModal()" href="javascript:void(0)"><i
-                                    class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
+                            <button type="button" class="btn btn-danger" onClick="hideAddInstructionalMaterialModal()"
+                                href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
                             <button type="submit" class="btn btn-primary"
                                 style="background-color: #00491E; border-color: #00491E;"><i
                                     class="fas fa-plus"></i>&nbsp;&nbsp;Add</button>
@@ -223,6 +237,143 @@
             </div>
         </div>
         <!-- ADD INSTRUCTIONAL MATERIAL MODAL -->
+        <!-- VIEW INSTRUCTIONAL MATERIAL MODAL -->
+        <div class="modal fade" id="ViewInstructionalMaterialModal">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header" style="background: #E9ECEF;">
+                        <h4 class="modal-title">View Instructional Material</h4>
+                        <button type="button" class="close" onClick="hideViewInstructionalMaterialModal()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="background: #02681E;">
+                        <input type="hidden" id="InstructionalMaterialId1" name="instructional_material_id">
+                        <div class="container-fluid">
+                            <div class="card card-default">
+                                <div class="card-body">
+                                    <div class="card card-primary shadow-none">
+                                        <div class="card-header" style="background: #02681E;">
+                                            <h3 class="card-title">Summary</h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool"
+                                                    data-card-widget="collapse"><i class="fas fa-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <label>Title</label>
+                                                <input type="text" readonly class="form-control" id="ViewTitle">
+                                            </div>
+                                            <div class="row">
+                                                <!-- LEFT SIDE -->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Authors</label>
+                                                        <textarea type="text" readonly class="form-control"
+                                                            id="ViewAuthors" style="height: 124px;"></textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Total Sales</label>
+                                                        <input type="text" readonly class="form-control"
+                                                            id="ViewTotalSales">
+                                                    </div>
+                                                </div>
+                                                <!-- LEFT SIDE -->
+                                                <!-- RIGHT SIDE -->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Description</label>
+                                                        <textarea type="text" readonly class="form-control"
+                                                            id="ViewDescription" style="height: 124px;"></textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Total Revenue</label>
+                                                        <input type="text" readonly class="form-control"
+                                                            id="ViewTotalRevenue">
+                                                    </div>
+                                                </div>
+                                                <!-- RIGHT SIDE -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card card-primary collapsed-card">
+                                        <div class="card-header" style="background: #02681E;">
+                                            <h3 class="card-title">Batches</h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool"
+                                                    onClick="triggerRefreshBatchesTable()"
+                                                    data-card-widget="collapse"><i class="fas fa-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <!-- BATCHES TABLE -->
+                                            <table class="table table-bordered table-striped" id="BatchesTable"
+                                                style="font-size: 14px;">
+                                                <thead class="text-center">
+                                                    <tr>
+                                                        <th>Batch Name</th>
+                                                        <th>Production Date</th>
+                                                        <th>Production Cost</th>
+                                                        <th>Unit Price</th>
+                                                        <th>Quantity Produced</th>
+                                                        <th>Quantity Sold</th>
+                                                        <th>Quantity Deducted</th>
+                                                        <th>Available Stocks</th>
+                                                        <th>Total Revenue</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                                <tfoot>
+                                                </tfoot>
+                                            </table>
+                                            <!-- BATCHES TABLE -->
+                                        </div>
+                                    </div>
+                                    <div class="card card-primary collapsed-card">
+                                        <div class="card-header" style="background: #02681E;">
+                                            <h3 class="card-title">Purchase History</h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool"
+                                                    onClick="triggerRefreshPurchaseHistoryTable()"
+                                                    data-card-widget="collapse"><i class="fas fa-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <!-- PURCHASE HISTORY TABLE -->
+                                            <table class="table table-bordered table-striped" id="PurchaseHistoryTable"
+                                                style="font-size: 14px;">
+                                                <thead class="text-center">
+                                                    <tr>
+                                                        <th>Customer Name</th>
+                                                        <th>OR Number</th>
+                                                        <th>Batch</th>
+                                                        <th>Date Sold</th>
+                                                        <th>Quantity Sold</th>
+                                                        <th>Unit Price</th>
+                                                        <th>Total Price</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                                <tfoot>
+                                                </tfoot>
+                                            </table>
+                                            <!-- PURCHASE HISTORY TABLE -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- VIEW INSTRUCTIONAL MATERIAL MODAL -->
         <!-- EDIT INSTRUCTIONAL MATERIAL MODAL -->
         <div class="modal fade" id="EditInstructionalMaterialModal">
             <div class="modal-dialog modal-lg">
@@ -238,7 +389,7 @@
                             </button>
                         </div>
                         <div class="modal-body" style="background: #02681E;">
-                            <input type="hidden" id="InstructionalMaterialId" name="instructional_material_id">
+                            <input type="hidden" id="InstructionalMaterialId2" name="instructional_material_id">
                             <div class="container-fluid">
                                 <div class="card card-default">
                                     <div class="row">
@@ -323,9 +474,8 @@
                             </div>
                         </div>
                         <div class="modal-footer" style="background: #E9ECEF;">
-                            <button type="button" class="btn btn-danger"
-                                onClick="hideEditInstructionalMaterialModal()" href="javascript:void(0)"><i
-                                    class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
+                            <button type="button" class="btn btn-danger" onClick="hideEditInstructionalMaterialModal()"
+                                href="javascript:void(0)"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
                             <button type="submit" class="btn btn-primary"
                                 style="background-color: #00491E; border-color: #00491E;"><i
                                     class="fas fa-check"></i>&nbsp;&nbsp;Update</button>
@@ -396,6 +546,43 @@
     function hideAddInstructionalMaterialModal() {
         $('#AddInstructionalMaterialModal').modal('hide');
     }
+    function showViewInstructionalMaterialModal(instructionalMaterialId) {
+        $.ajax({
+            url: "{{ route('ims.show', ':id') }}".replace(':id',
+                instructionalMaterialId),
+            type: 'GET',
+            dataType: 'json',
+            success: function(instructionalMaterial) {
+                $('#InstructionalMaterialId1').val(instructionalMaterial.id);
+                $('#ViewTitle').val(instructionalMaterial.title);
+                var authors = '';
+                instructionalMaterial.authors.forEach(function(author, index) {
+                    var fullName = author.first_name;
+                    if (author.middle_name) {
+                        fullName += ' ' + author.middle_name;
+                    }
+                    fullName += ' ' + author.last_name;
+                    authors += fullName;
+                    if (index < instructionalMaterial.authors.length - 1) {
+                        authors += ', ';
+                    }
+                });
+                $('#ViewAuthors').val(authors);
+                $('#ViewDescription').val(instructionalMaterial.description);
+                $('#ViewInstructionalMaterialModal').modal('show');
+                triggerRefreshBatchesTable();
+                triggerRefreshPurchaseHistoryTable();
+            },
+            error: function(xhr, status, error) {
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
+            }
+        });
+    }
+    function hideViewInstructionalMaterialModal() {
+        $('#ViewInstructionalMaterialModal').modal('hide');
+    }
     function showEditInstructionalMaterialModal(instructionalMaterialId) {
         $.ajax({
             url: "{{ route('ims.create') }}",
@@ -422,7 +609,7 @@
                     type: 'GET',
                     dataType: 'json',
                     success: function(instructionalMaterial) {
-                        $('#InstructionalMaterialId').val(
+                        $('#InstructionalMaterialId2').val(
                             instructionalMaterial.id);
                         $('#EditCode').val(instructionalMaterial
                             .code);
@@ -536,6 +723,9 @@
                     }
                     table.row.add([
                         '<div class="text-center">' +
+                        '<a href="#" class="view" title="View" data-toggle="tooltip" data-id="' +
+                        im.id + '" onclick="showViewInstructionalMaterialModal(' + im.id +
+                        ')"><i class="material-icons">&#xE417;</i></a>' +
                         '<a href="#" class="edit" title="Edit" data-toggle="tooltip" data-id="' +
                         im.id + '" onclick="showEditInstructionalMaterialModal(' + im.id +
                         ')"><i class="material-icons">&#xE254;</i></a>' +
@@ -555,6 +745,115 @@
                     ]);
                 });
                 table.draw();
+            },
+            error: function(xhr, status, error) {
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
+            }
+        });
+    }
+    function triggerRefreshBatchesTable() {
+        var instructionalMaterialId = $('#InstructionalMaterialId1').val();
+        refreshBatchesTable(instructionalMaterialId);
+    }
+    function refreshBatchesTable(instructionalMaterialId) {
+        function monetaryValue(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+        $.ajax({
+            url: "{{ route('ims.show', ':id') }}".replace(':id',
+                instructionalMaterialId),
+            type: 'GET',
+            dataType: 'json',
+            success: function(instructionalMaterial) {
+                var table = $('#BatchesTable').DataTable();
+                var existingRows = table.rows().remove().draw(false);
+                var totalRevenue = 0;
+                instructionalMaterial.batches.forEach(function(batch) {
+                    var formattedProductionDate = new Date(batch.production_date);
+                    var options = {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    };
+                    var formattedProductionDateString = formattedProductionDate.toLocaleDateString(
+                        'en-US', options);
+                    var totalQuantityDeducted = parseInt(batch.quantity_sold) + parseInt(batch
+                        .quantity_deducted);
+                    var availableStocks = batch.quantity_produced - totalQuantityDeducted;
+                    var revenue = (batch.price.toFixed(2) * batch.quantity_sold) - batch
+                        .production_cost.toFixed(2);
+                    totalRevenue += revenue;
+                    table.row.add([
+                        batch.name,
+                        formattedProductionDateString,
+                        '<span style="float: right;">' + monetaryValue(batch
+                            .production_cost.toFixed(2)) + '</span>',
+                        '<span style="float: right;">' + monetaryValue(batch.price
+                            .toFixed(2)) + '</span>',
+                        '<span style="float: right;">' + batch.quantity_produced +
+                        '</span>',
+                        '<span style="float: right;">' + batch.quantity_sold + '</span>',
+                        '<span style="float: right;">' + batch.quantity_deducted +
+                        '</span>',
+                        '<span style="float: right;">' + availableStocks + '</span>',
+                        '<span style="float: right;">' + monetaryValue(revenue.toFixed(2)) +
+                        '</span>'
+                    ]);
+                });
+                table.draw();
+                $('#ViewTotalRevenue').val(monetaryValue(totalRevenue.toFixed(2)));
+            },
+            error: function(xhr, status, error) {
+                var errorMessage = JSON.parse(xhr.responseText).error;
+                console.error(errorMessage);
+                toastr.error(errorMessage);
+            }
+        });
+    }
+    function triggerRefreshPurchaseHistoryTable() {
+        var instructionalMaterialId = $('#InstructionalMaterialId1').val();
+        refreshPurchaseHistoryTable(instructionalMaterialId);
+    }
+    function refreshPurchaseHistoryTable(instructionalMaterialId) {
+        function monetaryValue(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+        $.ajax({
+            url: "{{ route('ims.show', ':id') }}".replace(':id',
+                instructionalMaterialId),
+            type: 'GET',
+            dataType: 'json',
+            success: function(instructionalMaterial) {
+                var table = $('#PurchaseHistoryTable').DataTable();
+                var existingRows = table.rows().remove().draw(false);
+                var totalSales = 0;
+                instructionalMaterial.purchases.forEach(function(purchase) {
+                    var formattedDateSold = new Date(purchase.date_sold);
+                    var options = {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    };
+                    var formattedDateSoldString = formattedDateSold.toLocaleDateString('en-US',
+                        options);
+                    var totalPrice = purchase.batch.price.toFixed(2) * purchase.quantity;
+                    totalSales += totalPrice;
+                    table.row.add([
+                        purchase.customer_name,
+                        purchase.or_number,
+                        purchase.batch.name,
+                        formattedDateSoldString,
+                        '<span style="float: right;">' + purchase.quantity + '</span>',
+                        '<span style="float: right;">' + monetaryValue(purchase.batch.price
+                            .toFixed(2)) + '</span>',
+                        '<span style="float: right;">' + monetaryValue(totalPrice.toFixed(
+                            2)) + '</span>'
+                    ]);
+                });
+                table.draw();
+                $('#ViewTotalSales').val(monetaryValue(totalSales.toFixed(2)));
             },
             error: function(xhr, status, error) {
                 var errorMessage = JSON.parse(xhr.responseText).error;
@@ -587,7 +886,7 @@
     $('#EditInstructionalMaterialForm').submit(function(event) {
         event.preventDefault();
         var formData = $(this).serialize();
-        var instructionalMaterialId = $('#InstructionalMaterialId').val();
+        var instructionalMaterialId = $('#InstructionalMaterialId2').val();
         $.ajax({
             url: "{{ route('ims.update', ':id') }}".replace(':id',
                 instructionalMaterialId),
@@ -654,16 +953,46 @@
             "scrollX": true,
             "scrollY": true,
             "scrollCollapse": false,
-            "buttons": ["copy", "excel", "pdf", "print"],
+            "buttons": ["copy", "excel", "pdf"],
             "pageLength": 8
         }).buttons().container().appendTo('#MasterlistTable_wrapper .col-md-6:eq(0)');
         refreshMasterlistTable();
         setInterval(refreshMasterlistTable, 60000);
+        $('#BatchesTable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "responsive": false,
+            "scrollX": true,
+            "scrollY": true,
+            "scrollCollapse": false,
+            "buttons": ["copy", "excel", "pdf"],
+            "pageLength": 4
+        }).buttons().container().appendTo('#BatchesTable_wrapper .col-md-6:eq(0)');
+        $('#PurchaseHistoryTable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "responsive": false,
+            "scrollX": true,
+            "scrollY": true,
+            "scrollCollapse": false,
+            "buttons": ["copy", "excel", "pdf"],
+            "pageLength": 4
+        }).buttons().container().appendTo('#PurchaseHistoryTable_wrapper .col-md-6:eq(0)');
         var previousWidth = $(window).width();
         $(window).on('resize', function() {
             var currentWidth = $(window).width();
             if (currentWidth !== previousWidth) {
                 refreshMasterlistTable();
+                triggerRefreshBatchesTable();
+                triggerRefreshPurchaseHistoryTable();
                 previousWidth = currentWidth;
             }
         });

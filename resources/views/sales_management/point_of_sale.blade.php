@@ -27,6 +27,13 @@
     #PurchaseHistoryTable td {
         white-space: nowrap;
     }
+    .dataTables_paginate .paginate_button {
+        display: none;
+    }
+    .dataTables_paginate .paginate_button.previous,
+    .dataTables_paginate .paginate_button.next {
+        display: inline-block;
+    }
     </style>
 </head>
 

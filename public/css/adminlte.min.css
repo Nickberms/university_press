@@ -58,6 +58,11 @@ ang sa navbar sa ibabaw gamita lang ug navbar bg-yellow nga line. */
     border-color:#00491E !important ;
 }
 
+.nav-link.active {
+    background-color: #ffc600 !important ;
+    color: black !important ;
+}
+
 *,
 ::after,
 ::before {

@@ -108,8 +108,37 @@ class ImController extends Controller
             return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);
         }
     }
-    public function show(Im $im)
+    public function show($id)
     {
+        try {
+            $im = Im::with([
+                'authors',
+                'batches' => function ($query) {
+                    $query->select(
+                        'batches.id',
+                        'batches.im_id',
+                        'batches.name',
+                        'batches.production_date',
+                        'batches.production_cost',
+                        'batches.price',
+                        'batches.quantity_produced',
+                        DB::raw('(SELECT COALESCE(SUM(quantity), 0) FROM purchases WHERE batch_id = batches.id) as quantity_sold'),
+                        DB::raw('(SELECT COALESCE(SUM(quantity_deducted), 0) FROM adjustment_logs WHERE batch_id = batches.id) as quantity_deducted')
+                    )
+                        ->groupBy('batches.id', 'batches.im_id', 'batches.name', 'batches.production_date', 'batches.production_cost', 'batches.price', 'batches.quantity_produced')
+                        ->orderByDesc('batches.updated_at')
+                        ->orderByDesc('batches.created_at');
+                },
+                'purchases' => function ($query) {
+                    $query->with('im', 'batch')
+                        ->orderByDesc('date_sold')
+                        ->orderByDesc('created_at');
+                }
+            ])->findOrFail($id);
+            return response()->json($im);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);
+        }
     }
     public function edit($id)
     {
