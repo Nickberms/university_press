@@ -2307,7 +2307,7 @@ var _title = function ( config )
 
 	return title === null ?
 		null : title.indexOf( '*' ) !== -1 ?
-			title.replace( '*', $('head > title').text() || 'Exported data' ) :
+			title.replace( '*', $('head > title').text() || 'Central Mindanao University - University Press' ) :
 			title;
 };
 

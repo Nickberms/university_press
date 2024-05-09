@@ -550,7 +550,7 @@ var _title = function ( config )
 	}
 
 	return title.indexOf( '*' ) !== -1 ?
-		title.replace( '*', $('title').text() || 'Exported data' ) :
+		title.replace( '*', $('title').text() || 'Central Mindanao University - University Press' ) :
 		title;
 };
 
