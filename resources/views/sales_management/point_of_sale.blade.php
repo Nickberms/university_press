@@ -136,6 +136,9 @@
                             <!-- ADDED ITEMS TABLE -->
                         </div>
                         <div class="card-footer" style="background: #E9ECEF;">
+                            <h3 class="card-title text-left" style="font-size: 14px;">
+                                <div id="DisplayTotalAmount">Total Amount: 0.00</div>
+                            </h3>
                             <div class="text-right">
                                 <button type="button" class="btn btn-primary" id="ConfirmPurchaseButton"
                                     onClick="showConfirmPurchaseModal()"
@@ -334,12 +337,14 @@
                 totalAmount += rowTotalPrice;
             });
             $('#TotalAmount').val(totalAmount.toFixed(2));
+            calculateTotalAmount();
         }
     });
     $('#AddedItemsTable tbody').on('click', '.delete', function() {
         var table = $('#AddedItemsTable').DataTable();
         var row = $(this).closest('tr');
         table.row(row).remove().draw(false);
+        calculateTotalAmount();
     });
     $('#AddedItemsTable tbody').on('click', '.minus-icon', function() {
         var table = $('#AddedItemsTable').DataTable();
@@ -368,6 +373,7 @@
         }
         $('#AddedItemsTable tbody tr').removeClass('recent-row');
         row.addClass('recent-row');
+        calculateTotalAmount();
     });
     $('#AddedItemsTable tbody').on('click', '.plus-icon', function() {
         var table = $('#AddedItemsTable').DataTable();
@@ -391,6 +397,7 @@
         }
         $('#AddedItemsTable tbody tr').removeClass('recent-row');
         row.addClass('recent-row');
+        calculateTotalAmount();
     });
     function populateAddItemForm() {
         $.ajax({
@@ -485,6 +492,17 @@
             priceContainer.className = "form-group col-12";
         }
     }
+    function calculateTotalAmount() {
+        var totalAmount = 0;
+        var table = $('#AddedItemsTable').DataTable();
+        table.rows().every(function() {
+            var rowData = this.data();
+            var rowTotalPrice = parseFloat(rowData[12].replace(/,/g, ''));
+            totalAmount += rowTotalPrice;
+        });
+        $('#TotalAmount').val(totalAmount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        document.getElementById('DisplayTotalAmount').innerText = "Total Amount: " + totalAmount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
     function checkAddedItemsTableRows() {
         var table = $('#AddedItemsTable').DataTable();
         var rowCount = table.rows().count();
@@ -545,15 +563,8 @@
         });
     }
     function showConfirmPurchaseModal() {
+        calculateTotalAmount();
         $('#ConfirmPurchaseModal').modal('show');
-        var totalAmount = 0;
-        var table = $('#AddedItemsTable').DataTable();
-        table.rows().every(function() {
-            var rowData = this.data();
-            var rowTotalPrice = parseFloat(rowData[12].replace(/,/g, ''));
-            totalAmount += rowTotalPrice;
-        });
-        $('#TotalAmount').val(totalAmount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
     }
     function hideConfirmPurchaseModal() {
         $('#ConfirmPurchaseModal').modal('hide');

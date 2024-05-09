@@ -101,7 +101,7 @@
             <div class="card">
                 <div class="card-header" style="background: #E9ECEF;">
                     <h3 class="card-title">Sales Today</h3>
-                    <div class="text-right" id="CurrentDate"></div>
+                    <div class="text-right" id="CurrentDate" style="font-size: 14px;"></div>
                 </div>
                 <div class="card-body">
                     <!-- SALES TODAY TABLE -->
