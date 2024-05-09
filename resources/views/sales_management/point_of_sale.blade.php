@@ -143,7 +143,7 @@
                                 <button type="button" class="btn btn-primary" id="ConfirmPurchaseButton"
                                     onClick="showConfirmPurchaseModal()"
                                     style="background-color: #00491E; border-color: #00491E;"><i
-                                        class="fas fa-shopping-cart"></i>&nbsp;&nbsp;Confirm Purchase</button>
+                                        class="fas fa-shopping-cart"></i>&nbsp;&nbsp;Confirm</button>
                             </div>
                         </div>
                     </div>

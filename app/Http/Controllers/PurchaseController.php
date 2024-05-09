@@ -48,33 +48,38 @@ class PurchaseController extends Controller
                 return $input;
             }
             $purchasedItems = $request->input('purchased_items');
+            $isValidPurchase = true;
             foreach ($purchasedItems as $purchasedItem) {
                 $batch = Batch::find($purchasedItem['batch_id']);
                 if (!$batch) {
                     return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);
-                } else {
-                    $batch->load('purchases');
-                    $batch->load('adjustment_logs');
-                    $batch->quantity_sold = $batch->purchases->sum('quantity');
-                    $batch->quantity_deducted = $batch->adjustment_logs->sum('quantity_deducted');
-                    $batch->total_quantity_deducted = $batch->quantity_sold + $batch->quantity_deducted;
-                    $availableStocks = $batch->quantity_produced - $batch->total_quantity_deducted;
-                    if ($purchasedItem['quantity'] > $availableStocks) {
-                        return response()->json(['error' => 'The quantity being purchased is greater than the available stocks of at least one of the items!'], 422);
-                    } else {
-                        $customerName = formatInput($purchasedItem['customer_name']);
-                        $orNumber = formatInput($purchasedItem['or_number']);
-                        $purchase = new Purchase([
-                            'customer_name' => $customerName,
-                            'or_number' => $orNumber,
-                            'im_id' => $purchasedItem['im_id'],
-                            'batch_id' => $purchasedItem['batch_id'],
-                            'date_sold' => $purchasedItem['date_sold'],
-                            'quantity' => $purchasedItem['quantity'],
-                        ]);
-                        $purchase->save();
-                    }
                 }
+                $batch->load('purchases');
+                $batch->load('adjustment_logs');
+                $batch->quantity_sold = $batch->purchases->sum('quantity');
+                $batch->quantity_deducted = $batch->adjustment_logs->sum('quantity_deducted');
+                $batch->total_quantity_deducted = $batch->quantity_sold + $batch->quantity_deducted;
+                $availableStocks = $batch->quantity_produced - $batch->total_quantity_deducted;
+                if ($purchasedItem['quantity'] > $availableStocks) {
+                    $isValidPurchase = false;
+                    break;
+                }
+            }
+            if (!$isValidPurchase) {
+                return response()->json(['error' => 'The quantity being purchased is greater than the available stocks of at least one of the items!'], 422);
+            }
+            foreach ($purchasedItems as $purchasedItem) {
+                $customerName = formatInput($purchasedItem['customer_name']);
+                $orNumber = formatInput($purchasedItem['or_number']);
+                $purchase = new Purchase([
+                    'customer_name' => $customerName,
+                    'or_number' => $orNumber,
+                    'im_id' => $purchasedItem['im_id'],
+                    'batch_id' => $purchasedItem['batch_id'],
+                    'date_sold' => $purchasedItem['date_sold'],
+                    'quantity' => $purchasedItem['quantity'],
+                ]);
+                $purchase->save();
             }
             return response()->json(['success' => 'The purchase has been successfully recorded!'], 200);
         } catch (\Exception $e) {
