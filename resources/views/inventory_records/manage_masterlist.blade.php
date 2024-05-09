@@ -321,7 +321,7 @@
                                                         <th>Quantity Sold</th>
                                                         <th>Quantity Deducted</th>
                                                         <th>Available Stocks</th>
-                                                        <th>Revenue</th>
+                                                        <th>Total Revenue</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
