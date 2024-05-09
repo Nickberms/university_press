@@ -362,7 +362,7 @@
             "scrollX": true,
             "scrollY": true,
             "scrollCollapse": false,
-            "buttons": ["copy", "excel", "pdf", "print"],
+            "buttons": ["copy", "excel", "pdf"],
             "pageLength": 10
         }).buttons().container().appendTo('#UsersTable_wrapper .col-md-6:eq(0)');
         refreshUsersTable();

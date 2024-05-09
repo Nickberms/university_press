@@ -657,7 +657,7 @@
             "scrollX": true,
             "scrollY": true,
             "scrollCollapse": false,
-            "buttons": ["copy", "excel", "pdf", "print"],
+            "buttons": ["copy", "excel", "pdf"],
             "pageLength": 8
         }).buttons().container().appendTo('#PurchaseHistoryTable_wrapper .col-md-6:eq(0)');
         setInterval(refreshPurchaseHistoryTable, 60000);

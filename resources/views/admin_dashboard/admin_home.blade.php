@@ -101,6 +101,7 @@
             <div class="card">
                 <div class="card-header" style="background: #E9ECEF;">
                     <h3 class="card-title">Sales Today</h3>
+                    <div class="text-right" id="CurrentDate"></div>
                 </div>
                 <div class="card-body">
                     <!-- SALES TODAY TABLE -->
@@ -130,6 +131,9 @@
     </section>
     <script>
     function refreshSalesTodayTable() {
+        function monetaryValue(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
         $.ajax({
             url: "{{ route('dashboards.index') }}",
             type: 'GET',
@@ -142,9 +146,6 @@
                     var totalQuantityDeducted = parseInt(batch.quantity_sold) + parseInt(batch
                         .quantity_deducted);
                     var availableStocks = batch.quantity_produced - totalQuantityDeducted;
-                    function monetaryValue(x) {
-                        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                    }
                     table.row.add([
                         batch.im.code,
                         batch.im.title,
@@ -179,7 +180,7 @@
             "scrollX": true,
             "scrollY": true,
             "scrollCollapse": false,
-            "buttons": ["copy", "excel", "pdf", "print"],
+            "buttons": ["copy", "excel", "pdf"],
             "pageLength": 8
         }).buttons().container().appendTo('#SalesTodayTable_wrapper .col-md-6:eq(0)');
         refreshSalesTodayTable();
@@ -191,6 +192,13 @@
                 previousWidth = currentWidth;
             }
         });
+        var currentDate = new Date();
+        var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
+            'October', 'November', 'December'
+        ];
+        var dateString = months[currentDate.getMonth()] + ' ' + currentDate.getDate() + ', ' + currentDate
+            .getFullYear();
+        document.getElementById('CurrentDate').innerText = dateString;
     });
     </script>
 </body>
