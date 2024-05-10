@@ -83,33 +83,31 @@
                         <div class="modal-body" style="background: #02681E;">
                             <div class="container-fluid">
                                 <div class="card card-default">
-                                    <div class="row">
-                                        <!-- LEFT SIDE -->
-                                        <div class="col-md-6">
-                                            <div class="card-body">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <!-- LEFT SIDE -->
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Adjustment Cause</label>
                                                     <textarea type="text" class="form-control" name="adjustment_cause"
                                                         style="height: 125px;" required></textarea>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Select IM</label>
+                                                    <label>Instructional Material</label>
                                                     <select class="select2 form-control" id="SelectIm" name="im_id"
                                                         style="width: 100%;" required>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Select Batch</label>
+                                                    <label>Batch</label>
                                                     <select class="select2 form-control" id="SelectBatch"
                                                         name="batch_id" style="width: 100%;" required>
                                                     </select>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <!-- LEFT SIDE -->
-                                        <!-- RIGHT SIDE -->
-                                        <div class="col-md-6">
-                                            <div class="card-body">
+                                            <!-- LEFT SIDE -->
+                                            <!-- RIGHT SIDE -->
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Date Adjusted</label>
                                                     <input type="date" class="form-control" name="date_adjusted"
@@ -132,8 +130,8 @@
                                                         id="TotalLoss" name="total_loss">
                                                 </div>
                                             </div>
+                                            <!-- RIGHT SIDE -->
                                         </div>
-                                        <!-- RIGHT SIDE -->
                                     </div>
                                 </div>
                             </div>

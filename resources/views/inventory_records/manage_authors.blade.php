@@ -78,9 +78,9 @@
                         <div class="modal-body" style="background: #02681E;">
                             <div class="container-fluid">
                                 <div class="card card-default">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="card-body">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>First Name</label>
                                                     <input type="text" class="form-control" name="first_name" required>
@@ -130,9 +130,9 @@
                             <input type="hidden" id="AuthorId" name="author_id">
                             <div class="container-fluid">
                                 <div class="card card-default">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="card-body">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>First Name</label>
                                                     <input type="text" class="form-control" id="EditFirstName"

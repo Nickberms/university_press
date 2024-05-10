@@ -136,10 +136,10 @@
                         <div class="modal-body" style="background: #02681E;">
                             <div class="container-fluid">
                                 <div class="card card-default">
-                                    <div class="row">
-                                        <!-- LEFT SIDE -->
-                                        <div class="col-md-6">
-                                            <div class="card-body">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <!-- LEFT SIDE -->
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Instructional Material</label>
                                                     <select class="select2 form-control"
@@ -157,11 +157,9 @@
                                                         required>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <!-- LEFT SIDE -->
-                                        <!-- RIGHT SIDE -->
-                                        <div class="col-md-6">
-                                            <div class="card-body">
+                                            <!-- LEFT SIDE -->
+                                            <!-- RIGHT SIDE -->
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Production Cost</label>
                                                     <input type="text" oninput="amountOnly(this)"
@@ -180,8 +178,8 @@
                                                         name="quantity_produced" required>
                                                 </div>
                                             </div>
+                                            <!-- RIGHT SIDE -->
                                         </div>
-                                        <!-- RIGHT SIDE -->
                                     </div>
                                 </div>
                             </div>
@@ -217,10 +215,10 @@
                             <input type="hidden" id="BatchId" name="batch_id">
                             <div class="container-fluid">
                                 <div class="card card-default">
-                                    <div class="row">
-                                        <!-- LEFT SIDE -->
-                                        <div class="col-md-6">
-                                            <div class="card-body">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <!-- LEFT SIDE -->
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Instructional Material</label>
                                                     <select class="select2 form-control" id="EditInstructionalMaterial"
@@ -238,11 +236,9 @@
                                                         name="production_date" required>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <!-- LEFT SIDE -->
-                                        <!-- RIGHT SIDE -->
-                                        <div class="col-md-6">
-                                            <div class="card-body">
+                                            <!-- LEFT SIDE -->
+                                            <!-- RIGHT SIDE -->
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Production Cost</label>
                                                     <input type="text" oninput="amountOnly(this)"
@@ -261,8 +257,8 @@
                                                         id="EditQuantityProduced" name="quantity_produced" required>
                                                 </div>
                                             </div>
+                                            <!-- RIGHT SIDE -->
                                         </div>
-                                        <!-- RIGHT SIDE -->
                                     </div>
                                 </div>
                             </div>

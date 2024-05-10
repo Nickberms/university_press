@@ -144,10 +144,10 @@
                         <div class="modal-body" style="background: #02681E;">
                             <div class="container-fluid">
                                 <div class="card card-default">
-                                    <div class="row">
-                                        <!-- LEFT SIDE -->
-                                        <div class="col-md-6">
-                                            <div class="card-body">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <!-- LEFT SIDE -->
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Code</label>
                                                     <input type="text" class="form-control" name="code" required>
@@ -189,11 +189,9 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <!-- LEFT SIDE -->
-                                        <!-- RIGHT SIDE -->
-                                        <div class="col-md-6">
-                                            <div class="card-body">
+                                            <!-- LEFT SIDE -->
+                                            <!-- RIGHT SIDE -->
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Publisher</label>
                                                     <select class="select2 form-control" name="publisher"
@@ -217,8 +215,8 @@
                                                         style="height: 124px;"></textarea>
                                                 </div>
                                             </div>
+                                            <!-- RIGHT SIDE -->
                                         </div>
-                                        <!-- RIGHT SIDE -->
                                     </div>
                                 </div>
                             </div>
@@ -391,10 +389,10 @@
                             <input type="hidden" id="InstructionalMaterialId2" name="instructional_material_id">
                             <div class="container-fluid">
                                 <div class="card card-default">
-                                    <div class="row">
-                                        <!-- LEFT SIDE -->
-                                        <div class="col-md-6">
-                                            <div class="card-body">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <!-- LEFT SIDE -->
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Code</label>
                                                     <input type="text" class="form-control" id="EditCode" name="code"
@@ -437,11 +435,9 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <!-- LEFT SIDE -->
-                                        <!-- RIGHT SIDE -->
-                                        <div class="col-md-6">
-                                            <div class="card-body">
+                                            <!-- LEFT SIDE -->
+                                            <!-- RIGHT SIDE -->
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Publisher</label>
                                                     <select class="select2 form-control" id="EditPublisher"
@@ -466,8 +462,8 @@
                                                         name="description" style="height: 124px;"></textarea>
                                                 </div>
                                             </div>
+                                            <!-- RIGHT SIDE -->
                                         </div>
-                                        <!-- RIGHT SIDE -->
                                     </div>
                                 </div>
                             </div>

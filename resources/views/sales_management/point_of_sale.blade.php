@@ -207,10 +207,10 @@
                         <div class="modal-body" style="background: #02681E;">
                             <div class="container-fluid">
                                 <div class="card card-default">
-                                    <div class="row">
-                                        <!-- LEFT SIDE -->
-                                        <div class="col-md-6">
-                                            <div class="card-body">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <!-- LEFT SIDE -->
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Customer Name</label>
                                                     <input type="text" class="form-control" name="customer_name"
@@ -225,11 +225,9 @@
                                                     <input type="date" class="form-control" name="date_sold" required>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <!-- LEFT SIDE -->
-                                        <!-- RIGHT SIDE -->
-                                        <div class="col-md-6">
-                                            <div class="card-body">
+                                            <!-- LEFT SIDE -->
+                                            <!-- RIGHT SIDE -->
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Cash</label>
                                                     <input type="text" oninput="calculateChange(this)"
@@ -247,8 +245,8 @@
                                                         id="Change">
                                                 </div>
                                             </div>
+                                            <!-- RIGHT SIDE -->
                                         </div>
-                                        <!-- RIGHT SIDE -->
                                     </div>
                                 </div>
                             </div>
