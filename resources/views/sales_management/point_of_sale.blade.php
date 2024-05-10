@@ -58,7 +58,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="form-group col-12" id="SelectImContainer">
-                                        <label>IM</label>
+                                        <label>Instructional Material</label>
                                         <select class="select2 form-control" id="SelectIm" style="width: 100%;"
                                             required>
                                         </select>
@@ -70,7 +70,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-12" id="AvailableContainer">
-                                        <label>Available</label>
+                                        <label>Available Stocks</label>
                                         <input type="text" readonly class="form-control text-right"
                                             id="Available">
                                     </div>
@@ -80,7 +80,7 @@
                                             id="Quantity" required>
                                     </div>
                                     <div class="form-group col-12" id="PriceContainer">
-                                        <label>Price</label>
+                                        <label>Unit Price</label>
                                         <input type="text" readonly class="form-control text-right" id="Price">
                                     </div>
                                     <input type="hidden" readonly class="form-control text-right" id="TotalPrice">
@@ -102,7 +102,7 @@
                         <div class="card-header" style="background: #E9ECEF;">
                             <h3 class="card-title">Added Items</h3>
                             <div class="text-right">
-                                <a class="btn btn-warning btn-sm" onClick="toggleDivClasses()"
+                                <a class="btn btn-warning btn-sm" id="ExpandButton" onClick="toggleDivClasses()"
                                     href="javascript:void(0)">
                                     <i class="fas fa-expand"></i>
                                 </a>
@@ -309,7 +309,7 @@
                     '<div class="text-right">' +
                     '<a href="#" class="delete"><i class="material-icons">&#xE872;</i></a>' +
                     '</div>',
-                    '<p class="text-right" style="font-weight: bold;"> IM: </p>',
+                    '<p class="text-right" style="font-weight: bold;"> Instructional Material: </p>',
                     $('#SelectIm option:selected').text() + imIdInput,
                     '<p class="text-right" style="font-weight: bold;"> Batch: </p>',
                     $('#SelectBatch option:selected').text() + batchIdInput,
@@ -321,7 +321,7 @@
                     '<div class="text-left">' +
                     '<a href="#" class="plus-icon"><i class="fas fa-plus" style="color: #00491E;"></i></a>' +
                     '</div>',
-                    '<p class="text-right" style="font-weight: bold;"> Price: </p>',
+                    '<p class="text-right" style="font-weight: bold;"> Unit Price: </p>',
                     price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","),
                     '<p class="text-right" style="font-weight: bold;"> Total Price: </p>',
                     totalPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -465,6 +465,14 @@
                 console.error(xhr.responseText);
             }
         });
+    }
+    function disableExpandButton() {
+        var expandButton = document.getElementById('ExpandButton');
+        if (window.innerWidth < 576) {
+            expandButton.style.display = 'none';
+        } else {
+            expandButton.style.display = 'inline-block';
+        }
     }
     function toggleDivClasses() {
         var addItemFormContainer = document.getElementById("AddItemFormContainer");
@@ -653,6 +661,8 @@
             "scrollY": true,
             "scrollCollapse": false
         }).buttons().container().appendTo('#AddedItemsTable_wrapper .col-md-6:eq(0)');
+        disableExpandButton();
+        window.addEventListener('resize', disableExpandButton);
         checkAddedItemsTableRows();
         $('#AddedItemsTable').on('draw.dt', function() {
             checkAddedItemsTableRows();
