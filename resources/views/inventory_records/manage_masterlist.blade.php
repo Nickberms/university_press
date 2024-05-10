@@ -113,9 +113,9 @@
                                 <th>Category</th>
                                 <th>College</th>
                                 <th>Publisher</th>
-                                <th>Unit Sold</th>
                                 <th>Edition</th>
                                 <th>ISBN</th>
+                                <th>Unit Sold</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -273,7 +273,7 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Total Sales</label>
-                                                        <input type="text" readonly class="form-control"
+                                                        <input type="text" readonly class="form-control text-right"
                                                             id="ViewTotalSales">
                                                     </div>
                                                 </div>
@@ -287,7 +287,7 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Total Revenue</label>
-                                                        <input type="text" readonly class="form-control"
+                                                        <input type="text" readonly class="form-control text-right"
                                                             id="ViewTotalRevenue">
                                                     </div>
                                                 </div>
@@ -733,9 +733,9 @@
                         im.category.name,
                         im.college,
                         im.publisher,
-                        '<span style="float: right;">' + im.unit_sold + '</span>',
                         im.edition,
-                        im.isbn
+                        im.isbn,
+                        '<span style="float: right;">' + im.unit_sold + '</span>'
                     ]);
                 });
                 table.draw();

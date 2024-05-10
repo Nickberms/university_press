@@ -174,7 +174,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Quantity Produced</label>
-                                                    <input type="text" oninput="numbersOnly(this)" class="form-control text-right"
+                                                    <input type="number" oninput="numbersOnly(this)" class="form-control text-right"
                                                         name="quantity_produced" required>
                                                 </div>
                                             </div>
@@ -253,7 +253,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Quantity Produced</label>
-                                                    <input type="text" oninput="numbersOnly(this)" class="form-control text-right"
+                                                    <input type="number" oninput="numbersOnly(this)" class="form-control text-right"
                                                         id="EditQuantityProduced" name="quantity_produced" required>
                                                 </div>
                                             </div>
