@@ -111,7 +111,7 @@
                                                 <div class="form-group">
                                                     <label>Date Adjusted</label>
                                                     <input type="date" class="form-control" name="date_adjusted"
-                                                        required>
+                                                        value="{{ date('Y-m-d') }}" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Quantity Deducted</label>

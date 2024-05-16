@@ -222,7 +222,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Date Sold</label>
-                                                    <input type="date" class="form-control" name="date_sold" required>
+                                                    <input type="date" class="form-control" name="date_sold" value="{{ date('Y-m-d') }}" required>
                                                 </div>
                                             </div>
                                             <!-- LEFT SIDE -->
