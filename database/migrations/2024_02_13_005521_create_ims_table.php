@@ -8,10 +8,11 @@ return new class extends Migration {
     {
         Schema::create('ims', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
+            $table->string('code')->unique();
             $table->string('title');
             $table->foreignId('category_id')->constrained('categories');
-            $table->string('college')->nullable();
+            $table->foreignId('college_id')->constrained('colleges');
+            $table->foreignId('department_id')->constrained('departments');
             $table->string('publisher')->nullable();
             $table->string('edition')->nullable();
             $table->string('isbn')->nullable();

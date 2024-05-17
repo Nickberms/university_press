@@ -12,7 +12,8 @@ class Im extends Model
         'code',
         'title',
         'category_id',
-        'college',
+        'college_id',
+        'department_id',
         'publisher',
         'edition',
         'isbn',
@@ -21,6 +22,14 @@ class Im extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+    public function college()
+    {
+        return $this->belongsTo(College::class);
+    }
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
     }
     public function authors()
     {
