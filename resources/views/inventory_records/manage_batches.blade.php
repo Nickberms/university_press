@@ -55,28 +55,12 @@
                             <label>College</label>
                             <select class="select2 form-control" id="SelectCollege" name="select_college"
                                 style="width: 100%;">
-                                <option value="">&nbsp;</option>
-                                <option>College of Agriculture</option>
-                                <option>College of Arts and Sciences</option>
-                                <option>College of Business and Management</option>
-                                <option>College of Education</option>
-                                <option>College of Engineering</option>
-                                <option>College of Forestry and Environmental Sciences
-                                </option>
-                                <option>College of Human Ecology</option>
-                                <option>College of Information Sciences and Computing
-                                </option>
-                                <option>College of Nursing</option>
-                                <option>College of Veterinary Medicine</option>
                             </select>
                         </div>
                         <div class="form-group col-sm-3">
-                            <label>Publisher</label>
-                            <select class="select2 form-control" id="SelectPublisher" name="select_publisher"
+                            <label>Department</label>
+                            <select class="select2 form-control" id="SelectDepartment" name="select_department"
                                 style="width: 100%;">
-                                <option value="">&nbsp;</option>
-                                <option>University Press</option>
-                                <option>Consigned Material</option>
                             </select>
                         </div>
                     </div>
@@ -407,6 +391,24 @@
                 });
                 selectCategory.val(null).trigger('change');
                 selectCategory.select2();
+                var selectCollege = $('#SelectCollege');
+                selectCollege.empty();
+                selectCollege.empty().append('<option value="">&nbsp;</option>');
+                response.colleges.forEach(function(college) {
+                    selectCollege.append('<option value="' + college.id + '">' + college
+                        .name + '</option>');
+                });
+                selectCollege.val(null).trigger('change');
+                selectCollege.select2();
+                var selectDepartment = $('#SelectDepartment');
+                selectDepartment.empty();
+                selectDepartment.empty().append('<option value="">&nbsp;</option>');
+                response.departments.forEach(function(department) {
+                    selectDepartment.append('<option value="' + department.id + '">' + department
+                        .name + '</option>');
+                });
+                selectDepartment.val(null).trigger('change');
+                selectDepartment.select2();
             },
             error: function(xhr, status, error) {
                 var errorMessage = JSON.parse(xhr.responseText).error;
@@ -419,7 +421,7 @@
         var selectAuthor = $('#SelectAuthor').val();
         var selectCategory = $('#SelectCategory').val();
         var selectCollege = $('#SelectCollege').val();
-        var selectPublisher = $('#SelectPublisher').val();
+        var selectDepartment = $('#SelectDepartment').val();
         $.ajax({
             url: "{{ route('batches.index') }}",
             type: 'GET',
@@ -428,7 +430,7 @@
                 select_author: selectAuthor,
                 select_category: selectCategory,
                 select_college: selectCollege,
-                select_publisher: selectPublisher
+                select_department: selectDepartment
             },
             success: function(data) {
                 var table = $('#BatchesTable').DataTable();

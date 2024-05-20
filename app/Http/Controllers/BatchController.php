@@ -15,7 +15,7 @@ class BatchController extends Controller
         $selectedAuthor = $request->input('select_author');
         $selectedCategory = $request->input('select_category');
         $selectedCollege = $request->input('select_college');
-        $selectedPublisher = $request->input('select_publisher');
+        $selectedDepartment = $request->input('select_department');
         $query = Batch::with('im', 'purchases', 'adjustment_logs');
         if (!empty($selectedAuthor)) {
             $query->whereHas('im.authors', function ($q) use ($selectedAuthor) {
@@ -28,13 +28,13 @@ class BatchController extends Controller
             });
         }
         if (!empty($selectedCollege)) {
-            $query->whereHas('im', function ($q) use ($selectedCollege) {
-                $q->where('college', $selectedCollege);
+            $query->whereHas('im.college', function ($q) use ($selectedCollege) {
+                $q->where('college_id', $selectedCollege);
             });
         }
-        if (!empty($selectedPublisher)) {
-            $query->whereHas('im', function ($q) use ($selectedPublisher) {
-                $q->where('publisher', $selectedPublisher);
+        if (!empty($selectedDepartment)) {
+            $query->whereHas('im.department', function ($q) use ($selectedDepartment) {
+                $q->where('department_id', $selectedDepartment);
             });
         }
         $batches = $query->select(
