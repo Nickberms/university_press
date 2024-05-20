@@ -62,30 +62,14 @@
                         </div>
                         <div class="form-group col-sm-3">
                             <label>College</label>
-                            <select class="select2 form-control" id="SelectCollege" name="select_college"
+                            <select class="select2 form-control" id="SelectCollege1" name="select_college"
                                 style="width: 100%;">
-                                <option value="">&nbsp;</option>
-                                <option>College of Agriculture</option>
-                                <option>College of Arts and Sciences</option>
-                                <option>College of Business and Management</option>
-                                <option>College of Education</option>
-                                <option>College of Engineering</option>
-                                <option>College of Forestry and Environmental Sciences
-                                </option>
-                                <option>College of Human Ecology</option>
-                                <option>College of Information Sciences and Computing
-                                </option>
-                                <option>College of Nursing</option>
-                                <option>College of Veterinary Medicine</option>
                             </select>
                         </div>
                         <div class="form-group col-sm-3">
-                            <label>Publisher</label>
-                            <select class="select2 form-control" id="SelectPublisher" name="select_publisher"
+                            <label>Department</label>
+                            <select class="select2 form-control" id="SelectDepartment1" name="select_department"
                                 style="width: 100%;">
-                                <option value="">&nbsp;</option>
-                                <option>University Press</option>
-                                <option>Consigned Material</option>
                             </select>
                         </div>
                     </div>
@@ -112,6 +96,7 @@
                                 <th>Authors</th>
                                 <th>Category</th>
                                 <th>College</th>
+                                <th>Department</th>
                                 <th>Publisher</th>
                                 <th>Edition</th>
                                 <th>ISBN</th>
@@ -149,10 +134,6 @@
                                             <!-- LEFT SIDE -->
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Code</label>
-                                                    <input type="text" class="form-control" name="code" required>
-                                                </div>
-                                                <div class="form-group">
                                                     <label>Title</label>
                                                     <input type="text" class="form-control" name="title" required>
                                                 </div>
@@ -171,21 +152,14 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>College</label>
-                                                    <select class="select2 form-control" name="college"
-                                                        style="width: 100%;">
-                                                        <option value="">&nbsp;</option>
-                                                        <option>College of Agriculture</option>
-                                                        <option>College of Arts and Sciences</option>
-                                                        <option>College of Business and Management</option>
-                                                        <option>College of Education</option>
-                                                        <option>College of Engineering</option>
-                                                        <option>College of Forestry and Environmental Sciences
-                                                        </option>
-                                                        <option>College of Human Ecology</option>
-                                                        <option>College of Information Sciences and Computing
-                                                        </option>
-                                                        <option>College of Nursing</option>
-                                                        <option>College of Veterinary Medicine</option>
+                                                    <select class="select2 form-control" id="SelectCollege2"
+                                                        name="college_id" style="width: 100%;">
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Department</label>
+                                                    <select class="select2 form-control" id="SelectDepartment2"
+                                                        name="department_id" style="width: 100%;">
                                                     </select>
                                                 </div>
                                             </div>
@@ -394,11 +368,6 @@
                                             <!-- LEFT SIDE -->
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Code</label>
-                                                    <input type="text" class="form-control" id="EditCode" name="code"
-                                                        required>
-                                                </div>
-                                                <div class="form-group">
                                                     <label>Title</label>
                                                     <input type="text" class="form-control" id="EditTitle" name="title"
                                                         required>
@@ -417,21 +386,14 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>College</label>
-                                                    <select class="select2 form-control" id="EditCollege" name="college"
-                                                        style="width: 100%;">
-                                                        <option value="">&nbsp;</option>
-                                                        <option>College of Agriculture</option>
-                                                        <option>College of Arts and Sciences</option>
-                                                        <option>College of Business and Management</option>
-                                                        <option>College of Education</option>
-                                                        <option>College of Engineering</option>
-                                                        <option>College of Forestry and Environmental Sciences
-                                                        </option>
-                                                        <option>College of Human Ecology</option>
-                                                        <option>College of Information Sciences and Computing
-                                                        </option>
-                                                        <option>College of Nursing</option>
-                                                        <option>College of Veterinary Medicine</option>
+                                                    <select class="select2 form-control" id="EditCollege"
+                                                        name="college_id" style="width: 100%;">
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Department</label>
+                                                    <select class="select2 form-control" id="EditDepartment"
+                                                        name="department_id" style="width: 100%;">
                                                     </select>
                                                 </div>
                                             </div>
@@ -529,6 +491,24 @@
                 });
                 selectCategory.val(null).trigger('change');
                 selectCategory.select2();
+                var selectCollege = $('#SelectCollege2');
+                selectCollege.empty();
+                selectCollege.empty().append('<option value="">&nbsp;</option>');
+                response.colleges.forEach(function(college) {
+                    selectCollege.append('<option value="' + college.id + '">' + college
+                        .name + '</option>');
+                });
+                selectCollege.val(null).trigger('change');
+                selectCollege.select2();
+                var selectDepartment = $('#SelectDepartment2');
+                selectDepartment.empty();
+                selectDepartment.empty().append('<option value="">&nbsp;</option>');
+                response.departments.forEach(function(department) {
+                    selectDepartment.append('<option value="' + department.id + '">' + department
+                        .name + '</option>');
+                });
+                selectDepartment.val(null).trigger('change');
+                selectDepartment.select2();
                 $('#AddInstructionalMaterialModal').modal('show');
             },
             error: function(xhr, status, error) {
@@ -598,33 +578,41 @@
                         .name + '</option>');
                 });
                 selectCategory.select2();
+                var selectCollege = $('#EditCollege');
+                selectCollege.empty();
+                selectCollege.empty().append('<option value="">&nbsp;</option>');
+                response.colleges.forEach(function(college) {
+                    selectCollege.append('<option value="' + college.id + '">' + college
+                        .name + '</option>');
+                });
+                selectCollege.select2();
+                var selectDepartment = $('#EditDepartment');
+                selectDepartment.empty();
+                selectDepartment.empty().append('<option value="">&nbsp;</option>');
+                response.departments.forEach(function(department) {
+                    selectDepartment.append('<option value="' + department.id + '">' + department
+                        .name + '</option>');
+                });
+                selectDepartment.select2();
                 $.ajax({
                     url: "{{ route('ims.edit', ':id') }}".replace(':id',
                         instructionalMaterialId),
                     type: 'GET',
                     dataType: 'json',
                     success: function(instructionalMaterial) {
-                        $('#InstructionalMaterialId2').val(
-                            instructionalMaterial.id);
-                        $('#EditCode').val(instructionalMaterial
-                            .code);
-                        $('#EditTitle').val(instructionalMaterial
-                            .title);
-                        $('#EditCategory').val(instructionalMaterial
-                                .category_id)
-                            .trigger('change');
-                        $('#EditCollege').val(instructionalMaterial
-                            .college).trigger(
+                        $('#InstructionalMaterialId2').val(instructionalMaterial.id);
+                        $('#EditTitle').val(instructionalMaterial.title);
+                        $('#EditCategory').val(instructionalMaterial.category_id).trigger(
                             'change');
-                        $('#EditPublisher').val(
-                                instructionalMaterial.publisher)
-                            .trigger('change');
-                        $('#EditEdition').val(instructionalMaterial
-                            .edition);
-                        $('#EditIsbn').val(instructionalMaterial
-                            .isbn);
-                        $('#EditDescription').val(
-                            instructionalMaterial.description);
+                        $('#EditCollege').val(instructionalMaterial.college_id).trigger(
+                            'change');
+                        $('#EditDepartment').val(instructionalMaterial.department_id).trigger(
+                            'change');
+                        $('#EditPublisher').val(instructionalMaterial.publisher).trigger(
+                            'change');
+                        $('#EditEdition').val(instructionalMaterial.edition);
+                        $('#EditIsbn').val(instructionalMaterial.isbn);
+                        $('#EditDescription').val(instructionalMaterial.description);
                         var selectAuthors = $('#EditAuthors');
                         selectAuthors.find('option').each(function() {
                             var authorId = $(this).val();
@@ -683,6 +671,24 @@
                 });
                 selectCategory.val(null).trigger('change');
                 selectCategory.select2();
+                var selectCollege = $('#SelectCollege1');
+                selectCollege.empty();
+                selectCollege.empty().append('<option value="">&nbsp;</option>');
+                response.colleges.forEach(function(college) {
+                    selectCollege.append('<option value="' + college.id + '">' + college
+                        .name + '</option>');
+                });
+                selectCollege.val(null).trigger('change');
+                selectCollege.select2();
+                var selectDepartment = $('#SelectDepartment1');
+                selectDepartment.empty();
+                selectDepartment.empty().append('<option value="">&nbsp;</option>');
+                response.departments.forEach(function(department) {
+                    selectDepartment.append('<option value="' + department.id + '">' + department
+                        .name + '</option>');
+                });
+                selectDepartment.val(null).trigger('change');
+                selectDepartment.select2();
             },
             error: function(xhr, status, error) {
                 var errorMessage = JSON.parse(xhr.responseText).error;
@@ -694,8 +700,8 @@
     function refreshMasterlistTable() {
         var selectAuthor = $('#SelectAuthor').val();
         var selectCategory = $('#SelectCategory1').val();
-        var selectCollege = $('#SelectCollege').val();
-        var selectPublisher = $('#SelectPublisher').val();
+        var selectCollege = $('#SelectCollege1').val();
+        var selectDepartment = $('#SelectDepartment1').val();
         $.ajax({
             url: "{{ route('ims.index') }}",
             type: 'GET',
@@ -704,7 +710,7 @@
                 select_author: selectAuthor,
                 select_category: selectCategory,
                 select_college: selectCollege,
-                select_publisher: selectPublisher
+                select_department: selectDepartment
             },
             success: function(data) {
                 var table = $('#MasterlistTable').DataTable();
@@ -713,9 +719,14 @@
                     var authors = '';
                     if (im.authors.length > 1) {
                         authors += im.authors[0].last_name + ' et al.<br>';
-                    } else {
+                    } else if (im.authors.length === 1) {
                         authors += im.authors[0].last_name + '<br>';
+                    } else {
+                        authors += '<br>';
                     }
+                    var collegeName = im.college && im.college.name ? im.college.name : '';
+                    var departmentName = im.department && im.department.name ? im.department.name :
+                        '';
                     table.row.add([
                         '<div class="text-center">' +
                         '<a href="#" class="view" title="View" data-toggle="tooltip" data-id="' +
@@ -731,7 +742,8 @@
                         im.title,
                         authors,
                         im.category.name,
-                        im.college,
+                        collegeName,
+                        departmentName,
                         im.publisher,
                         im.edition,
                         im.isbn,

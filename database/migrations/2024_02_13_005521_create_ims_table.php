@@ -11,8 +11,8 @@ return new class extends Migration {
             $table->string('code')->unique();
             $table->string('title');
             $table->foreignId('category_id')->constrained('categories');
-            $table->foreignId('college_id')->constrained('colleges');
-            $table->foreignId('department_id')->constrained('departments');
+            $table->foreignId('college_id')->nullable()->constrained('colleges');
+            $table->foreignId('department_id')->nullable()->constrained('departments');
             $table->string('publisher')->nullable();
             $table->string('edition')->nullable();
             $table->string('isbn')->nullable();
