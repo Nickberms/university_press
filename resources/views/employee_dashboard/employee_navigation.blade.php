@@ -46,6 +46,18 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('colleges.index') }}" class="nav-link">
+                            <i class="fas fa-university"></i>
+                            <p>&nbsp;&nbsp;Manage Colleges</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('departments.index') }}" class="nav-link">
+                            <i class="fas fa-building"></i>
+                            <p>&nbsp;&nbsp;Manage Departments</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('adjustment_logs.index') }}" class="nav-link">
                             <i class="fas fa-minus-circle"></i>
                             <p>&nbsp;&nbsp;Adjustment Logs</p>

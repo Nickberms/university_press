@@ -6,6 +6,8 @@ use App\Http\Controllers\BatchController;
 use App\Http\Controllers\ImController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CollegeController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\AdjustmentLogController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\MonitoringController;
@@ -30,6 +32,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('ims', ImController::class);
     Route::resource('authors', AuthorController::class);
     Route::resource('categories', CategoryController::class);
+    Route::resource('colleges', CollegeController::class);
+    Route::resource('departments', DepartmentController::class);
     Route::resource('adjustment_logs', AdjustmentLogController::class);
     Route::resource('purchases', PurchaseController::class);
     Route::resource('monitorings', MonitoringController::class);
