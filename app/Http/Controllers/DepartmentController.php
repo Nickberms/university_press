@@ -21,19 +21,27 @@ class DepartmentController extends Controller
     }
     public function store(Request $request)
     {
-        function formatInput(string $input): string
-        {
-            $input = preg_replace('/\s+/', ' ', trim($input));
-            return $input;
+        try {
+            function formatInput(string $input): string
+            {
+                $input = preg_replace('/\s+/', ' ', trim($input));
+                return $input;
+            }
+            $request['code'] = formatInput($request['code']);
+            $request['name'] = formatInput($request['name']);
+            $department = new Department([
+                'code' => $request->input('code'),
+                'name' => $request->input('name'),
+            ]);
+            $department->save();
+            return response()->json(['success' => 'The department has been successfully added!'], 200);
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->errorInfo[1] == 1062) {
+                return response()->json(['error' => 'The code has already been taken!'], 422);
+            } else {
+                return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);
+            }
         }
-        $request['code'] = formatInput($request['code']);
-        $request['name'] = formatInput($request['name']);
-        $department = new Department([
-            'code' => $request->input('code'),
-            'name' => $request->input('name'),
-        ]);
-        $department->save();
-        return response()->json(['success' => 'The department has been successfully added!'], 200);
     }
     public function show(Department $department)
     {
@@ -63,6 +71,12 @@ class DepartmentController extends Controller
                 'name' => $request->input('name'),
             ]);
             return response()->json(['success' => 'The department has been successfully updated!'], 200);
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->errorInfo[1] == 1062) {
+                return response()->json(['error' => 'The code has already been taken!'], 422);
+            } else {
+                return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);
+            }
         } catch (\Exception $e) {
             return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);
         }
