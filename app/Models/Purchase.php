@@ -14,7 +14,9 @@ class Purchase extends Model
         'im_id',
         'batch_id',
         'date_sold',
-        'quantity',
+        'date_returned',
+        'quantity_sold',
+        'quantity_returned',
     ];
     public function im()
     {

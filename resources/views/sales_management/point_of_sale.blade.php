@@ -23,10 +23,6 @@
     #AddedItemsTable td {
         white-space: nowrap;
     }
-    #PurchaseHistoryTable th,
-    #PurchaseHistoryTable td {
-        white-space: nowrap;
-    }
     .dataTables_paginate .paginate_button {
         display: none;
     }
@@ -71,8 +67,7 @@
                                     </div>
                                     <div class="form-group col-12" id="AvailableContainer">
                                         <label>Available Stocks</label>
-                                        <input type="text" readonly class="form-control text-right"
-                                            id="Available">
+                                        <input type="text" readonly class="form-control text-right" id="Available">
                                     </div>
                                     <div class="form-group col-12" id="QuantityContainer">
                                         <label>Quantity</label>
@@ -151,46 +146,6 @@
             </div>
             <br>
         </div>
-        <!-- PURCHASE HISTORY MODAL -->
-        <div class="modal fade" id="PurchaseHistoryModal">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header" style="background: #E9ECEF;">
-                        <h4 class="modal-title">Purchase History</h4>
-                        <button type="button" class="close" onClick="hidePurchaseHistoryModal()">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body" style="background: #02681E;">
-                        <div class="card">
-                            <div class="card-body">
-                                <!-- PURCHASE HISTORY TABLE -->
-                                <table class="table table-bordered table-striped" id="PurchaseHistoryTable" style="font-size: 14px;">
-                                    <thead class="text-center">
-                                        <tr>
-                                            <th>Customer Name</th>
-                                            <th>OR Number</th>
-                                            <th>Instructional Material</th>
-                                            <th>Batch</th>
-                                            <th>Date Sold</th>
-                                            <th>Quantity Sold</th>
-                                            <th>Unit Price</th>
-                                            <th>Total Price</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                    <tfoot>
-                                    </tfoot>
-                                </table>
-                                <!-- PURCHASE HISTORY TABLE -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- PURCHASE HISTORY MODAL -->
         <!-- CONFIRM PURCHASE MODAL -->
         <div class="modal fade" id="ConfirmPurchaseModal">
             <div class="modal-dialog modal-lg">
@@ -222,7 +177,8 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Date Sold</label>
-                                                    <input type="date" class="form-control" name="date_sold" value="{{ date('Y-m-d') }}" required>
+                                                    <input type="date" class="form-control" name="date_sold"
+                                                        value="{{ date('Y-m-d') }}" required>
                                                 </div>
                                             </div>
                                             <!-- LEFT SIDE -->
@@ -288,7 +244,7 @@
                 var existingTotalPrice = parseFloat(existingRow[12].replace(/,/g, ''));
                 var newQuantity = existingQuantity + quantity;
                 var newTotalPrice = existingTotalPrice + totalPrice;
-                var quantityInput = '<input type="hidden" name="quantity[]" value="' + newQuantity + '">';
+                var quantityInput = '<input type="hidden" name="quantity_sold[]" value="' + newQuantity + '">';
                 existingRow[7] = newQuantity + quantityInput;
                 existingRow[12] = newTotalPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 var rowIndex = table.rows().data().toArray().findIndex(function(row) {
@@ -302,7 +258,7 @@
             } else {
                 var imIdInput = '<input type="hidden" name="im_id[]" value="' + imId + '">';
                 var batchIdInput = '<input type="hidden" name="batch_id[]" value="' + batchId + '">';
-                var quantityInput = '<input type="hidden" name="quantity[]" value="' + quantity + '">';
+                var quantityInput = '<input type="hidden" name="quantity_sold[]" value="' + quantity + '">';
                 var newRow = [
                     '<div class="text-right">' +
                     '<a href="#" class="delete"><i class="material-icons">&#xE872;</i></a>' +
@@ -354,7 +310,7 @@
         if (currentQuantity > 0) {
             quantityCell.data(currentQuantity - 1).draw(false);
             var newQuantity = currentQuantity - 1;
-            var quantityInput = '<input type="hidden" name="quantity[]" value="' + newQuantity + '">';
+            var quantityInput = '<input type="hidden" name="quantity_sold[]" value="' + newQuantity + '">';
             var unitPrice = parseFloat(unitPriceCell.data().replace(/,/g, ''));
             var newTotalPrice = newQuantity * unitPrice;
             var totalPriceCell = table.cell(row, 12);
@@ -382,7 +338,7 @@
         var currentQuantity = parseInt(quantityCell.data());
         quantityCell.data(currentQuantity + 1).draw(false);
         var newQuantity = currentQuantity + 1;
-        var quantityInput = '<input type="hidden" name="quantity[]" value="' + newQuantity + '">';
+        var quantityInput = '<input type="hidden" name="quantity_sold[]" value="' + newQuantity + '">';
         var unitPrice = parseFloat(unitPriceCell.data().replace(/,/g, ''));
         var newTotalPrice = newQuantity * unitPrice;
         var totalPriceCell = table.cell(row, 12);
@@ -507,7 +463,8 @@
             totalAmount += rowTotalPrice;
         });
         $('#TotalAmount').val(totalAmount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-        document.getElementById('DisplayTotalAmount').innerText = "Total Amount: " + totalAmount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        document.getElementById('DisplayTotalAmount').innerText = "Total Amount: " + totalAmount.toFixed(2).replace(
+            /\B(?=(\d{3})+(?!\d))/g, ",");
     }
     function checkAddedItemsTableRows() {
         var table = $('#AddedItemsTable').DataTable();
@@ -517,56 +474,6 @@
         } else {
             $('#ConfirmPurchaseButton').prop('disabled', true);
         }
-    }
-    function showPurchaseHistoryModal() {
-        $('#PurchaseHistoryModal').modal('show');
-        $('#PurchaseHistoryModal').on('shown.bs.modal', function(e) {
-            refreshPurchaseHistoryTable();
-        });
-    }
-    function hidePurchaseHistoryModal() {
-        $('#PurchaseHistoryModal').modal('hide');
-    }
-    function refreshPurchaseHistoryTable() {
-        $.ajax({
-            url: "{{ route('purchases.index') }}",
-            type: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                var table = $('#PurchaseHistoryTable').DataTable();
-                var existingRows = table.rows().remove().draw(false);
-                data.forEach(function(purchase) {
-                    var formattedDateSold = new Date(purchase.date_sold);
-                    var options = {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                    };
-                    var formattedDateSoldString = formattedDateSold.toLocaleDateString('en-US',
-                        options);
-                    var totalPrice = purchase.batch.price.toFixed(2) * purchase.quantity;
-                    function monetaryValue(x) {
-                        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                    }
-                    table.row.add([
-                        purchase.customer_name,
-                        purchase.or_number,
-                        purchase.im.title,
-                        purchase.batch.name,
-                        formattedDateSoldString,
-                        '<span style="float: right;">' + purchase.quantity + '</span>',
-                        '<span style="float: right;">' + monetaryValue(purchase.batch.price
-                            .toFixed(2)) + '</span>',
-                        '<span style="float: right;">' + monetaryValue(totalPrice.toFixed(
-                            2)) + '</span>'
-                    ]);
-                });
-                table.draw();
-            },
-            error: function(xhr, status, error) {
-                console.error(xhr.responseText);
-            }
-        });
     }
     function showConfirmPurchaseModal() {
         calculateTotalAmount();
@@ -584,14 +491,14 @@
             var imId = $(this).find('input[name="im_id[]"]').val();
             var batchId = $(this).find('input[name="batch_id[]"]').val();
             var dateSold = $('input[name="date_sold"]').val();
-            var quantity = $(this).find('input[name="quantity[]"]').val();
+            var quantitySold = $(this).find('input[name="quantity_sold[]"]').val();
             var item = {
                 customer_name: customerName,
                 or_number: orNumber,
                 im_id: imId,
                 batch_id: batchId,
                 date_sold: dateSold,
-                quantity: quantity
+                quantity_sold: quantitySold
             };
             purchasedItems.push(item);
         });
@@ -664,29 +571,6 @@
         checkAddedItemsTableRows();
         $('#AddedItemsTable').on('draw.dt', function() {
             checkAddedItemsTableRows();
-        });
-        $('#PurchaseHistoryTable').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": true,
-            "ordering": false,
-            "info": true,
-            "autoWidth": false,
-            "responsive": false,
-            "scrollX": true,
-            "scrollY": true,
-            "scrollCollapse": false,
-            "buttons": ["copy", "excel", "pdf"],
-            "pageLength": 8
-        }).buttons().container().appendTo('#PurchaseHistoryTable_wrapper .col-md-6:eq(0)');
-        setInterval(refreshPurchaseHistoryTable, 60000);
-        var previousWidth = $(window).width();
-        $(window).on('resize', function() {
-            var currentWidth = $(window).width();
-            if (currentWidth !== previousWidth) {
-                refreshPurchaseHistoryTable();
-                previousWidth = currentWidth;
-            }
         });
         $('#ConfirmPurchaseModal').on('hidden.bs.modal', function(e) {
             $('#AddItemForm')[0].reset();
