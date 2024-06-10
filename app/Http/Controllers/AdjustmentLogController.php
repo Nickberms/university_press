@@ -27,7 +27,7 @@ class AdjustmentLogController extends Controller
             ->get();
         $ims->transform(function ($im) {
             $im->batches->each(function ($batch) {
-                $batch->quantity_sold = $batch->purchases->sum('quantity');
+                $batch->quantity_sold = $batch->purchases->sum('quantity_sold');
                 $batch->quantity_deducted = $batch->adjustment_logs->sum('quantity_deducted');
                 $batch->total_quantity_deducted = $batch->quantity_sold + $batch->quantity_deducted;
                 unset ($batch->adjustment_logs);
@@ -59,7 +59,7 @@ class AdjustmentLogController extends Controller
             if ($batch) {
                 $batch->load('purchases');
                 $batch->load('adjustment_logs');
-                $batch->quantity_sold = $batch->purchases->sum('quantity');
+                $batch->quantity_sold = $batch->purchases->sum('quantity_sold');
                 $batch->quantity_deducted = $batch->adjustment_logs->sum('quantity_deducted');
                 $batch->total_quantity_deducted = $batch->quantity_sold + $batch->quantity_deducted;
                 $availableStocks = $batch->quantity_produced - $batch->total_quantity_deducted;

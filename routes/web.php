@@ -27,16 +27,19 @@ Route::middleware('auth')->group(function () {
     Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
 });
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::resource('dashboards', DashboardController::class);
+    Route::resource('dashboard', DashboardController::class);
     Route::resource('batches', BatchController::class);
-    Route::resource('ims', ImController::class);
+    Route::resource('masterlist', ImController::class);
     Route::resource('authors', AuthorController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('colleges', CollegeController::class);
     Route::resource('departments', DepartmentController::class);
     Route::resource('adjustment_logs', AdjustmentLogController::class);
+    Route::get('/items', function () {
+        return view('sales_management.point_of_sale'); 
+    });
     Route::resource('purchases', PurchaseController::class);
-    Route::resource('monitorings', MonitoringController::class);
+    Route::resource('monitoring', MonitoringController::class);
     Route::resource('reports', ReportController::class);
     Route::resource('filters', FilterController::class);
 });

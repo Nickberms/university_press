@@ -44,7 +44,7 @@ class ImController extends Controller
             'ims.edition',
             'ims.isbn',
             'ims.description',
-            DB::raw('COALESCE(SUM(purchases.quantity), 0) as unit_sold')
+            DB::raw('COALESCE(SUM(purchases.quantity_sold), 0) as unit_sold')
         )
             ->leftJoin('purchases', 'ims.id', '=', 'purchases.im_id')
             ->groupBy('ims.id', 'ims.code', 'ims.title', 'ims.category_id', 'ims.college_id', 'ims.department_id', 'ims.publisher', 'ims.edition', 'ims.isbn', 'ims.description')
@@ -144,7 +144,7 @@ class ImController extends Controller
                         'batches.production_cost',
                         'batches.price',
                         'batches.quantity_produced',
-                        DB::raw('(SELECT COALESCE(SUM(quantity), 0) FROM purchases WHERE batch_id = batches.id) as quantity_sold'),
+                        DB::raw('(SELECT COALESCE(SUM(quantity_sold), 0) FROM purchases WHERE batch_id = batches.id) as quantity_sold'),
                         DB::raw('(SELECT COALESCE(SUM(quantity_deducted), 0) FROM adjustment_logs WHERE batch_id = batches.id) as quantity_deducted')
                     )
                         ->groupBy('batches.id', 'batches.im_id', 'batches.name', 'batches.production_date', 'batches.production_cost', 'batches.price', 'batches.quantity_produced')

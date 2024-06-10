@@ -109,7 +109,7 @@
     <script>
     function refreshMonitoringTable(selectedMonth) {
         $.ajax({
-            url: "{{ route('monitorings.index') }}",
+            url: "{{ route('monitoring.index') }}",
             type: 'GET',
             dataType: 'json',
             data: {

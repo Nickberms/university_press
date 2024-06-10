@@ -8,7 +8,7 @@
                 </a>
             </li>
             <li class="nav-item dashboard">
-                <a href="{{ route('dashboards.index') }}" class="nav-link">
+                <a href="{{ route('dashboard.index') }}" class="nav-link">
                     <i class="nav-icon fas fa-th"></i>
                     <p>&nbsp;&nbsp;Admin Dashboard</p>
                 </a>
@@ -28,7 +28,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('ims.index') }}" class="nav-link">
+                        <a href="{{ route('masterlist.index') }}" class="nav-link">
                             <i class="fas fa-book"></i>
                             <p>&nbsp;&nbsp;Manage Masterlist</p>
                         </a>
@@ -74,13 +74,19 @@
                 </a>
                 <ul class="nav nav-treeview" style="display: none;">
                     <li class="nav-item">
-                        <a href="{{ route('purchases.index') }}" class="nav-link">
+                        <a href="/items" class="nav-link">
                             <i class="fas fa-tag"></i>
                             <p>&nbsp;&nbsp;Point of Sale</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('monitorings.index') }}" class="nav-link">
+                        <a href="{{ route('purchases.index') }}" class="nav-link">
+                            <i class="fas fa-history"></i>
+                            <p>&nbsp;&nbsp;Purchase History</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('monitoring.index') }}" class="nav-link">
                             <i class="far fa-calendar-alt"></i>
                             <p>&nbsp;&nbsp;Daily Monitoring</p>
                         </a>

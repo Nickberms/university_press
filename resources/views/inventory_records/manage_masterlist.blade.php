@@ -471,7 +471,7 @@
     <script>
     function showAddInstructionalMaterialModal() {
         $.ajax({
-            url: "{{ route('ims.create') }}",
+            url: "{{ route('masterlist.create') }}",
             type: 'GET',
             dataType: 'json',
             success: function(response) {
@@ -523,7 +523,7 @@
     }
     function showViewInstructionalMaterialModal(instructionalMaterialId) {
         $.ajax({
-            url: "{{ route('ims.show', ':id') }}".replace(':id',
+            url: "{{ route('masterlist.show', ':id') }}".replace(':id',
                 instructionalMaterialId),
             type: 'GET',
             dataType: 'json',
@@ -560,7 +560,7 @@
     }
     function showEditInstructionalMaterialModal(instructionalMaterialId) {
         $.ajax({
-            url: "{{ route('ims.create') }}",
+            url: "{{ route('masterlist.create') }}",
             type: 'GET',
             dataType: 'json',
             success: function(response) {
@@ -595,7 +595,7 @@
                 });
                 selectDepartment.select2();
                 $.ajax({
-                    url: "{{ route('ims.edit', ':id') }}".replace(':id',
+                    url: "{{ route('masterlist.edit', ':id') }}".replace(':id',
                         instructionalMaterialId),
                     type: 'GET',
                     dataType: 'json',
@@ -703,7 +703,7 @@
         var selectCollege = $('#SelectCollege1').val();
         var selectDepartment = $('#SelectDepartment1').val();
         $.ajax({
-            url: "{{ route('ims.index') }}",
+            url: "{{ route('masterlist.index') }}",
             type: 'GET',
             dataType: 'json',
             data: {
@@ -768,7 +768,7 @@
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
         $.ajax({
-            url: "{{ route('ims.show', ':id') }}".replace(':id',
+            url: "{{ route('masterlist.show', ':id') }}".replace(':id',
                 instructionalMaterialId),
             type: 'GET',
             dataType: 'json',
@@ -827,7 +827,7 @@
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
         $.ajax({
-            url: "{{ route('ims.show', ':id') }}".replace(':id',
+            url: "{{ route('masterlist.show', ':id') }}".replace(':id',
                 instructionalMaterialId),
             type: 'GET',
             dataType: 'json',
@@ -872,7 +872,7 @@
         event.preventDefault();
         var formData = $(this).serialize();
         $.ajax({
-            url: "{{ route('ims.store') }}",
+            url: "{{ route('masterlist.store') }}",
             type: 'POST',
             data: formData,
             success: function(response) {
@@ -894,7 +894,7 @@
         var formData = $(this).serialize();
         var instructionalMaterialId = $('#InstructionalMaterialId2').val();
         $.ajax({
-            url: "{{ route('ims.update', ':id') }}".replace(':id',
+            url: "{{ route('masterlist.update', ':id') }}".replace(':id',
                 instructionalMaterialId),
             type: 'POST',
             data: formData,
@@ -918,7 +918,7 @@
         showDeleteInstructionalMaterialModal();
         $('#DeleteInstructionalMaterial').off().on('click', function() {
             $.ajax({
-                url: "{{ route('ims.destroy', ':id') }}".replace(':id',
+                url: "{{ route('masterlist.destroy', ':id') }}".replace(':id',
                     instructionalMaterialId),
                 type: 'DELETE',
                 data: {

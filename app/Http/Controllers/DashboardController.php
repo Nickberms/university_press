@@ -25,9 +25,9 @@ class DashboardController extends Controller
                     'batches.production_cost',
                     'batches.price',
                     'batches.quantity_produced',
-                    DB::raw('(SELECT COALESCE(SUM(quantity), 0) FROM purchases WHERE batch_id = batches.id AND DATE(date_sold) = "' . $currentDate->toDateString() . '") as quantity_sold_today'),
+                    DB::raw('(SELECT COALESCE(SUM(quantity_sold), 0) FROM purchases WHERE batch_id = batches.id AND DATE(date_sold) = "' . $currentDate->toDateString() . '") as quantity_sold_today'),
                     DB::raw('(SELECT COALESCE(SUM(quantity_deducted), 0) FROM adjustment_logs WHERE batch_id = batches.id AND DATE(date_adjusted) = "' . $currentDate->toDateString() . '") as quantity_deducted_today'),
-                    DB::raw('(SELECT COALESCE(SUM(quantity), 0) FROM purchases WHERE batch_id = batches.id) as quantity_sold'),
+                    DB::raw('(SELECT COALESCE(SUM(quantity_sold), 0) FROM purchases WHERE batch_id = batches.id) as quantity_sold'),
                     DB::raw('(SELECT COALESCE(SUM(quantity_deducted), 0) FROM adjustment_logs WHERE batch_id = batches.id) as quantity_deducted')
                 )
                 ->havingRaw('(quantity_sold_today > 0 OR quantity_deducted_today > 0)')

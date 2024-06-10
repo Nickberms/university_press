@@ -65,7 +65,7 @@
                         <div class="icon">
                             <i class="fas fa-book"></i>
                         </div>
-                        <a href="{{ route('ims.index') }}" class="small-box-footer">More info <i
+                        <a href="{{ route('masterlist.index') }}" class="small-box-footer">More info <i
                                 class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
@@ -135,7 +135,7 @@
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
         $.ajax({
-            url: "{{ route('dashboards.index') }}",
+            url: "{{ route('dashboard.index') }}",
             type: 'GET',
             dataType: 'json',
             success: function(data) {

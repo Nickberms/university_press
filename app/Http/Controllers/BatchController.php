@@ -45,7 +45,7 @@ class BatchController extends Controller
             'batches.production_cost',
             'batches.price',
             'batches.quantity_produced',
-            DB::raw('(SELECT COALESCE(SUM(quantity), 0) FROM purchases WHERE batch_id = batches.id) as quantity_sold'),
+            DB::raw('(SELECT COALESCE(SUM(quantity_sold), 0) FROM purchases WHERE batch_id = batches.id) as quantity_sold'),
             DB::raw('(SELECT COALESCE(SUM(quantity_deducted), 0) FROM adjustment_logs WHERE batch_id = batches.id) as quantity_deducted')
         )
             ->groupBy('batches.id', 'batches.im_id', 'batches.name', 'batches.production_date', 'batches.production_cost', 'batches.price', 'batches.quantity_produced')
@@ -114,7 +114,7 @@ class BatchController extends Controller
             $request['name'] = formatInput($request['name']);
             $production_cost = str_replace(',', '', $request->input('production_cost'));
             $price = str_replace(',', '', $request->input('price'));
-            $quantitySold = Purchase::where('batch_id', $batch->id)->sum('quantity');
+            $quantitySold = Purchase::where('batch_id', $batch->id)->sum('quantity_sold');
             if ($quantitySold > 0) {
                 return response()->json(['error' => 'This batch holds other records and cannot be updated!'], 422);
             }

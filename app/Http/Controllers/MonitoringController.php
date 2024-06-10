@@ -27,8 +27,8 @@ class MonitoringController extends Controller
                     'batches.production_cost',
                     'batches.price',
                     'batches.quantity_produced',
-                    DB::raw('(SELECT COALESCE(SUM(quantity), 0) FROM purchases WHERE batch_id = batches.id AND date_sold < "' . $startDate . '") as sold_quantity_before'),
-                    DB::raw('(SELECT COALESCE(SUM(quantity), 0) FROM purchases WHERE batch_id = batches.id AND date_sold BETWEEN "' . $startDate . '" AND "' . $endDate . '") as sold_quantity_within'),
+                    DB::raw('(SELECT COALESCE(SUM(quantity_sold), 0) FROM purchases WHERE batch_id = batches.id AND date_sold < "' . $startDate . '") as sold_quantity_before'),
+                    DB::raw('(SELECT COALESCE(SUM(quantity_sold), 0) FROM purchases WHERE batch_id = batches.id AND date_sold BETWEEN "' . $startDate . '" AND "' . $endDate . '") as sold_quantity_within'),
                     DB::raw('(SELECT COALESCE(SUM(quantity_deducted), 0) FROM adjustment_logs WHERE batch_id = batches.id AND date_adjusted < "' . $startDate . '") as deducted_quantity_before'),
                     DB::raw('(SELECT COALESCE(SUM(quantity_deducted), 0) FROM adjustment_logs WHERE batch_id = batches.id AND date_adjusted BETWEEN "' . $startDate . '" AND "' . $endDate . '") as deducted_quantity_within')
                 )
@@ -43,7 +43,7 @@ class MonitoringController extends Controller
                     ->get();
                 foreach ($batchPurchases as $purchase) {
                     $day = Carbon::createFromFormat('Y-m-d', $purchase->date_sold)->day;
-                    $dailySales[$day] = ($dailySales[$day] ?? 0) + $purchase->quantity;
+                    $dailySales[$day] = ($dailySales[$day] ?? 0) + $purchase->quantity_sold;
                 }
                 $batch->daily_sales = $dailySales;
             }

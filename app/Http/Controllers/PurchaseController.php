@@ -17,7 +17,7 @@ class PurchaseController extends Controller
         if (request()->ajax()) {
             return response()->json($purchases);
         } else {
-            return view('sales_management.point_of_sale', compact('purchases'));
+            return view('sales_management.purchase_history', compact('purchases'));
         }
     }
     public function create()

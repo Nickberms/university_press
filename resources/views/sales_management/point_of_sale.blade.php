@@ -37,7 +37,7 @@
     <div class="wrapper">
         <div class="container-fluid">
             <br>
-            <a class="btn btn-primary" onClick="showPurchaseHistoryModal()" href="javascript:void(0)"
+            <a class="btn btn-primary" onClick="window.location.href='{{ route('purchases.index') }}'" href="javascript:void(0)"
                 style="background-color: #00491E; border-color: #00491E;">
                 <i class="fas fa-history"></i>&nbsp;&nbsp;Purchase History
             </a>
