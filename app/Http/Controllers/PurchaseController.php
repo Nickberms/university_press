@@ -31,7 +31,7 @@ class PurchaseController extends Controller
                 $batch->quantity_sold = $batch->purchases->sum('quantity_sold');
                 $batch->quantity_deducted = $batch->adjustment_logs->sum('quantity_deducted');
                 $batch->total_quantity_deducted = $batch->quantity_sold + $batch->quantity_deducted;
-                unset ($batch->purchases);
+                unset($batch->purchases);
             });
             return $im;
         });
@@ -82,6 +82,15 @@ class PurchaseController extends Controller
                 $purchase->save();
             }
             return response()->json(['success' => 'The purchase has been successfully recorded!'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);
+        }
+    }
+    public function edit($id)
+    {
+        try {
+            $purchase = Purchase::with('im', 'batch')->findOrFail($id);
+            return response()->json($purchase);
         } catch (\Exception $e) {
             return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);
         }
