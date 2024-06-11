@@ -95,4 +95,22 @@ class PurchaseController extends Controller
             return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);
         }
     }
+    public function update(Request $request, $id)
+    {
+        try {
+            $purchase = Purchase::findOrFail($id);
+            $quantityReturned = $request->input('quantity_returned');
+            if ($quantityReturned > $purchase->quantity_sold) {
+                return response()->json(['error' => 'The quantity being returned is greater than the quantity that was sold!'], 422);
+            }
+            $dateReturned = $quantityReturned == 0 ? null : date('Y-m-d');
+            $purchase->update([
+                'date_returned' => $dateReturned,
+                'quantity_returned' => $quantityReturned,
+            ]);
+            return response()->json(['success' => 'The purchase has been successfully returned!'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An internal error was detected, please try refreshing the page!'], 422);
+        }
+    }
 }

@@ -52,12 +52,12 @@
                                 <th>Code</th>
                                 <th>Instructional Material</th>
                                 <th>Batch</th>
-                                <th>Date Sold</th>
-                                <th>Date Returned</th>
-                                <th>Quantity Sold</th>
-                                <th>Quantity Returned</th>
                                 <th>Unit Price</th>
+                                <th>Date Sold</th>
+                                <th>Quantity Sold</th>
                                 <th>Total Price</th>
+                                <th>Date Returned</th>
+                                <th>Quantity Returned</th>
                                 <th>Total Refund</th>
                             </tr>
                         </thead>
@@ -108,29 +108,29 @@
                                                         id="ViewInstructionalMaterial">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Quantity Sold</label>
+                                                    <label>Unit Price</label>
                                                     <input type="text" readonly class="form-control text-right"
-                                                        id="ViewQuantitySold">
+                                                        id="ViewUnitPrice">
                                                 </div>
                                             </div>
                                             <!-- LEFT SIDE -->
                                             <!-- RIGHT SIDE -->
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Quantity Returned</label>
-                                                    <input type="number" oninput="calculateTotalRefund(this)"
-                                                        class="form-control text-right" id="EditQuantityReturned"
-                                                        name="quantity_returned" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Unit Price</label>
+                                                    <label>Quantity Sold</label>
                                                     <input type="text" readonly class="form-control text-right"
-                                                        id="ViewUnitPrice">
+                                                        id="ViewQuantitySold">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Total Price</label>
                                                     <input type="text" readonly class="form-control text-right"
                                                         id="ViewTotalPrice">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Quantity Returned</label>
+                                                    <input type="number" oninput="calculateTotalRefund(this)"
+                                                        class="form-control text-right" id="EditQuantityReturned"
+                                                        name="quantity_returned" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Total Refund</label>
@@ -249,12 +249,12 @@
                         `<span title="${purchase.im.code}">${purchase.im.code}</span>`,
                         `<span title="${purchase.im.title}">${purchase.im.title}</span>`,
                         `<span title="${purchase.batch.name}">${purchase.batch.name}</span>`,
-                        `<span title="${formattedDateSoldString}">${formattedDateSoldString}</span>`,
-                        `<span title="${formattedDateReturnedString}">${formattedDateReturnedString}</span>`,
-                        `<span style="float: right;" title="${purchase.quantity_sold}">${purchase.quantity_sold}</span>`,
-                        `<span style="float: right;" title="${purchase.quantity_returned}">${purchase.quantity_returned}</span>`,
                         `<span style="float: right;" title="${monetaryValue(purchase.batch.price.toFixed(2))}">${monetaryValue(purchase.batch.price.toFixed(2))}</span>`,
+                        `<span title="${formattedDateSoldString}">${formattedDateSoldString}</span>`,
+                        `<span style="float: right;" title="${purchase.quantity_sold}">${purchase.quantity_sold}</span>`,
                         `<span style="float: right;" title="${monetaryValue(totalPrice.toFixed(2))}">${monetaryValue(totalPrice.toFixed(2))}</span>`,
+                        `<span title="${formattedDateReturnedString}">${formattedDateReturnedString}</span>`,
+                        `<span style="float: right;" title="${purchase.quantity_returned}">${purchase.quantity_returned}</span>`,
                         `<span style="float: right;" title="${monetaryValue(totalRefund.toFixed(2))}">${monetaryValue(totalRefund.toFixed(2))}</span>`
                     ]);
                 });

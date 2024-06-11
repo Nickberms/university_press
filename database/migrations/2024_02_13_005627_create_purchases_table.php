@@ -13,8 +13,8 @@ return new class extends Migration {
             $table->foreignId('im_id')->constrained('ims');
             $table->foreignId('batch_id')->constrained('batches');
             $table->date('date_sold');
-            $table->date('date_returned')->nullable();
             $table->integer('quantity_sold');
+            $table->date('date_returned')->nullable();
             $table->integer('quantity_returned')->default(0);
             $table->timestamps();
         });
